@@ -1,6 +1,52 @@
-.WeatherCard{
-	display: grid;
+.WeatherCard {
+  display: grid;
+  background-color: rgb(179, 3, 3);
+  width: min-content;
+  padding: 5px;
+  border: solid black 3px;
+}
+.currentWeatherContainer {
+  display: flex;
+  flex-direction: column;
+  border: solid black 2px;
+  margin: 10px;
+  border-radius: 10px;
+  & .CurrentWeatherIconContainer {
+    background: #445677;
+    height: 200px;
+    position: relative;
+    & img,
+    svg {
+      font-size: 80px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    & .sun {
+      color: rgb(223, 223, 18);
+    }
+    & .cloud {
+      top: 55%;
+      font-size: 60px;
+      color: wheat;
+      z-index: 2;
+    }
+  }
+  & .cityName {
+    text-transform: capitalize;
+    text-align: center;
+    margin: 10px 0;
+  }
+  & .description {
+    padding: 10px;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+  }
+}
 
-
-
+.CurrentWeatherIconContainer {
+  background: #445677;
 }

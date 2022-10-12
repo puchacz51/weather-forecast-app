@@ -1,35 +1,88 @@
 import { City, WeatherObjectResult } from '../utilities/type';
-import { useWeather } from '../utilities/useWeather';
+import { useCurrentWeather } from '../utilities/useWeather';
 import { CgSpinnerAlt } from 'react-icons/cg';
-const CityWeatherCard = ({ city }: { city: City }) => {
+import { CurrentWeatherIcon } from '../iconsSelector/parameters';
+
+export const CurrentWeatherCard = ({ city }: { city: City }) => {
   const { city: name, longitude, latitude } = city;
 
   const {
-    data: weather,
+    data: weatherData,
     status,
     error,
     isLoading,
-  } = useWeather(longitude, latitude);
-//   const {} =weather
+  } = useCurrentWeather(longitude || 18, latitude || 53);
+  console.log(weatherData);
+
+  if (!weatherData) return <p>undifined</p>;
+
   const {
-    data: {},
-  } = weather as WeatherObjectResult;
+    weather: [sky],
+    sys: { sunrise, sunset },
+    clouds,
+    timezone,
+    wind,
+    main,
+  } = weatherData;
+  const { temp, humidity, pressure, rain, snow } = main;
 
-
-
-  if (isLoading||!weather)
-    return (
-      <div className='WeatherCardLoaded'>
-        <CgSpinnerAlt />
-      </div>
-    );
-		console.log(weather);
-		
+  const { deg: windDeg, speed: windSpeed } = wind;
   return (
-    <div className='WeatherCard'>
-      <h3 className='title'>{name}</h3>
+    <div className='currentWeatherContainer'>
+      <h3 className='cityName'>{name}</h3>
+      <CurrentWeatherIcon currentWeather={weatherData} />
+      <div className='iconContainer'></div>
+      <div className='description'>
+        <p>Temperature: {temp}</p>
+        <p>Humidity: {humidity}</p>
+        <p>Atmospheric pressure: {pressure}</p>
+        <p>wind speed: {windSpeed}</p>
+        <p>rain {rain || 0} mm</p>
+        {snow && <p>snow:{snow} </p>}
+      </div>
     </div>
   );
 };
 
-export { CityWeatherCard };
+// const CityWeatherCard = ({ city }: { city: City }) => {
+//   const { city: name, longitude, latitude } = city;
+
+//   const {
+//     data: weather,
+//     status,
+//     error,
+//     isLoading,
+//   } = useWeather(longitude, latitude);
+
+//   if (isLoading || !weather)
+//     return (
+//       <div className='WeatherCardLoaded'>
+//         dssd
+//         <CgSpinnerAlt />
+//       </div>
+//     );
+//   const [currentWeather, weatherDays] = weather;
+//   return (
+//     <div className='WeatherCard'>
+//       <h3 className='title'>{name}</h3>
+//       {/* <p>{currentWeather.temp}</p> */}
+//       <DayWeatherList />
+//     </div>
+//   );
+// };
+
+export const DayWeatherList = () => {
+  return (
+    <div className='DayWeatherList'>
+      sniuniu
+      <DayWeatherItem />
+    </div>
+  );
+};
+const DayWeatherItem = () => {
+  return (
+    <div className='DayWeatherItem'>
+      <img src='./icons/c01d.png' alt='weatherIcon' />
+    </div>
+  );
+};

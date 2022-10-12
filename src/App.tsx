@@ -1,9 +1,12 @@
 import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import './App.scss';
-import { useWeather } from './utilities/useWeather';
-import { City, WeatherObjectResult } from './utilities/type';
+// import { useWeather } from './utilities/useWeather';
+import { City } from './utilities/type';
 import { useCity } from './utilities/useCity';
-import { CityWeatherCard } from './component/WeatherCard';
+import {
+  CurrentWeatherCard,
+  DayWeatherList,
+} from './component/WeatherCard';
 
 function App() {
   const [textInput, setTextInput] = useState('');
@@ -21,7 +24,7 @@ function App() {
     if (textInput) {
       refetch();
     }
-  }, [textInput,refetch]);
+  }, [textInput, refetch]);
 
   const handleCityChange = (e: SyntheticEvent<HTMLInputElement, Event>) => {
     const inputValue = e.currentTarget.value;
@@ -32,16 +35,11 @@ function App() {
       setSelectedCity(cities[cityIndex]);
     }
   };
-  // const selectCity = (e: SyntheticEvent<HTMLInputElement, Event>) => {
-  //   const foundedCity = cities?.find(
-  //     (city) => city.city === e.currentTarget.value
-  //   );
-  // };
   useEffect(() => {
     const timeout = setTimeout(refetchCities, 700);
 
     return () => clearTimeout(timeout);
-  }, [textInput,refetchCities]);
+  }, [textInput, refetchCities]);
   return (
     <div className='App'>
       <label htmlFor='city'>City</label>
@@ -52,9 +50,10 @@ function App() {
         list='cities'
       />
       {isLoading && <>...loading </>}
-      {selectedCity && <CityWeatherCard city={selectedCity} />}
+      {/* {selectedCity && <CityWeatherCard city={selectedCity} />} */}
       {/* {JSON.stringify(selectedCity)} */}
-
+      {selectedCity && <CurrentWeatherCard city={selectedCity} />}
+      <CurrentWeatherCard city={{city:'jakies',latitude:51,longitude:18,}as City} />
       <CityList cities={cities} />
     </div>
   );
@@ -71,6 +70,10 @@ const CityList = ({ cities }: { cities: City[] | undefined }) => {
 };
 interface CityWeatherCardProps {}
 
-
-
 export default App;
+
+// <div className='WeatherCard'>
+//   <h3 className='title'>Bydgoszcz</h3>
+//   <p>43</p>
+//   {/* <DayWeatherList /> */}
+// </div>;
