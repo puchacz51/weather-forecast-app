@@ -74,7 +74,6 @@ export const CurrentWeatherCard = ({ city }: { city: City }) => {
 export const DayWeatherList = () => {
   return (
     <div className='DayWeatherList'>
-      sniuniu
       <DayWeatherItem />
     </div>
   );

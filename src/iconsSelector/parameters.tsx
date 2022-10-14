@@ -38,18 +38,60 @@ export const CurrentWeatherIcon = ({
 
   return (
     <div className='CurrentWeatherIconContainer'>
-      <Clouds cloudity={30} />
+      <Clouds cloudity={90} />
       <Sun className='sun' />
     </div>
   );
 };
 
 const Clouds = ({ cloudity }: { cloudity: number }) => {
-  const [amountOfClouds] = useState(Math.floor(cloudity / 25));
+  const [amountOfClouds] = useState(Math.round((cloudity+10) / 25));
   const Cloud = WeatherObject.Cloud;
-  if (!amountOfClouds) return;
-  const Clouds = new Array(amountOfClouds).map((_, i) => {
-    return Cloud({});
-  });
-  return <>{Clouds}</>;
+  if (amountOfClouds === 0) return <></>;
+  if (amountOfClouds === 1)
+    return (
+      <Cloud className='cloud' style={{ transform: 'translate(-50%,-50%)' }} />
+    );
+  if (amountOfClouds === 2)
+    return (
+      <>
+        <Cloud
+          className='cloud'
+          style={{ transform: 'translate(-20%,-50%)' }}
+        />
+        <Cloud
+          className='cloud'
+          style={{ transform: 'translate(-80%,-50%)' }}
+        />
+      </>
+    );
+  if (amountOfClouds === 3)
+    return (
+      <>
+        <Cloud
+          className='cloud'
+          style={{ transform: 'translate(-100%,-50%)' }}
+        />
+        <Cloud className='cloud' style={{ transform: 'translate(0%,-50%)' }} />
+        <Cloud
+          className='cloud'
+          style={{ transform: 'translate(-50%,-55%)', color: 'white' }}
+        />
+      </>
+    );
+  else
+    return (
+      <>
+        <Cloud
+          className='cloud'
+          style={{ transform: 'translate(-100%,-50%)' }}
+        />
+        <Cloud className='cloud' style={{ transform: 'translate(0%,-50%)' }} />
+      
+        <Cloud
+          className='cloud'
+          style={{ transform: 'translate(-50%,-70%)', color: 'white' }}
+        />
+      </>
+    );
 };
