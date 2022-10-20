@@ -27,7 +27,7 @@ const fetchCurrentWeather = async (
 
   try {
     const res = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?metric=celsius&lat=${lat}&lon=${lon}&appid=8e4692783e3f92b0865c106b3d2a3681`
+      `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=8e4692783e3f92b0865c106b3d2a3681`
     );
 
     return res.data;

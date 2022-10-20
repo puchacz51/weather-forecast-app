@@ -33,10 +33,10 @@ export const CurrentWeatherCard = ({ city }: { city: City }) => {
       <CurrentWeatherIcon currentWeather={weatherData} />
       <div className='iconContainer'></div>
       <div className='description'>
-        <p>Temperature: {temp}</p>
-        <p>Humidity: {humidity}</p>
-        <p>Atmospheric pressure: {pressure}</p>
-        <p>wind speed: {windSpeed}</p>
+        <p>Temperature: {temp}*C</p>
+        <p>Humidity: {humidity}%</p>
+        <p>Atmospheric pressure: {pressure} HPa</p>
+        <p>wind speed: {windSpeed} m/s</p>
         <p>rain {rain || 0} mm</p>
         {snow && <p>snow:{snow} </p>}
       </div>
