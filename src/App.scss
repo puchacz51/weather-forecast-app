@@ -1,12 +1,16 @@
-
-
-
 .WeatherCard {
   display: grid;
   background-color: rgb(179, 3, 3);
   width: min-content;
   padding: 5px;
   border: solid black 3px;
+}
+.cloudContainer {
+  background-color: aquamarine;
+  top: 55%;
+  font-size: 60px;
+  color: wheat;
+  z-index: 2;
 }
 .currentWeatherContainer {
   display: flex;
@@ -15,9 +19,17 @@
   margin: 10px;
   border-radius: 10px;
   & .CurrentWeatherIconContainer {
-    background: #445677;
     height: 200px;
-    position: relative;
+    & .sky {
+      position: relative;
+      background: #445677;
+      height: 100px;
+    }
+    & .ground {
+      position: relative;
+      background-color: black;
+      height: 100px;
+    }
     & img,
     svg {
       font-size: 80px;
@@ -28,12 +40,6 @@
     }
     & .sun {
       color: rgb(223, 223, 18);
-    }
-    & .cloud svg {
-      top: 55%;
-      font-size: 60px;
-      color: wheat;
-      z-index: 2;
     }
   }
   & .cityName {

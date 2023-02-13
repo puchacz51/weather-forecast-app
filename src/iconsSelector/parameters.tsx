@@ -23,11 +23,9 @@ export const parametersICons = {
 };
 export const WeatherObject = {
   Cloud: ({ className }: any) => (
-    <div className={className}>
       <motion.div>
         <HiCloud />
       </motion.div>
-    </div>
   ),
   Sun: BsSunFill,
   Wind: WiStrongWind,
@@ -46,8 +44,13 @@ export const CurrentWeatherIcon = ({
 
   return (
     <div className='CurrentWeatherIconContainer'>
-      <Clouds cloudity={80} />
-      <Sun className='sun' />
+      <div className='sky'>
+        <Clouds cloudity={80} />
+        <Sun className='sun' />
+      </div>
+      <div className="ground">
+
+      </div>
     </div>
   );
 };
@@ -59,24 +62,26 @@ const Clouds = ({ cloudity }: { cloudity: number }) => {
   if (amountOfClouds === 0) return <></>;
   if (amountOfClouds === 1)
     return (
-      <Cloud className='cloud ' style={{ transform: 'translate(-50%,-50%)' }} />
+      <div className='cloudContainer'>
+        <Cloud
+          className='cloud '
+        />
+      </div>
     );
   if (amountOfClouds === 2)
     return (
-      <>
+      <div className='cloudsContainer'>
         <Cloud
           className='cloud'
-          style={{ transform: 'translate(-20%,-50%)' }}
         />
         <Cloud
           className='cloud'
-          style={{ transform: 'translate(-80%,-50%)' }}
         />
-      </>
+      </div>
     );
   if (amountOfClouds === 3)
     return (
-      <>
+      <div className='cloudsContainer'>
         <Cloud
           className='cloud'
           style={{ transform: 'translate(-100%,-50%)' }}
@@ -86,11 +91,11 @@ const Clouds = ({ cloudity }: { cloudity: number }) => {
           className='cloud'
           style={{ transform: 'translate(-50%,-55%)', color: 'white' }}
         />
-      </>
+      </div>
     );
   else
     return (
-      <>
+      <div className='cloudsContainer'>
         <Cloud
           className='cloud'
           style={{ transform: 'translate(-100%,-50%)' }}
@@ -101,6 +106,6 @@ const Clouds = ({ cloudity }: { cloudity: number }) => {
           className='cloud'
           style={{ transform: 'translate(-50%,-70%)', color: 'white' }}
         />
-      </>
+      </div>
     );
 };

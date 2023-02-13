@@ -3,10 +3,7 @@ import './App.scss';
 // import { useWeather } from './utilities/useWeather';
 import { City } from './utilities/type';
 import { useCity } from './utilities/useCity';
-import {
-  CurrentWeatherCard,
-  DayWeatherList,
-} from './component/WeatherCard';
+import { CurrentWeatherCard, DayWeatherList } from './component/WeatherCard';
 
 function App() {
   const [textInput, setTextInput] = useState('');
@@ -49,11 +46,13 @@ function App() {
         type='text'
         list='cities'
       />
-      {isLoading && <>...loading </>}
+      {isLoading && textInput && <>...loading </>}
       {/* {selectedCity && <CityWeatherCard city={selectedCity} />} */}
       {/* {JSON.stringify(selectedCity)} */}
       {selectedCity && <CurrentWeatherCard city={selectedCity} />}
-      <CurrentWeatherCard city={{city:'jakies',latitude:51,longitude:18,}as City} />
+      <CurrentWeatherCard
+        city={{ city: 'takie', latitude: 51, longitude: 18 } as City}
+      />
       <CityList cities={cities} />
     </div>
   );

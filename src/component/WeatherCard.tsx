@@ -12,7 +12,6 @@ export const CurrentWeatherCard = ({ city }: { city: City }) => {
     error,
     isLoading,
   } = useCurrentWeather(longitude || 18, latitude || 53);
-  console.log(weatherData);
 
   if (!weatherData) return <p>undifined</p>;
 
