@@ -60,13 +60,3 @@ const useCurrentWeather: UseCurrentWeather = (lat, lon) => {
 };
 
 export { useCurrentWeather };
-
-// const options = {
-//   method: 'GET',
-//   // url: 'http://localhost:3001/weather',
-//   url: 'https://weatherbit-v1-mashape.p.rapidapi.com/forecast/3hourly',
-//   headers: {
-//     'X-RapidAPI-Key': '290c6e5969msh1d1d0b23988287ap1fa071jsne3c2c553ced1',
-//     'X-RapidAPI-Host': 'weatherbit-v1-mashape.p.rapidapi.com',
-//   },
-// };

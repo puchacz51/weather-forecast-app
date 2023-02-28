@@ -1,10 +1,10 @@
 import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import './App.scss';
-// import { useWeather } from './utilities/useWeather';
 import { City } from './utilities/type';
 import { useCity } from './utilities/useCity';
 import { CurrentWeatherCard, DayWeatherList } from './component/WeatherCard';
 
+const defaultCity = { city: 'takie', latitude: 51, longitude: 18 } as City;
 function App() {
   const [textInput, setTextInput] = useState('');
   const {
@@ -15,6 +15,7 @@ function App() {
     enabled: false,
     keepPreviousData: true,
   });
+
   const [selectedCity, setSelectedCity] = useState<City | null>();
 
   const refetchCities = useCallback(() => {
@@ -47,12 +48,8 @@ function App() {
         list='cities'
       />
       {isLoading && textInput && <>...loading </>}
-      {/* {selectedCity && <CityWeatherCard city={selectedCity} />} */}
-      {/* {JSON.stringify(selectedCity)} */}
       {selectedCity && <CurrentWeatherCard city={selectedCity} />}
-      <CurrentWeatherCard
-        city={{ city: 'takie', latitude: 51, longitude: 18 } as City}
-      />
+      {/* <CurrentWeatherCard city={selectedCity || defaultCity} /> */}
       <CityList cities={cities} />
     </div>
   );
@@ -71,8 +68,3 @@ interface CityWeatherCardProps {}
 
 export default App;
 
-// <div className='WeatherCard'>
-//   <h3 className='title'>Bydgoszcz</h3>
-//   <p>43</p>
-//   {/* <DayWeatherList /> */}
-// </div>;
