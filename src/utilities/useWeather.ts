@@ -1,5 +1,7 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import { rejects } from 'assert';
 import axios from 'axios';
+import { resolve } from 'path';
 import { CurrentWeather } from '../currentWeatherTypes';
 import { WeatherObjectResult, WeatherArray } from './type';
 
@@ -18,6 +20,22 @@ type CoOrdinates = {
   params: { lon: number; lat: number };
 };
 
+const fetchMockWeather = async () => {
+  try {
+    const res = await axios.get(` http://localhost:3001/weather/1`);
+
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const testFetch = (time: number): Promise<CurrentWeather> =>
+  new Promise((resolve, rejects) => {
+    setTimeout(async () => {
+      resolve(await fetchMockWeather());
+    }, time);
+  });
 const fetchCurrentWeather = async (
   coOrdinates: CoOrdinates
 ): Promise<CurrentWeather> => {
@@ -54,9 +72,7 @@ type UseCurrentWeather = (
 
 const useCurrentWeather: UseCurrentWeather = (lat, lon) => {
   const params = { params: { lat: lat, lon: lon } };
-  return useQuery<CurrentWeather>([lat, lon], () =>
-    fetchCurrentWeather(params)
-  );
+  return useQuery<CurrentWeather>([lon, lat], () => testFetch(3000));
 };
 
 export { useCurrentWeather };

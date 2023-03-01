@@ -5,14 +5,14 @@ import { CurrentWeatherIcon } from '../iconsSelector/parameters';
 
 export const CurrentWeatherCard = ({ city }: { city: City }) => {
   const { city: name, longitude, latitude } = city;
-// console.log(longitude,"xxx");
+  // console.log(longitude,"xxx");
 
   const {
     data: weatherData,
     status,
     error,
     isLoading,
-  } = useCurrentWeather(longitude, latitude);
+  } = useCurrentWeather(latitude, longitude);
   if (isLoading) return <CgSpinnerAlt />;
   if (!weatherData) return <p>undifined</p>;
   console.log(weatherData);
