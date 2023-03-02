@@ -1,10 +1,12 @@
 import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import './App.scss';
-import { City } from './utilities/type';
+import { City, CityApiResponse } from './utilities/type';
 import { useCity } from './utilities/useCity';
 import { CurrentWeatherCard, DayWeatherList } from './component/WeatherCard';
+import { useWaeatherStore } from './store/store';
+// import { useStore } from 'zustand';
 
-const defaultCity = { city: 'takie', latitude: 51, longitude: 18 } as City;
+// const defaultCity = { city: 'takie', latitude: 51, longitude: 18 } as City;
 function App() {
   const [textInput, setTextInput] = useState('');
   const {
@@ -15,8 +17,8 @@ function App() {
     enabled: false,
     keepPreviousData: true,
   });
-
-  const [selectedCity, setSelectedCity] = useState<City | null>();
+  const { selectedCity, setSelectedCity } = useWaeatherStore();
+  // const [selectedCity, setSelectedCity] = useState<City | null>(); 
 
   const refetchCities = useCallback(() => {
     if (textInput) {
@@ -33,6 +35,15 @@ function App() {
       setSelectedCity(cities[cityIndex]);
     }
   };
+  if (!selectedCity) {
+    console.log(111);
+
+    setSelectedCity({
+      city: 'testowe',
+      longitude: 18,
+      latitude: 20,
+    } as City);
+  }
   useEffect(() => {
     const timeout = setTimeout(refetchCities, 700);
 
@@ -48,8 +59,7 @@ function App() {
         list='cities'
       />
       {isLoading && textInput && <>...loading </>}
-      {selectedCity && <CurrentWeatherCard city={selectedCity} />}
-      {/* <CurrentWeatherCard city={selectedCity || defaultCity} /> */}
+      {selectedCity && <CurrentWeatherCard  />}
       <CityList cities={cities} />
     </div>
   );
@@ -64,7 +74,5 @@ const CityList = ({ cities }: { cities: City[] | undefined }) => {
     </datalist>
   );
 };
-interface CityWeatherCardProps {}
 
 export default App;
-

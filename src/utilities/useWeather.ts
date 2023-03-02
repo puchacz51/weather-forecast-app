@@ -63,16 +63,9 @@ type UseCurrentWeather = (
   lat: number
 ) => UseQueryResult<CurrentWeather>;
 
-// const useWeather: UseWeather = (lat, lon) => {
-//   const params = { params: { lat: lat, lon: lon } };
-//   return useQuery<CurrentWeather[]>([lat, lon], () =>
-//     fetchCurrentWeather(params)
-//   );
-// };
-
 const useCurrentWeather: UseCurrentWeather = (lat, lon) => {
   const params = { params: { lat: lat, lon: lon } };
-  return useQuery<CurrentWeather>([lon, lat], () => testFetch(3000));
+  return useQuery<CurrentWeather>([lon, lat], () => testFetch(1000), {});
 };
 
 export { useCurrentWeather };

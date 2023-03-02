@@ -2,9 +2,11 @@ import { City, WeatherObjectResult } from '../utilities/type';
 import { useCurrentWeather } from '../utilities/useWeather';
 import { CgSpinnerAlt } from 'react-icons/cg';
 import { CurrentWeatherIcon } from '../iconsSelector/parameters';
+import { useWaeatherStore } from '../store/store';
 
-export const CurrentWeatherCard = ({ city }: { city: City }) => {
-  const { city: name, longitude, latitude } = city;
+export const CurrentWeatherCard = () => {
+  const { selectedCity: city } = useWaeatherStore();
+  const { city: name, longitude, latitude } = city as City;
   // console.log(longitude,"xxx");
 
   const {
@@ -13,9 +15,9 @@ export const CurrentWeatherCard = ({ city }: { city: City }) => {
     error,
     isLoading,
   } = useCurrentWeather(latitude, longitude);
+
   if (isLoading) return <CgSpinnerAlt />;
   if (!weatherData) return <p>undifined</p>;
-  console.log(weatherData);
 
   const {
     weather: [sky],
@@ -26,7 +28,6 @@ export const CurrentWeatherCard = ({ city }: { city: City }) => {
     main,
   } = weatherData;
   const { temp, humidity, pressure, rain, snow } = main;
-
   const { deg: windDeg, speed: windSpeed } = wind;
   return (
     <div className='currentWeatherContainer'>

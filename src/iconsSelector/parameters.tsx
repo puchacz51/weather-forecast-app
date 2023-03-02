@@ -11,8 +11,19 @@ import { WiStrongWind, WiRaindrop } from 'react-icons/wi';
 import { AiFillCloud } from 'react-icons/ai';
 import { HiCloud } from 'react-icons/hi';
 import { CurrentWeather } from '../currentWeatherTypes';
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { motion } from 'framer-motion';
+
+type IconProps = {
+  weather: CurrentWeather;
+  children?: React.ReactNode | React.ReactNode[];
+};
+
+const IconBackGround: React.FC<IconProps> = ({ children,weather }) => {
+  const {} = weather
+
+  return <div className='CurrentWeatherIconContainer'>{children}</div>;
+};
 
 export const parametersICons = {
   temp: RiTempHotLine,
@@ -23,9 +34,9 @@ export const parametersICons = {
 };
 export const WeatherObject = {
   Cloud: ({ className }: any) => (
-      <motion.div>
-        <HiCloud />
-      </motion.div>
+    <motion.div>
+      <HiCloud />
+    </motion.div>
   ),
   Sun: BsSunFill,
   Wind: WiStrongWind,
@@ -34,7 +45,6 @@ export const WeatherObject = {
   Moon: BsMoonFill,
   RainDrop: WiRaindrop,
 };
-
 export const CurrentWeatherIcon = ({
   currentWeather,
 }: {
@@ -43,15 +53,13 @@ export const CurrentWeatherIcon = ({
   const { Cloud, Sun, Wind, Snow, Moon } = WeatherObject;
 
   return (
-    <div className='CurrentWeatherIconContainer'>
+    <IconBackGround weather={currentWeather}>
       <div className='sky'>
         <Clouds cloudity={80} />
         <Sun className='sun' />
       </div>
-      <div className="ground">
-
-      </div>
-    </div>
+      <div className='ground'></div>
+    </IconBackGround>
   );
 };
 
@@ -63,20 +71,14 @@ const Clouds = ({ cloudity }: { cloudity: number }) => {
   if (amountOfClouds === 1)
     return (
       <div className='cloudContainer'>
-        <Cloud
-          className='cloud '
-        />
+        <Cloud className='cloud ' />
       </div>
     );
   if (amountOfClouds === 2)
     return (
       <div className='cloudsContainer'>
-        <Cloud
-          className='cloud'
-        />
-        <Cloud
-          className='cloud'
-        />
+        <Cloud className='cloud' />
+        <Cloud className='cloud' />
       </div>
     );
   if (amountOfClouds === 3)
