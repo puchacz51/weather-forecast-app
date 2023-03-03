@@ -19,10 +19,20 @@ type IconProps = {
   children?: React.ReactNode | React.ReactNode[];
 };
 
-const IconBackGround: React.FC<IconProps> = ({ children,weather }) => {
-  const {} = weather
+const IconBackGround: React.FC<IconProps> = ({ children, weather }) => {
+  const {
+    sys: { sunrise, sunset },
+  } = weather;
 
-  return <div className='CurrentWeatherIconContainer'>{children}</div>;
+  const classes: string[] = ['CurrentWeatherIconContainer'];
+  // const currentTime = new Date().getTime();
+  const currentTime = 1677648990;
+
+  if (sunrise > currentTime || sunset < currentTime) {
+    classes.push('night');
+  }
+
+  return <div className={classes.join(' ')}>{children}</div>;
 };
 
 export const parametersICons = {

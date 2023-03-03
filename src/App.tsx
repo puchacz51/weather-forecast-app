@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import './App.scss';
 import { City, CityApiResponse } from './utilities/type';
 import { useCity } from './utilities/useCity';
-import { CurrentWeatherCard, DayWeatherList } from './component/WeatherCard';
+import { CurrentWeatherCard } from './component/WeatherCard';
 import { useWaeatherStore } from './store/store';
 // import { useStore } from 'zustand';
 

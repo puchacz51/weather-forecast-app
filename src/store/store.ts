@@ -3,6 +3,7 @@ import { City } from '../utilities/type';
 
 type Store = {
   selectedCity: City | null;
+//   currentTime: number;
   setSelectedCity: (name: City) => void;
 };
 

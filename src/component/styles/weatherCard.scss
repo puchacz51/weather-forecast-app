@@ -1,0 +1,71 @@
+:root {
+  ---sky-color: #7fa0de;
+}
+.WeatherCard {
+  display: grid;
+  background-color: rgb(179, 3, 3);
+  width: min-content;
+  padding: 5px;
+  border: solid black 3px;
+}
+.cloudContainer {
+  background-color: aquamarine;
+  top: 55%;
+  font-size: 60px;
+  color: wheat;
+  z-index: 2;
+}
+.currentWeatherContainer {
+  display: flex;
+  flex-direction: column;
+  border: solid black 2px;
+  margin: 10px;
+  border-radius: 10px;
+  max-width: 800px;
+  & .night {
+    ---sky-color:: #0c1f43;
+  }
+
+  & .CurrentWeatherIconContainer {
+    height: 200px;
+    & .sky {
+      position: relative;
+      background: var(---sky-color);
+      height: 140px;
+    }
+    & .ground {
+      position: relative;
+      background-color: rgb(0, 0, 0);
+      height: 80px;
+    }
+    & img,
+    svg {
+      font-size: 80px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    & .sun {
+      color: rgb(223, 223, 18);
+    }
+  }
+  & .cityName {
+    text-transform: capitalize;
+    text-align: center;
+    margin: 10px 0;
+  }
+  & .description {
+    padding: 10px;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+  }
+  & .night {
+  }
+}
+
+.CurrentWeatherIconContainer {
+  background: #445677;
+}
