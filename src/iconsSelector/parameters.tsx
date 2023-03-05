@@ -2,17 +2,12 @@ import { RiTempHotLine } from 'react-icons/ri';
 import {
   BsSunrise,
   BsSunset,
-  BsSunFill,
-  BsSnow,
-  BsFillCloudSnowFill,
-  BsMoonFill,
 } from 'react-icons/bs';
-import { WiStrongWind, WiRaindrop } from 'react-icons/wi';
+import { WiStrongWind } from 'react-icons/wi';
 import { AiFillCloud } from 'react-icons/ai';
-import { HiCloud } from 'react-icons/hi';
 import { CurrentWeather } from '../currentWeatherTypes';
-import { ReactElement, useState } from 'react';
-import { motion } from 'framer-motion';
+import {  useState } from 'react';
+import { WeatherObject } from './skyIcons';
 
 type IconProps = {
   weather: CurrentWeather;
@@ -26,7 +21,7 @@ const IconBackGround: React.FC<IconProps> = ({ children, weather }) => {
 
   const classes: string[] = ['CurrentWeatherIconContainer'];
   // const currentTime = new Date().getTime();
-  const currentTime = 1677648990;
+  const currentTime = 1677648999;
 
   if (sunrise > currentTime || sunset < currentTime) {
     classes.push('night');
@@ -42,19 +37,7 @@ export const parametersICons = {
   wind: WiStrongWind,
   cloud: AiFillCloud,
 };
-export const WeatherObject = {
-  Cloud: ({ className }: any) => (
-    <motion.div>
-      <HiCloud />
-    </motion.div>
-  ),
-  Sun: BsSunFill,
-  Wind: WiStrongWind,
-  Snow: BsSnow,
-  RainyCloud: BsFillCloudSnowFill,
-  Moon: BsMoonFill,
-  RainDrop: WiRaindrop,
-};
+
 export const CurrentWeatherIcon = ({
   currentWeather,
 }: {
@@ -66,7 +49,7 @@ export const CurrentWeatherIcon = ({
     <IconBackGround weather={currentWeather}>
       <div className='sky'>
         <Clouds cloudity={80} />
-        <Sun className='sun' />
+        <Sun  />
       </div>
       <div className='ground'></div>
     </IconBackGround>

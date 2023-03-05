@@ -1,5 +1,7 @@
 :root {
-  ---sky-color: #7fa0de;
+  --sky-color: #7fa0de;
+  --sun-color: rgb(223, 223, 18);
+  --sun-background-color: rgba(223, 223, 18, 0.265);
 }
 .WeatherCard {
   display: grid;
@@ -23,14 +25,14 @@
   border-radius: 10px;
   max-width: 800px;
   & .night {
-    ---sky-color:: #0c1f43;
+    --sky-color: #0c1f43;
   }
 
   & .CurrentWeatherIconContainer {
     height: 200px;
     & .sky {
       position: relative;
-      background: var(---sky-color);
+      background: var(--sky-color);
       height: 140px;
     }
     & .ground {
@@ -45,9 +47,6 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-    }
-    & .sun {
-      color: rgb(223, 223, 18);
     }
   }
   & .cityName {
