@@ -42,7 +42,11 @@
   color: var(--cloud-lightrain-color);
   z-index: 2;
 }
+.rainDrop {
+  color:rgb(78, 78, 255);
+  z-index: -10;
 
+}
 // .sunStart {
 //   animation: sunUp 0.5s linear 0.5s forwards;
 // }
