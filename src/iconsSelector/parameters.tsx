@@ -7,7 +7,7 @@ import { WiStrongWind } from 'react-icons/wi';
 import { AiFillCloud } from 'react-icons/ai';
 import { CurrentWeather } from '../currentWeatherTypes';
 import {  useState } from 'react';
-import { WeatherObject } from './skyIcons';
+import { Clouds, WeatherObject } from './skyIcons';
 
 type IconProps = {
   weather: CurrentWeather;
@@ -48,59 +48,11 @@ export const CurrentWeatherIcon = ({
   return (
     <IconBackGround weather={currentWeather}>
       <div className='sky'>
-        <Clouds cloudity={80} />
-        <Sun  />
+        <Clouds cloudity={5} />
+        <Sun />
       </div>
       <div className='ground'></div>
     </IconBackGround>
   );
 };
 
-const Clouds = ({ cloudity }: { cloudity: number }) => {
-  const [amountOfClouds] = useState(Math.round((cloudity + 10) / 25));
-
-  const Cloud = WeatherObject.Cloud;
-  if (amountOfClouds === 0) return <></>;
-  if (amountOfClouds === 1)
-    return (
-      <div className='cloudContainer'>
-        <Cloud className='cloud ' />
-      </div>
-    );
-  if (amountOfClouds === 2)
-    return (
-      <div className='cloudsContainer'>
-        <Cloud className='cloud' />
-        <Cloud className='cloud' />
-      </div>
-    );
-  if (amountOfClouds === 3)
-    return (
-      <div className='cloudsContainer'>
-        <Cloud
-          className='cloud'
-          style={{ transform: 'translate(-100%,-50%)' }}
-        />
-        <Cloud className='cloud' style={{ transform: 'translate(0%,-50%)' }} />
-        <Cloud
-          className='cloud'
-          style={{ transform: 'translate(-50%,-55%)', color: 'white' }}
-        />
-      </div>
-    );
-  else
-    return (
-      <div className='cloudsContainer'>
-        <Cloud
-          className='cloud'
-          style={{ transform: 'translate(-100%,-50%)' }}
-        />
-        <Cloud className='cloud' style={{ transform: 'translate(0%,-50%)' }} />
-
-        <Cloud
-          className='cloud'
-          style={{ transform: 'translate(-50%,-70%)', color: 'white' }}
-        />
-      </div>
-    );
-};

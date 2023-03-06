@@ -1,19 +1,48 @@
 @keyframes sunUp {
   0% {
-    transform: rotate(0deg) translate(-50%, -50%);
+    rotate: 0;
   }
 
   100% {
-    transform: rotate(180deg) translate(-50%, -50%);
+    rotate: 180deg;
+    top: 50%;
   }
 }
+@keyframes rotate {
+  0% {
+    rotate: 0;
+  }
+
+  100% {
+    rotate: 360deg;
+  }
+}
+.weatherIconContainer {
+  font-size: 80px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  line-height: 0;
+  transform-origin: 50% 50%;
+  left: 50%;
+  top: 100%;
+}
+
+.rotate360 {
+  animation: rotate 0.5s linear 2s infinite;
+}
+
 .sun {
   border-radius: 50%;
   color: var(--sun-color);
+  box-shadow: 0 0 100px 7px var(--sun-color);
   background-color: var(--sun-background-color);
-  box-shadow: 0 0 100px 7px rgb(223, 223, 18);
 }
 
-.sunStart {
-  animation: sunUp 0.5s linear 0.5s forwards;
+.cloud {
+  color: var(--cloud-lightrain-color);
+  z-index: 2;
 }
+
+// .sunStart {
+//   animation: sunUp 0.5s linear 0.5s forwards;
+// }

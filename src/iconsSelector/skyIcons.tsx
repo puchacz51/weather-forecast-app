@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
+import { motion, useAnimation, useTransform } from 'framer-motion';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   BsFillCloudSnowFill,
   BsMoonFill,
@@ -10,15 +10,78 @@ import {
 import { WiRaindrop, WiStrongWind } from 'react-icons/wi';
 import { HiCloud } from 'react-icons/hi';
 import './icons.scss';
+import { CloudsType1, RainyCloud } from './Clouds';
 export { BsSunFill } from 'react-icons/bs';
 
-const Sun = () => {
-  const [sunClasses, setSunClasses] = useState(['sun']);
-  useEffect(() => {
-    setSunClasses([...sunClasses, 'sunStart']);
-  }, []);
+export const Clouds = ({ cloudity }: { cloudity: number }) => {
+  const [amountOfClouds] = useState(Math.round((cloudity + 10) / 25));
 
-  return <BsSunFill className={sunClasses.join(' ')} />;
+  const Cloud = WeatherObject.Cloud;
+  if (amountOfClouds === 0) return <></>;
+  if (amountOfClouds === 1) return <RainyCloud />;
+  if (amountOfClouds === 2)
+    return (
+      <div className='cloudsContainer'>
+        <Cloud className='cloud' />
+        <Cloud className='cloud' />
+      </div>
+    );
+  if (amountOfClouds === 3)
+    return (
+      <div className='cloudsContainer'>
+        <Cloud
+          className='cloud'
+          style={{ transform: 'translate(-100%,-50%)' }}
+        />
+        <Cloud className='cloud' style={{ transform: 'translate(0%,-50%)' }} />
+        <Cloud
+          className='cloud'
+          style={{ transform: 'translate(-50%,-55%)', color: 'white' }}
+        />
+      </div>
+    );
+  else
+    return (
+      <div className='cloudsContainer'>
+        <Cloud
+          className='cloud'
+          style={{ transform: 'translate(-100%,-50%)' }}
+        />
+        <Cloud className='cloud' style={{ transform: 'translate(0%,-50%)' }} />
+
+        <Cloud
+          className='cloud'
+          style={{ transform: 'translate(-50%,-70%)', color: 'white' }}
+        />
+      </div>
+    );
+};
+
+const Sun = () => {
+  const animation = useAnimation();
+  useEffect(() => {
+    animation.start({
+      top: '50%',
+      transition: { duration: 1, staggerDirection: -1 },
+      rotate: '180deg',
+      translate: '-50% -50%',
+      transformOrigin: '50%  50%',
+    });
+  }, []);
+  const sunRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <motion.div
+      whileHover={{
+        rotate: 360,
+        transition: { duration: 2, staggerDirection: -1 },
+      }}
+      ref={sunRef}
+      animate={animation}
+      className='weatherIconContainer sun'>
+      <BsSunFill />
+    </motion.div>
+  );
 };
 
 export const WeatherObject = {
