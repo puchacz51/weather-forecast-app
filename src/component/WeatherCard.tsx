@@ -4,6 +4,7 @@ import { useCurrentWeather } from '../utilities/useWeather';
 import { CgSpinnerAlt } from 'react-icons/cg';
 import { CurrentWeatherIcon } from '../iconsSelector/parameters';
 import { useWaeatherStore } from '../store/store';
+import { WeatherContext } from '../utilities/WeatherContext';
 
 export const CurrentWeatherCard = () => {
   const { selectedCity: city } = useWaeatherStore();
@@ -27,23 +28,26 @@ export const CurrentWeatherCard = () => {
     timezone,
     wind,
     main,
+    
   } = weatherData;
   const { temp, humidity, pressure, rain, snow } = main;
   const { deg: windDeg, speed: windSpeed } = wind;
   return (
-    <div className='currentWeatherContainer'>
-      <h3 className='cityName'>{name}</h3>
-      <CurrentWeatherIcon currentWeather={weatherData} />
-      <div className='iconContainer'></div>
-      <div className='description'>
-        <p>Temperature: {temp}*C</p>
-        <p>Humidity: {humidity}%</p>
-        <p>Atmospheric pressure: {pressure} HPa</p>
-        <p>wind speed: {windSpeed} m/s</p>
-        <p>rain {rain || 0} mm</p>
-        {snow && <p>snow:{snow} </p>}
+    <WeatherContext.Provider value={{ weather: weatherData }}>
+      <div className='currentWeatherContainer'>
+        <h3 className='cityName'>{name}</h3>
+        <CurrentWeatherIcon  />
+        <div className='iconContainer'></div>
+        <div className='description'>
+          <p>Temperature: {temp}*C</p>
+          <p>Humidity: {humidity}%</p>
+          <p>Atmospheric pressure: {pressure} HPa</p>
+          <p>wind speed: {windSpeed} m/s</p>
+          <p>rain {rain || 0} mm</p>
+          {snow && <p>snow:{snow} </p>}
+        </div>
       </div>
-    </div>
+    </WeatherContext.Provider>
   );
 };
 
