@@ -2,8 +2,6 @@ import { RiTempHotLine } from 'react-icons/ri';
 import { BsSunrise, BsSunset } from 'react-icons/bs';
 import { WiStrongWind } from 'react-icons/wi';
 import { AiFillCloud } from 'react-icons/ai';
-import { CurrentWeather } from '../currentWeatherTypes';
-import { useState } from 'react';
 import { Clouds, WeatherObject } from './skyIcons';
 import { useWeatherContext } from '../utilities/WeatherContext';
 

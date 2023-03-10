@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { HiCloud } from 'react-icons/hi';
-import { motion, useAnimation,  } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { Rain } from './Rain';
 
-
-  
 export const CloudsType1 = () => {
   const animation = useAnimation();
   useEffect(() => {
@@ -43,7 +41,7 @@ export const RainyCloud = () => {
       animate={animation}
       className='weatherIconContainer cloud'>
       <HiCloud />
-      <Rain rain={10} cloud={cloudRef} />
+      <Rain cloud={cloudRef} />
     </motion.div>
   );
 };

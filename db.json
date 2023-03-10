@@ -17,7 +17,9 @@
         "temp_min": -4.01,
         "temp_max": -0.87,
         "pressure": 1030,
-        "humidity": 77
+        "humidity": 77,
+        "rain": 1,
+        "snow": 3
       },
       "visibility": 10000,
       "wind": { "speed": 2.06, "deg": 260 },
