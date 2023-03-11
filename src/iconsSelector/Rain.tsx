@@ -9,11 +9,13 @@ type DroppedElementsTypes = 'rain' | 'snow';
 type DroppedElements = {
   [key: string]: {
     Icon: IconType;
+    animationParams: {string:string|number}|{};
   };
 };
 const droppedElements: DroppedElements = {
-  rain: { Icon: BsFillDropletFill },
-  snow: { Icon: IoMdSnow },
+  rain: { Icon: BsFillDropletFill, animationParams: {} },
+
+  snow: { Icon: IoMdSnow, animationParams: { rotate: 180 } },
 };
 
 type RainDropProps = {
@@ -29,19 +31,20 @@ const DroppedElement = ({
   speed,
   element,
 }: RainDropProps) => {
-  const { Icon } = droppedElements[element];
+  const { Icon,animationParams } = droppedElements[element];
   const animation = useAnimation();
   useEffect(() => {
     animation.start({
       top: '110%',
       left: leftPosition + 'px',
       transition: { repeat: Infinity, duration: speed, delay: delayMs / 10 },
+      ...animationParams,
     });
   });
   return (
     <>
       <motion.div
-        className='rainDrop'
+        className={element}
         animate={animation}
         initial={{
           top: '60%',

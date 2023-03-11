@@ -9,8 +9,6 @@ import { WeatherContext } from '../utilities/WeatherContext';
 export const CurrentWeatherCard = () => {
   const { selectedCity: city } = useWaeatherStore();
   const { city: name, longitude, latitude } = city as City;
-  // console.log(longitude,"xxx");
-
   const {
     data: weatherData,
     status,
@@ -28,15 +26,18 @@ export const CurrentWeatherCard = () => {
     timezone,
     wind,
     main,
-    
   } = weatherData;
   const { temp, humidity, pressure, rain, snow } = main;
   const { deg: windDeg, speed: windSpeed } = wind;
   return (
-    <WeatherContext.Provider value={{ weather: weatherData }}>
+    <WeatherContext.Provider
+      value={{
+        weather: weatherData,
+        iconParams: { skyContainer: null, groundContainer: null },
+      }}>
       <div className='currentWeatherContainer'>
         <h3 className='cityName'>{name}</h3>
-        <CurrentWeatherIcon  />
+        <CurrentWeatherIcon />
         <div className='iconContainer'></div>
         <div className='description'>
           <p>Temperature: {temp}*C</p>
@@ -51,32 +52,7 @@ export const CurrentWeatherCard = () => {
   );
 };
 
-// const CityWeatherCard = ({ city }: { city: City }) => {
-//   const { city: name, longitude, latitude } = city;
 
-//   const {
-//     data: weather,
-//     status,
-//     error,
-//     isLoading,
-//   } = useWeather(longitude, latitude);
-
-//   if (isLoading || !weather)
-//     return (
-//       <div className='WeatherCardLoaded'>
-//         dssd
-//         <CgSpinnerAlt />
-//       </div>
-//     );
-//   const [currentWeather, weatherDays] = weather;
-//   return (
-//     <div className='WeatherCard'>
-//       <h3 className='title'>{name}</h3>
-//       {/* <p>{currentWeather.temp}</p> */}
-//       <DayWeatherList />
-//     </div>
-//   );
-// };
 
 export const DayWeatherList = () => {
   return (

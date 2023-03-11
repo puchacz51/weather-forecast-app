@@ -4,6 +4,8 @@ import { WiStrongWind } from 'react-icons/wi';
 import { AiFillCloud } from 'react-icons/ai';
 import { Clouds, WeatherObject } from './skyIcons';
 import { useWeatherContext } from '../utilities/WeatherContext';
+import { useEffect, useRef } from 'react';
+import { SlowBuffer } from 'buffer';
 
 type IconProps = {
   children?: React.ReactNode | React.ReactNode[];
@@ -35,14 +37,20 @@ export const parametersICons = {
 
 export const CurrentWeatherIcon = () => {
   const { Cloud, Sun, Wind, Snow, Moon } = WeatherObject;
+  const skyRef = useRef<HTMLDivElement>(null);
+  const groundRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
 
+    
+  }, []);
+ 
   return (
     <IconBackGround>
-      <div className='sky'>
+      <div ref={skyRef} className='sky'>
         <Clouds cloudity={5} />
         <Sun />
       </div>
-      <div className='ground'></div>
+      <div ref={groundRef} className='ground'></div>
     </IconBackGround>
   );
 };
