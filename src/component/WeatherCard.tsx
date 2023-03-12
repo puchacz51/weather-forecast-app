@@ -43,7 +43,7 @@ export const CurrentWeatherCard = () => {
           <p>Temperature: {temp}*C</p>
           <p>Humidity: {humidity}%</p>
           <p>Atmospheric pressure: {pressure} HPa</p>
-          <p>wind speed: {windSpeed} m/s</p>
+          <p>wind speed: {windSpeed} m/s {windDeg}</p>
           <p>rain {rain || 0} mm</p>
           {snow && <p>snow:{snow} </p>}
         </div>

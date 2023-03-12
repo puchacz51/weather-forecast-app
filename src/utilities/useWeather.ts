@@ -22,7 +22,7 @@ type CoOrdinates = {
 
 const fetchMockWeather = async () => {
   try {
-    const res = await axios.get(` http://localhost:3001/weather/1`);
+    const res = await axios.get(` http://192.168.1.24:3001/weather/1`);
 
     return res.data;
   } catch (err) {

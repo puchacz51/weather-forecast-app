@@ -5,7 +5,7 @@ import { AiFillCloud } from 'react-icons/ai';
 import { Clouds, WeatherObject } from './skyIcons';
 import { useWeatherContext } from '../utilities/WeatherContext';
 import { useEffect, useRef } from 'react';
-import { SlowBuffer } from 'buffer';
+import { WindSock } from './WindSock';
 
 type IconProps = {
   children?: React.ReactNode | React.ReactNode[];
@@ -50,7 +50,9 @@ export const CurrentWeatherIcon = () => {
         <Clouds cloudity={5} />
         <Sun />
       </div>
-      <div ref={groundRef} className='ground'></div>
+      <div ref={groundRef} className='ground'>
+        <WindSock/>
+      </div>
     </IconBackGround>
   );
 };

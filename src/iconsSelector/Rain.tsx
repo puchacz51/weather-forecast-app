@@ -9,7 +9,7 @@ type DroppedElementsTypes = 'rain' | 'snow';
 type DroppedElements = {
   [key: string]: {
     Icon: IconType;
-    animationParams: {string:string|number}|{};
+    animationParams: { string: string | number } | {};
   };
 };
 const droppedElements: DroppedElements = {
@@ -31,7 +31,7 @@ const DroppedElement = ({
   speed,
   element,
 }: RainDropProps) => {
-  const { Icon,animationParams } = droppedElements[element];
+  const { Icon, animationParams } = droppedElements[element];
   const animation = useAnimation();
   useEffect(() => {
     animation.start({
@@ -74,8 +74,8 @@ const getPercipitationList = (rain: number, snow: number) => {
     .fill(0)
     .map((_, i) =>
       i % 2
-        ? secondElement
-        : secondElemntAmount-- >= 0
+        ? firstElement
+        : secondElemntAmount-- > 0
         ? secondElement
         : firstElement
     ) as DroppedElementsTypes[];
