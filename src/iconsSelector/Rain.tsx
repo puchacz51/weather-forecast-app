@@ -37,7 +37,7 @@ const DroppedElement = ({
     animation.start({
       top: '110%',
       left: leftPosition + 'px',
-      transition: { repeat: Infinity, duration: speed, delay: delayMs / 10 },
+      transition: { repeat: Infinity, duration: speed, delay: delayMs },
       ...animationParams,
     });
   });
@@ -107,7 +107,7 @@ export const Rain = ({
       {precipitationList.map((element, i) => (
         <DroppedElement
           speed={Math.min(2, 6 / rain + snow)}
-          delayMs={i * Math.random() * precipitationAmount}
+          delayMs={Math.random()}
           leftPosition={i * rainStep}
           element={element}
         />

@@ -8,9 +8,8 @@ import {
   BsSunFill,
 } from 'react-icons/bs';
 import { WiRaindrop, WiStrongWind } from 'react-icons/wi';
-import { HiCloud } from 'react-icons/hi';
 import './icons.scss';
-import { CloudsType1, RainyCloud } from './Clouds';
+import { RainyCloud } from './Clouds';
 export { BsSunFill } from 'react-icons/bs';
 
 export const Clouds = ({ cloudity }: { cloudity: number }) => {
@@ -85,11 +84,7 @@ const Sun = () => {
 };
 
 export const WeatherObject = {
-  Cloud: ({ className }: any) => (
-    <motion.div>
-      <HiCloud />
-    </motion.div>
-  ),
+  Cloud: BsFillCloudSnowFill,
   Sun: Sun,
   Wind: WiStrongWind,
   Snow: BsSnow,

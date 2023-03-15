@@ -36,8 +36,13 @@ export const RainyCloud = () => {
   return (
     <motion.div
       ref={cloudRef}
-      initial={{ left: '110%', fontSize: 60, top: '55%', height: '50%' }}
-      whileHover={{ top: '53%' }}
+      initial={{
+        left: '110%',
+        fontSize: 50,
+        top: '53%',
+        height: '50%',
+      }}
+      whileHover={{ top: '52%' }}
       animate={animation}
       className='weatherIconContainer cloud'>
       <HiCloud />

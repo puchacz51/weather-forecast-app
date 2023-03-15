@@ -56,6 +56,17 @@
   border: 1px solid black;
   right: 25%;
   transform: translateX(50%);
+  & .fanContainer {
+    position: absolute;
+    transform: rotatex(45deg);
+
+    & img {
+    transform: rotateZ(95deg);
+      width: 100%;
+      aspect-ratio: 1;
+      animation: rotate 1s infinite linear;
+    }
+  }
 }
 // .sunStart {
 //   animation: sunUp 0.5s linear 0.5s forwards;
