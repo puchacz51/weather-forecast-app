@@ -46,7 +46,28 @@
   color: var(--rain-color);
   z-index: -10;
 }
-
+.wind {
+  height: 100%;
+  color: rgba(255, 255, 255, 0.438);
+  width: 100%;
+  z-index: 1000;
+}
+.treeContainer {
+  height: 90%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  position: absolute;
+  & .grass {
+    position: absolute;
+    bottom: 0%;
+    color: var(--grass-color);
+    z-index: 1000;
+    // width: 20%;
+    right: 50%;
+    transform: translateX(50%);
+    font-size: 170%;
+  }
+}
 .windSock {
   position: absolute;
   width: 10%;
@@ -61,7 +82,7 @@
     transform: rotatex(45deg);
 
     & img {
-    transform: rotateZ(95deg);
+      transform: rotateZ(95deg);
       width: 100%;
       aspect-ratio: 1;
       animation: rotate 1s infinite linear;

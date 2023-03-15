@@ -6,10 +6,12 @@
   --cloud-rain-color: rgba(180, 166, 166, 0.71);
   --cloud-heavyrain-color: rgba(118, 110, 110, 0.71);
   --rain-color: rgba(49, 117, 244, 0.567);
+  --ground-color:rgba(56, 124, 42, 0.763);
+  --grass-color:rgba(32, 136, 11, 0.793);
+
 }
 .WeatherCard {
   display: grid;
-  background-color: rgb(179, 3, 3);
   width: min-content;
   padding: 5px;
   border: solid black 3px;
@@ -35,18 +37,19 @@
   & .CurrentWeatherIconContainer {
     height: 200px;
     overflow: hidden;
+    position: relative;
 
     & .sky {
       position: relative;
       background: var(--sky-color);
+      overflow: hidden;
       height: 140px;
     }
     & .ground {
       position: relative;
-      background-color: rgb(0, 0, 0);
+      background-color: var(--ground-color);
       height: 100px;
     }
-
   }
   & .cityName {
     text-transform: capitalize;
@@ -64,6 +67,3 @@
   }
 }
 
-.CurrentWeatherIconContainer {
-  background: #445677;
-}

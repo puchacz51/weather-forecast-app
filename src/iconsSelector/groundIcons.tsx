@@ -1,6 +1,7 @@
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
 import { useWeatherContext } from '../utilities/WeatherContext';
+import { GiGrass } from 'react-icons/gi';
 import tree from './pine.png';
 type TreeProps = {
   left: number;
@@ -25,21 +26,23 @@ export const Tree = ({ left }: TreeProps) => {
   }, []);
 
   return (
-    <motion.div
-      className=''
-      animate={animation}
-      initial={{
-        left: left + '%',
-        height: '90%',
-        position: 'absolute',
-        bottom: Math.random() * 10 + 60 + '%',
-        skewY: 0,
-        transformOrigin: '50% 100%',
-        rotateZ: 0,
-        translateX: '-50%',
-      }}>
-      <img style={{ height: '100%' }} src={tree} alt='' />
-    </motion.div>
+    <div
+      className='treeContainer'
+      style={{ left: left + '%', bottom: Math.random() * 10 + 60 + '%' }}>
+      <motion.div
+        className='tree'
+        animate={animation}
+        initial={{
+          position: 'absolute',
+          height: '100%',
+          skewY: 0,
+          transformOrigin: '50% 100%',
+          rotateZ: 0,
+        }}>
+        <img style={{ height: '100%' }} src={tree} alt='' />
+      </motion.div>
+      <GiGrass className='grass' />
+    </div>
   );
 };
 
@@ -49,10 +52,15 @@ export const Trees = ({ amount }: { amount: number }) => {
     weather: { wind },
   } = useWeatherContext();
   const { speed, deg } = wind;
-  const treeLeftStep = 100 / (amount + 1);
-  const treesLeftPositions = new Array(amount)
+  const treeLeftStep = 40 / (amount / 2 + 1);
+  const leftTreePositions = new Array(amount / 2)
     .fill(0)
     .map((zero, i) => zero + treeLeftStep * (i + 1));
+
+  const treesLeftPositions = [
+    ...leftTreePositions,
+    ...leftTreePositions.map((position) => position + 60),
+  ];
   return (
     <>
       {treesLeftPositions.map((left) => (
