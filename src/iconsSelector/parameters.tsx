@@ -49,15 +49,18 @@ const GroundElement = () => {
 };
 
 const Wind = () => {
+  const { speed } = useWeatherContext().weather.wind;
   const animation = useAnimation();
+  const windSpeed = Math.min(100, Math.ceil(speed));
+
   useEffect(() => {
     animation.start({
       transition: {
-        duration: 2,
+        duration: 10 / windSpeed,
         delay: 1,
         repeat: Infinity,
         repeatType: 'loop',
-        
+        ease: 'linear',
       },
       right: '-5%',
     });

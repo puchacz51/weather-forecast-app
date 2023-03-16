@@ -9,14 +9,20 @@ type TreeProps = {
 
 export const Tree = ({ left }: TreeProps) => {
   const animation = useAnimation();
+  const { speed } = useWeatherContext().weather.wind;
+  const windSpeed = Math.min(100, Math.ceil(speed));
+  const windSpeedPercent = 10 / windSpeed / 100;
+  const animationDelay = left * windSpeedPercent;
+  console.log(left, animationDelay);
+
   useEffect(() => {
     animation.start({
-      rotateZ: 20,
+      rotateZ: 5 * windSpeed ** (1 / 2),
       skewY: 15,
       transition: {
-        delay: 1,
-        duration: 2,
-        damping: 30,
+        delay: 1 + animationDelay,
+        duration: 5 / windSpeed,
+        damping: 100,
         repeat: Infinity,
         repeatType: 'mirror',
       },

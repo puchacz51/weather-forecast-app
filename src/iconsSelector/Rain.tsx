@@ -68,7 +68,6 @@ const getPercipitationList = (rain: number, snow: number) => {
     rain > snow ? ['rain', 'snow'] : ['snow', 'rain'];
   let secondElemntAmount =
     firstElement === 'rain' ? SnowFlakesAmount : rainDropAmount;
-  console.log(SnowFlakesAmount, rainDropAmount);
 
   const precipitationList = Array(precipitationAmount)
     .fill(0)
@@ -98,7 +97,6 @@ export const Rain = ({
   const precipitationList = getPercipitationList(rain, snow);
   const precipitationAmount = precipitationList.length;
   const rainStep = Math.floor(offsetWidth / precipitationAmount);
-  console.log(precipitationList, rain, snow);
 
   //   console.log(offsetLeft, offsetTop, offsetWidth, offsetHeight, rainStep);
 
