@@ -38,7 +38,7 @@ export const RainyCloud = () => {
       ref={cloudRef}
       initial={{
         left: '110%',
-        fontSize: 50,
+        fontSize: "60%",
         top: '53%',
         height: '50%',
       }}

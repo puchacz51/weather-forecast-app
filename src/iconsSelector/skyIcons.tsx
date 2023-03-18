@@ -60,7 +60,7 @@ const Sun = () => {
   const animation = useAnimation();
   useEffect(() => {
     animation.start({
-      top: '50%',
+      top: '40%',
       transition: { duration: 1, staggerDirection: -1 },
       rotate: '180deg',
       translate: '-50% -50%',
@@ -77,7 +77,7 @@ const Sun = () => {
       }}
       ref={sunRef}
       animate={animation}
-      className='weatherIconContainer sun'>
+      className='weatherIconContainer sunContainer'>
       <BsSunFill />
     </motion.div>
   );

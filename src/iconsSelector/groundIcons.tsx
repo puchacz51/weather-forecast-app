@@ -34,7 +34,7 @@ export const Tree = ({ left }: TreeProps) => {
   return (
     <div
       className='treeContainer'
-      style={{ left: left + '%', bottom: Math.random() * 10 + 60 + '%' }}>
+      style={{ left: left + '%', bottom: Math.random() * 15 + 50 + '%' }}>
       <motion.div
         className='tree'
         animate={animation}
