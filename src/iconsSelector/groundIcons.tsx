@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useWeatherContext } from '../utilities/WeatherContext';
 import { GiGrass } from 'react-icons/gi';
 import tree from './pine.png';
+import puddle from './puddle.svg';
+import { p } from '../currentWeatherTypes';
 type TreeProps = {
   left: number;
 };
@@ -13,7 +15,6 @@ export const Tree = ({ left }: TreeProps) => {
   const windSpeed = Math.min(100, Math.ceil(speed));
   const windSpeedPercent = 10 / windSpeed / 100;
   const animationDelay = left * windSpeedPercent;
-  console.log(left, animationDelay);
 
   useEffect(() => {
     animation.start({
@@ -73,5 +74,31 @@ export const Trees = ({ amount }: { amount: number }) => {
         <Tree left={left} key={left} />
       ))}
     </>
+  );
+};
+export const Puddle = () => {
+  const animation = useAnimation();
+  useEffect(() => {
+    animation.start({
+      width: '20%',
+      transition: { duration: 5, delay: 2 },
+    });
+  });
+
+  return (
+    <motion.div
+      animate={animation}
+      initial={{
+        top: '50%',
+        left: '50%',
+        width: '5%',
+        position: 'absolute',
+        aspectRatio: 1,
+        zIndex: 1000,
+        translateX: '-50%',
+        translateY: '-50%',
+      }}>
+      <img src={puddle} className='puddle' />
+    </motion.div>
   );
 };

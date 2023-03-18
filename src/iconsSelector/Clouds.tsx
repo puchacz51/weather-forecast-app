@@ -3,6 +3,24 @@ import { HiCloud } from 'react-icons/hi';
 import { motion, useAnimation } from 'framer-motion';
 import { Rain } from './Rain';
 
+type CloudProps = {
+  top: number;
+  left: number;
+  size: number;
+  from?: 'left' | 'right' | 'top';
+};
+const cloudStartPostion = {
+  left: {
+    left: '110%',
+    top: '53%',
+  },
+  right: {
+    left: '-10%',
+    top: '53%',
+  },
+  top: { left: '50%', top: '110%' },
+};
+
 export const CloudsType1 = () => {
   const animation = useAnimation();
   useEffect(() => {
@@ -23,26 +41,27 @@ export const CloudsType1 = () => {
     </motion.div>
   );
 };
-export const RainyCloud = () => {
+export const RainyCloud = ({ top, left, size,from='left' }: CloudProps) => {
   const animation = useAnimation();
-  const [rain, setrain] = useState(false);
+  const [rain, setRain] = useState(false);
   const cloudRef = useRef(null);
   useEffect(() => {
-    animation.start({ left: '52%', top: '55%', transition: { duration: 1 } });
+    animation.start({
+      left: left + '%',
+      top: top + '%',
+      transition: { duration: 1 },
+    });
     setTimeout(() => {
-      setrain(true);
+      setRain(true);
     }, 1000);
   });
   return (
     <motion.div
       ref={cloudRef}
       initial={{
-        left: '110%',
-        fontSize: "60%",
-        top: '53%',
-        height: '50%',
+  ...cloudStartPostion[from],
+        fontSize: size + '%',
       }}
-      whileHover={{ top: '52%' }}
       animate={animation}
       className='weatherIconContainer cloud'>
       <HiCloud />

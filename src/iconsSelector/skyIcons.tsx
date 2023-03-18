@@ -13,30 +13,27 @@ import { RainyCloud } from './Clouds';
 export { BsSunFill } from 'react-icons/bs';
 
 export const Clouds = ({ cloudity }: { cloudity: number }) => {
-  const [amountOfClouds] = useState(Math.round((cloudity + 10) / 25));
-
+  const [amountOfClouds] = useState(Math.round((cloudity + 12) / 33));
+  const cloudSize = ((cloudity + 12) / (amountOfClouds * 33)) * 60;
   const Cloud = WeatherObject.Cloud;
+  console.log(cloudSize);
+
   if (amountOfClouds === 0) return <></>;
-  if (amountOfClouds === 1) return <RainyCloud />;
+  if (amountOfClouds === 1)
+    return <RainyCloud left={53} top={53} size={cloudSize} />;
   if (amountOfClouds === 2)
     return (
       <div className='cloudsContainer'>
-        <Cloud className='cloud' />
-        <Cloud className='cloud' />
+        <RainyCloud left={53} top={53} size={cloudSize + 5} from='right' />
+        <RainyCloud left={47} top={49} size={cloudSize + 5} />
       </div>
     );
-  if (amountOfClouds === 3)
+  if (amountOfClouds >= 3)
     return (
       <div className='cloudsContainer'>
-        <Cloud
-          className='cloud'
-          style={{ transform: 'translate(-100%,-50%)' }}
-        />
-        <Cloud className='cloud' style={{ transform: 'translate(0%,-50%)' }} />
-        <Cloud
-          className='cloud'
-          style={{ transform: 'translate(-50%,-55%)', color: 'white' }}
-        />
+        <RainyCloud left={53} top={50} size={cloudSize + 20} from='right' />
+        <RainyCloud left={47} top={47} size={cloudSize + 20} from='top' />
+        <RainyCloud left={50} top={42} size={cloudSize + 20} />
       </div>
     );
   else

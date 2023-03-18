@@ -8,7 +8,7 @@ import { useWeatherContext } from '../utilities/WeatherContext';
 import { useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import puddle from './puddle.svg';
-import { Trees } from './groundIcons';
+import { Puddle, Trees } from './groundIcons';
 
 type IconProps = {
   children?: React.ReactNode | React.ReactNode[];
@@ -91,11 +91,12 @@ export const CurrentWeatherIcon = () => {
     <IconBackGround>
       <Wind />
       <div ref={skyRef} className='sky'>
-        <Clouds cloudity={5} />
+        <Clouds cloudity={95} />
         <Sun />
       </div>
       <div ref={groundRef} className='ground'>
         <Trees amount={10} />
+        <Puddle/>
       </div>
     </IconBackGround>
   );
