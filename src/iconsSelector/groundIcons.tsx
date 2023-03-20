@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import { useWeatherContext } from '../utilities/WeatherContext';
 import { GiGrass } from 'react-icons/gi';
 import { IoCloudSharp } from 'react-icons/io5';
-import tree from './pine.png';
-import snowHill from './snow.png';
-import snowTree from './snowTree.png';
-import puddle from './puddle.svg';
+import tree from '../assets/pine.png';
+import snowHill from '../assets/snow.png';
+import snowTree from '../assets/snowTree.png';
+import puddle from '../assets/puddle.svg';
 type TreeProps = {
   left: number;
 };
@@ -32,7 +32,7 @@ export const Tree = ({ left }: TreeProps) => {
         },
       });
     }
-    return () => {};
+
   }, []);
 
   return (
