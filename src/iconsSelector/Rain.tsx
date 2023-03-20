@@ -9,12 +9,11 @@ type DroppedElementsTypes = 'rain' | 'snow';
 type DroppedElements = {
   [key: string]: {
     Icon: IconType;
-    animationParams: { string: string | number } | {};
+    animationParams: { string: string | number } | object;
   };
 };
 const droppedElements: DroppedElements = {
   rain: { Icon: BsFillDropletFill, animationParams: {} },
-
   snow: { Icon: IoMdSnow, animationParams: { rotate: 180 } },
 };
 
@@ -101,6 +100,7 @@ export const Precipitation = ({
     <>
       {precipitationList.map((element, i) => (
         <DroppedElement
+          key={i}
           speed={Math.min(2, 6 / rain + snow)}
           delayMs={Math.random()}
           leftPosition={i * rainStep}

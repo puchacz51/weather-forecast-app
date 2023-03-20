@@ -6,7 +6,7 @@ const options = {
   method: 'GET',
   url: 'https://wft-geo-db.p.rapidapi.com/v1/geo/cities',
   headers: {
-    'X-RapidAPI-Key': '290c6e5969msh1d1d0b23988287ap1fa071jsne3c2c553ced1',
+    'X-RapidAPI-Key': process.env.REACT_APP_GEO_API_KEY,
     'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com',
   },
 };
