@@ -12,7 +12,7 @@
       ],
       "base": "stations",
       "main": {
-        "temp": -3.44,
+        "temp": 3.44,
         "feels_like": -6.55,
         "temp_min": -4.01,
         "temp_max": -0.87,
@@ -22,7 +22,7 @@
         "snow": 3
       },
       "visibility": 10000,
-      "wind": { "speed": 2.06, "deg": 260 },
+      "wind": { "speed": 10.06, "deg": 260 },
       "clouds": { "all": 20 },
       "dt": 1677625401,
       "sys": {

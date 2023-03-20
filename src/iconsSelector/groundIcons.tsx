@@ -4,7 +4,7 @@ import { useWeatherContext } from '../utilities/WeatherContext';
 import { GiGrass } from 'react-icons/gi';
 import { IoCloudSharp } from 'react-icons/io5';
 import tree from './pine.png';
-import snow from './snow.png';
+import snowHill from './snow.png';
 import snowTree from './snowTree.png';
 import puddle from './puddle.svg';
 type TreeProps = {
@@ -19,17 +19,19 @@ export const Tree = ({ left }: TreeProps) => {
   const animationDelay = left * windSpeedPercent;
 
   useEffect(() => {
-    animation.start({
-      rotateZ: 5 * windSpeed ** (1 / 2),
-      skewY: 5 * windSpeed ** (1 / 2),
-      transition: {
-        delay: 1 + animationDelay,
-        duration: 10 / windSpeed,
-        damping: 100,
-        repeat: Infinity,
-        repeatType: 'mirror',
-      },
-    });
+    if (windSpeed > 2) {
+      animation.start({
+        rotateZ: 5 * windSpeed ** (1 / 2),
+        skewY: 5 * windSpeed ** (1 / 2),
+        transition: {
+          delay: 1 + animationDelay,
+          duration: 10 / windSpeed,
+          damping: 100,
+          repeat: Infinity,
+          repeatType: 'mirror',
+        },
+      });
+    }
     return () => {};
   }, []);
 
@@ -81,6 +83,7 @@ export const Trees = ({ amount }: { amount: number }) => {
   );
 };
 export const PrecipitationResult = () => {
+  const { isSnowy, rain, snow } = useWeatherContext().iconParams;
   const animation = useAnimation();
   useEffect(() => {
     animation.start({
@@ -88,9 +91,9 @@ export const PrecipitationResult = () => {
       transition: { duration: 5, delay: 2 },
     });
   });
-  const { isSnowy } = useWeatherContext().iconParams;
+  if (!(snow && rain)) return <></>;
 
-  const type = isSnowy ? snow : puddle;
+  const type = isSnowy ? snowHill : puddle;
 
   return (
     <motion.div

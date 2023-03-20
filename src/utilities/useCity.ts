@@ -13,16 +13,11 @@ const options = {
 
 const getCity = async (prefix: string) => {
   const params = { params: { namePrefix: prefix } };
-
-  try {
-    const result = await axios.request<CityApiResponse>({
-      ...options,
-      ...params,
-    });
-    return result.data.data;
-  } catch (err) {
-    throw err;
-  }
+  const result = await axios.request<CityApiResponse>({
+    ...options,
+    ...params,
+  });
+  return result.data.data;
 };
 export const useCity = (prefix: string, options: UseQueryOptions<City[]>) => {
   const prefixCity = prefix.toLowerCase();

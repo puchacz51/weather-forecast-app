@@ -40,57 +40,48 @@
   border: solid black 2px;
   margin: 10px auto;
   border-radius: 10px;
+  width: 90%;
   max-width: 800px;
   min-width: 300px;
 
-  & .CurrentWeatherIconContainer {
-    opacity: .9;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 8px 10px 1px rgb(80, 79, 79);
-    border-radius: 0 0 2% 2%;
-    &.night {
-      &::after {
-        content: '';
-        display: block;
-        z-index: 1;
-        background-color: rgba(0, 0, 0, 0.275);
-        position: absolute;
-        inset: 0;
-      }
-    }
-    & .sky {
-      position: relative;
-      background: var(--sky-color);
-      aspect-ratio: 3;
-      overflow: hidden;
-      font-size: 50px;
-      @media (min-width: 320px) {
-        font-size: 80px;
-      }
-      @media (min-width: 640px) {
-        font-size: 100px;
-      }
-    }
-    & .ground {
-      position: relative;
-      background-color: var(--ground-color);
-      aspect-ratio: 5;
-      &.snow {
-        background-color: var(--ground-snow-color);
-      }
-    }
-  }
   & .cityName {
     text-transform: capitalize;
     text-align: center;
     margin: 10px 0;
   }
-  & .description {
+  & .weatherValues {
+    margin-top: 15px;
     padding: 10px;
     text-transform: uppercase;
     display: flex;
     flex-direction: column;
     flex-grow: 0;
+    text-transform: uppercase;
+    row-gap: 0.5em;
+    & .weatherValue {
+      background-color: rgba(174, 166, 166, 0.501);
+      border-radius: 1em;
+      display: flex;
+      align-items: center;
+      & .iconContainer {
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.561);
+        border-radius: 50%;
+        margin: 0 0.5rem 0 0;
+        aspect-ratio: 1;
+        & .icon {
+          font-size: 2rem;
+          margin: 0 0.5rem;
+        }
+      }
+
+      & .name {
+        width: 50%;
+        line-height: 100%;
+      }
+    }
   }
 }

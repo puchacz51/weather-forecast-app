@@ -9,6 +9,8 @@ type WeatherContextType = {
     cloudity: number;
     windSpeed: number;
     isSnowy: boolean;
+    snow: number;
+    rain: number;
   };
 };
 
@@ -21,6 +23,8 @@ export const WeatherContext = createContext<WeatherContextType>({
     isNight: false,
     windSpeed: 0,
     isSnowy: false,
+    rain: 0,
+    snow: 0,
   },
 });
 export const useWeatherContext = () =>

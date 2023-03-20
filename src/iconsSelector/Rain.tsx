@@ -86,28 +86,17 @@ const getPercipitationList = (rain: number, snow: number) => {
   return precipitationList;
 };
 
-export const Rain = ({
+export const Precipitation = ({
   cloud,
 }: {
   cloud: React.MutableRefObject<null> | React.MutableRefObject<HTMLDivElement>;
 }) => {
-  const {
-    weather,
-    iconParams: { groundContainer, skyContainer },
-  } = useWeatherContext();
-  const {
-    main: { rain = 0, snow = 0 },
-  } = weather;
+  const { rain, snow } = useWeatherContext().iconParams;
   if (cloud.current == null || (!rain && !snow)) return <></>;
-
   const { offsetWidth } = cloud.current;
-
   const precipitationList = getPercipitationList(rain, snow);
   const precipitationAmount = precipitationList.length;
   const rainStep = Math.floor(offsetWidth / precipitationAmount);
-
-  //   console.log(offsetLeft, offsetTop, offsetWidth, offsetHeight, rainStep);
-
   return (
     <>
       {precipitationList.map((element, i) => (

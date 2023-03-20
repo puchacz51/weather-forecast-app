@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { HiCloud } from 'react-icons/hi';
 import { motion, useAnimation } from 'framer-motion';
-import { Rain } from './Rain';
+import { Precipitation } from './Rain';
 
 type CloudProps = {
   top: number;
@@ -41,9 +41,8 @@ export const CloudsType1 = () => {
     </motion.div>
   );
 };
-export const RainyCloud = ({ top, left, size,from='left' }: CloudProps) => {
+export const RainyCloud = ({ top, left, size, from = 'left' }: CloudProps) => {
   const animation = useAnimation();
-  const [rain, setRain] = useState(false);
   const cloudRef = useRef(null);
   useEffect(() => {
     animation.start({
@@ -51,21 +50,18 @@ export const RainyCloud = ({ top, left, size,from='left' }: CloudProps) => {
       top: top + '%',
       transition: { duration: 1 },
     });
-    setTimeout(() => {
-      setRain(true);
-    }, 1000);
   });
   return (
-      <motion.div
-        ref={cloudRef}
-        initial={{
-          ...cloudStartPostion[from],
-          fontSize: size + '%',
-        }}
-        animate={animation}
-        className='weatherIconContainer cloud'>
-        <HiCloud />
-        <Rain cloud={cloudRef} />
-      </motion.div>
+    <motion.div
+      ref={cloudRef}
+      initial={{
+        ...cloudStartPostion[from],
+        fontSize: size + '%',
+      }}
+      animate={animation}
+      className='weatherIconContainer cloud'>
+      <HiCloud />
+      <Precipitation cloud={cloudRef} />
+    </motion.div>
   );
 };

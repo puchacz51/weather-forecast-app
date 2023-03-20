@@ -1,9 +1,6 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
-import { rejects } from 'assert';
 import axios from 'axios';
-import { resolve } from 'path';
 import { CurrentWeather } from '../currentWeatherTypes';
-import { WeatherObjectResult, WeatherArray } from './type';
 
 const optionsCurrentWeather = {
   method: 'GET',
@@ -21,13 +18,8 @@ type CoOrdinates = {
 };
 
 const fetchMockWeather = async () => {
-  try {
-    const res = await axios.get(` http://localhost:3001/weather/1`);
-
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
+  const res = await axios.get(` http://localhost:3001/weather/1`);
+  return res.data;
 };
 
 const testFetch = (time: number): Promise<CurrentWeather> =>
@@ -42,16 +34,10 @@ const fetchCurrentWeather = async (
   const {
     params: { lon, lat },
   } = coOrdinates;
-
-  try {
-    const res = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=8e4692783e3f92b0865c106b3d2a3681`
-    );
-
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
+  const res = await axios.get(
+    `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=8e4692783e3f92b0865c106b3d2a3681`
+  );
+  return res.data;
 };
 
 type UseWeather = (

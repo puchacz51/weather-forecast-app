@@ -2,11 +2,33 @@ import './styles/weatherCard.scss';
 import { City, WeatherObjectResult } from '../utilities/type';
 import { useCurrentWeather } from '../utilities/useWeather';
 import { CgSpinnerAlt } from 'react-icons/cg';
-import { CurrentWeatherIcon } from '../iconsSelector/parameters';
+import { CurrentWeatherIcon } from '../iconsSelector/CurrentWeatherIcon';
 import { useWaeatherStore } from '../store/store';
 import { useWeatherContext, WeatherContext } from '../utilities/WeatherContext';
+import { FaTemperatureHigh, FaWind } from 'react-icons/fa';
+import { WiHumidity, WiBarometer } from 'react-icons/wi';
+import { GiHeavyRain } from 'react-icons/gi';
+import { IconType } from 'react-icons';
 
-const Nazwa = () => {
+type WeatherValueProps = {
+  name: string;
+  value: number | string | null;
+  unit: string;
+  Icon: IconType;
+};
+const WeatherValue = ({ name, value, unit, Icon }: WeatherValueProps) => {
+  return (
+    <div className={`weatherValue`}>
+      <div className='iconContainer '>
+        <Icon className='icon' size='100%' />
+      </div>
+      <span className='name'>{name} : </span>
+      <span className='value'>{`${value} ${unit}`}</span>
+    </div>
+  );
+};
+
+const WeatherValues = () => {
   const weatherData = useWeatherContext().weather;
   const {
     weather: [sky],
@@ -20,15 +42,37 @@ const Nazwa = () => {
   const { deg: windDeg, speed: windSpeed } = wind;
 
   return (
-    <div className='description'>
-      <p>Temperature: {temp}*C</p>
-      <p>Humidity: {humidity}%</p>
-      <p>Atmospheric pressure: {pressure} HPa</p>
-      <p>
-        wind speed: {windSpeed} m/s {windDeg}
-      </p>
-      <p>rain {rain || 0} mm</p>
-      {snow && <p>snow:{snow} </p>}
+    <div className='weatherValues'>
+      <WeatherValue
+        name='temperature'
+        unit='*C'
+        value={temp}
+        Icon={FaTemperatureHigh}
+      />
+      <WeatherValue
+        name='Humidity'
+        unit='%'
+        value={humidity}
+        Icon={WiHumidity}
+      />
+      <WeatherValue
+        name='pressure'
+        unit='Hpa'
+        value={pressure}
+        Icon={WiBarometer}
+      />
+      <WeatherValue
+        name='wind speed'
+        unit='m/s'
+        value={windSpeed}
+        Icon={FaWind}
+      />
+      <WeatherValue
+        name='precipitation'
+        unit='mm'
+        Icon={GiHeavyRain}
+        value={(rain || 0) + (snow || 0)}
+      />
     </div>
   );
 };
@@ -46,7 +90,7 @@ export const CurrentWeatherCard = () => {
     weather,
     wind,
     clouds,
-    main: { temp, snow },
+    main: { temp, snow, rain },
   } = weatherData;
   const { speed } = wind;
   const { icon } = weather[0];
@@ -65,13 +109,15 @@ export const CurrentWeatherCard = () => {
           isNight,
           windSpeed,
           isSnowy,
+          snow: snow || 0,
+          rain: rain || 0,
         },
       }}>
       <div className='currentWeatherContainer'>
         <h3 className='cityName'>{name}</h3>
         <CurrentWeatherIcon />
         <div className='iconContainer'></div>
-        <Nazwa />
+        <WeatherValues />
       </div>
     </WeatherContext.Provider>
   );
