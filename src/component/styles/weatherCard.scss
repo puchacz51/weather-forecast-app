@@ -1,13 +1,23 @@
 :root {
   --sky-color: #90b0eb;
   --sun-color: rgb(223, 223, 18);
+  --moon-color: rgb(221, 235, 237);
   --sun-background-color: rgba(223, 223, 18, 0.265);
+  --moon-background-color: rgba(255, 255, 254, 0.265);
   --cloud-lightrain-color: rgba(255, 252, 252, 0.834);
   --cloud-rain-color: rgba(180, 166, 166, 0.71);
   --cloud-heavyrain-color: rgba(118, 110, 110, 0.71);
   --rain-color: rgba(49, 117, 244, 0.567);
   --ground-color: rgba(56, 124, 42, 0.763);
+  --ground-snow-color: rgb(255, 255, 255);
+  --snow-color: rgb(244, 244, 244);
   --grass-color: rgba(32, 136, 11, 0.793);
+}
+.night {
+  --sky-color: #112f67;
+  --cloud-lightrain-color: rgba(218, 214, 214, 0.834);
+  --cloud-rain-color: rgba(144, 136, 136, 0.71);
+  --cloud-heavyrain-color: rgba(70, 65, 65, 0.71);
 }
 .WeatherCard {
   display: grid;
@@ -22,28 +32,39 @@
   color: wheat;
   z-index: 2;
 }
+
 .currentWeatherContainer {
+  margin: auto;
   display: flex;
   flex-direction: column;
   border: solid black 2px;
-  margin: 10px;
+  margin: 10px auto;
   border-radius: 10px;
   max-width: 800px;
-
-  & .night {
-    --sky-color: #0c1f43;
-  }
+  min-width: 300px;
 
   & .CurrentWeatherIconContainer {
+    opacity: .9;
     overflow: hidden;
     position: relative;
-
+    box-shadow: 0 8px 10px 1px rgb(80, 79, 79);
+    border-radius: 0 0 2% 2%;
+    &.night {
+      &::after {
+        content: '';
+        display: block;
+        z-index: 1;
+        background-color: rgba(0, 0, 0, 0.275);
+        position: absolute;
+        inset: 0;
+      }
+    }
     & .sky {
       position: relative;
       background: var(--sky-color);
       aspect-ratio: 3;
       overflow: hidden;
-      font-size: 60px;
+      font-size: 50px;
       @media (min-width: 320px) {
         font-size: 80px;
       }
@@ -55,6 +76,9 @@
       position: relative;
       background-color: var(--ground-color);
       aspect-ratio: 5;
+      &.snow {
+        background-color: var(--ground-snow-color);
+      }
     }
   }
   & .cityName {
@@ -68,7 +92,5 @@
     display: flex;
     flex-direction: column;
     flex-grow: 0;
-  }
-  & .night {
   }
 }

@@ -2,33 +2,34 @@ import { motion, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
 import { useWeatherContext } from '../utilities/WeatherContext';
 import { GiGrass } from 'react-icons/gi';
+import { IoCloudSharp } from 'react-icons/io5';
 import tree from './pine.png';
+import snow from './snow.png';
+import snowTree from './snowTree.png';
 import puddle from './puddle.svg';
-import { p } from '../currentWeatherTypes';
 type TreeProps = {
   left: number;
 };
 
 export const Tree = ({ left }: TreeProps) => {
   const animation = useAnimation();
-  const { speed } = useWeatherContext().weather.wind;
-  const windSpeed = Math.min(100, Math.ceil(speed));
+  const { windSpeed, isSnowy } = useWeatherContext().iconParams;
+
   const windSpeedPercent = 10 / windSpeed / 100;
   const animationDelay = left * windSpeedPercent;
 
   useEffect(() => {
     animation.start({
       rotateZ: 5 * windSpeed ** (1 / 2),
-      skewY: 15,
+      skewY: 5 * windSpeed ** (1 / 2),
       transition: {
         delay: 1 + animationDelay,
-        duration: 5 / windSpeed,
+        duration: 10 / windSpeed,
         damping: 100,
         repeat: Infinity,
         repeatType: 'mirror',
       },
     });
-
     return () => {};
   }, []);
 
@@ -46,19 +47,22 @@ export const Tree = ({ left }: TreeProps) => {
           transformOrigin: '50% 100%',
           rotateZ: 0,
         }}>
-        <img style={{ height: '100%' }} src={tree} alt='' />
+        <img
+          style={{ height: '100%' }}
+          src={isSnowy ? snowTree : tree}
+          alt=''
+        />
       </motion.div>
-      <GiGrass className='grass' />
+      {isSnowy ? (
+        <IoCloudSharp className='snowTrunk' />
+      ) : (
+        <GiGrass className='grass' />
+      )}
     </div>
   );
 };
 
 export const Trees = ({ amount }: { amount: number }) => {
-  const {
-    iconParams: { groundContainer },
-    weather: { wind },
-  } = useWeatherContext();
-  const { speed, deg } = wind;
   const treeLeftStep = 40 / (amount / 2 + 1);
   const leftTreePositions = new Array(amount / 2)
     .fill(0)
@@ -76,7 +80,7 @@ export const Trees = ({ amount }: { amount: number }) => {
     </>
   );
 };
-export const Puddle = () => {
+export const PrecipitationResult = () => {
   const animation = useAnimation();
   useEffect(() => {
     animation.start({
@@ -84,6 +88,9 @@ export const Puddle = () => {
       transition: { duration: 5, delay: 2 },
     });
   });
+  const { isSnowy } = useWeatherContext().iconParams;
+
+  const type = isSnowy ? snow : puddle;
 
   return (
     <motion.div
@@ -98,7 +105,7 @@ export const Puddle = () => {
         translateX: '-50%',
         translateY: '-50%',
       }}>
-      <img src={puddle} className='puddle' />
+      <img src={type} className='puddle' />
     </motion.div>
   );
 };

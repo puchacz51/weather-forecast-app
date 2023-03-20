@@ -56,16 +56,16 @@ export const RainyCloud = ({ top, left, size,from='left' }: CloudProps) => {
     }, 1000);
   });
   return (
-    <motion.div
-      ref={cloudRef}
-      initial={{
-  ...cloudStartPostion[from],
-        fontSize: size + '%',
-      }}
-      animate={animation}
-      className='weatherIconContainer cloud'>
-      <HiCloud />
-      <Rain cloud={cloudRef} />
-    </motion.div>
+      <motion.div
+        ref={cloudRef}
+        initial={{
+          ...cloudStartPostion[from],
+          fontSize: size + '%',
+        }}
+        animate={animation}
+        className='weatherIconContainer cloud'>
+        <HiCloud />
+        <Rain cloud={cloudRef} />
+      </motion.div>
   );
 };

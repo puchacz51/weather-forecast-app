@@ -10,8 +10,6 @@ type Store = {
 
 export const useWaeatherStore = create<Store>((set) => ({
   selectedCity: null,
-  skyContainer: null,
-  groundContainer: null,
   setSelectedCity(name) {
     set((state) => ({ ...state, selectedCity: name }));
   },

@@ -32,10 +32,14 @@ const DroppedElement = ({
   element,
 }: RainDropProps) => {
   const { Icon, animationParams } = droppedElements[element];
+  const {
+    weather,
+    iconParams: { groundContainer, skyContainer },
+  } = useWeatherContext();
   const animation = useAnimation();
   useEffect(() => {
     animation.start({
-      top: '110%',
+      top: '150%',
       left: leftPosition + 'px',
       transition: { repeat: Infinity, duration: speed, delay: delayMs },
       ...animationParams,
@@ -88,12 +92,16 @@ export const Rain = ({
   cloud: React.MutableRefObject<null> | React.MutableRefObject<HTMLDivElement>;
 }) => {
   const {
+    weather,
+    iconParams: { groundContainer, skyContainer },
+  } = useWeatherContext();
+  const {
     main: { rain = 0, snow = 0 },
-  } = useWeatherContext().weather;
-
+  } = weather;
   if (cloud.current == null || (!rain && !snow)) return <></>;
 
-  const { offsetLeft, offsetTop, offsetWidth, offsetHeight } = cloud.current;
+  const { offsetWidth } = cloud.current;
+
   const precipitationList = getPercipitationList(rain, snow);
   const precipitationAmount = precipitationList.length;
   const rainStep = Math.floor(offsetWidth / precipitationAmount);
