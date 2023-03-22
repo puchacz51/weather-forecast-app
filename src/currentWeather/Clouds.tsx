@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HiCloud } from 'react-icons/hi';
 import { motion, useAnimation } from 'framer-motion';
 import { Precipitation } from './Rain';
@@ -44,13 +44,17 @@ export const CloudsType1 = () => {
 export const RainyCloud = ({ top, left, size, from = 'left' }: CloudProps) => {
   const animation = useAnimation();
   const cloudRef = useRef(null);
+  const [, setRefresh] = useState(false);
   useEffect(() => {
-    animation.start({
-      left: left + '%',
-      top: top + '%',
-      transition: { duration: 1 },
-    });
-  });
+    animation
+      .start({
+        left: left + '%',
+        top: top + '%',
+        transition: { duration: 1 },
+      })
+      .then(() => setRefresh((state) => !state));
+  }, []);
+
   return (
     <motion.div
       ref={cloudRef}

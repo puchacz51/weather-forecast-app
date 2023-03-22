@@ -2,7 +2,7 @@ import './styles/weatherCard.scss';
 import { City, WeatherObjectResult } from '../utilities/type';
 import { useCurrentWeather } from '../utilities/useWeather';
 import { CgSpinnerAlt } from 'react-icons/cg';
-import { CurrentWeatherIcon } from '../iconsSelector/CurrentWeatherIcon';
+import { CurrentWeatherIcon } from '../currentWeather/CurrentWeatherIcon';
 import { useWaeatherStore } from '../store/store';
 import { useWeatherContext, WeatherContext } from '../utilities/WeatherContext';
 import { FaTemperatureHigh, FaWind } from 'react-icons/fa';
@@ -91,11 +91,15 @@ export const CurrentWeatherCard = () => {
     wind,
     clouds,
     main: { temp, snow, rain },
+    timezone,
   } = weatherData;
+  const currentTime = new Date(Date.now() - timezone * 1000);
+  const [hours, minutes] = currentTime.toLocaleTimeString().split(':');
+  const [day, month, year] = currentTime.toLocaleDateString().split('.');
   const { speed } = wind;
   const { icon } = weather[0];
   const { all: cloudity } = clouds;
-  const isNight = !icon.includes('n');
+  const isNight = icon.includes('n');
   const windSpeed = Math.min(100, Math.ceil(speed));
   const isSnowy = temp < 0 && snow ? true : false;
   return (
@@ -115,6 +119,9 @@ export const CurrentWeatherCard = () => {
       }}>
       <div className='currentWeatherContainer'>
         <h3 className='cityName'>{name}</h3>
+        <h4 className='cityTime'>
+          {day}.{month}.{year} {hours}:{minutes}
+        </h4>
         <CurrentWeatherIcon />
         <div className='iconContainer'></div>
         <WeatherValues />

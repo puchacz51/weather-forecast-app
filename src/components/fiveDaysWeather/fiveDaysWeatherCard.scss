@@ -1,0 +1,28 @@
+.fiveDaysWeatherCard {
+  border: 1px solid black;
+  min-height: 200px;
+  width: 95%;
+  margin: 20px auto;
+  position: relative;
+
+
+  & .sunMoonContainer {
+    background-color: rgba(68, 51, 34, 0.123);
+    border-radius: 50%;
+    .icon {
+      font-size: 100px;
+    }
+    & .sun {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    & .moon {
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

@@ -91,6 +91,7 @@ export const Precipitation = ({
   cloud: React.MutableRefObject<null> | React.MutableRefObject<HTMLDivElement>;
 }) => {
   const { rain, snow } = useWeatherContext().iconParams;
+
   if (cloud.current == null || (!rain && !snow)) return <></>;
   const { offsetWidth } = cloud.current;
   const precipitationList = getPercipitationList(rain, snow);

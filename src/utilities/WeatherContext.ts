@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { CurrentWeather } from '../currentWeatherTypes';
+import { CurrentWeather } from '../WeatherTypes';
 type WeatherContextType = {
   weather: CurrentWeather;
   iconParams: {
