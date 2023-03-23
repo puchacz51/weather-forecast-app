@@ -1,4 +1,4 @@
-import { motion, useAnimation, useTransform } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -52,7 +52,6 @@ export const Sun = () => {
       transformOrigin: '50%  50%',
     });
   }, []);
-  const sunRef = useRef<HTMLDivElement>(null);
 
   return (
     <motion.div
@@ -60,7 +59,6 @@ export const Sun = () => {
         rotate: 360,
         transition: { duration: 2, staggerDirection: -1 },
       }}
-      ref={sunRef}
       animate={animation}
       className='weatherIconContainer sunContainer'>
       <BsSunFill />
