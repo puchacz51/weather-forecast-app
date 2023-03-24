@@ -44,8 +44,6 @@ export const CloudsType1 = () => {
 
 
 
-
-
 export const RainyCloud = ({ top, left, size, from = 'left' }: CloudProps) => {
   const animation = useAnimation();
   const cloudRef = useRef(null);

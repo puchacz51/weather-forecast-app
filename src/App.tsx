@@ -42,7 +42,7 @@ function App() {
     } as City);
   }
   useEffect(() => {
-    const timeout = setTimeout(refetchCities, 700);
+    const timeout = setTimeout(refetchCities, 300);
 
     return () => clearTimeout(timeout);
   }, [textInput, refetchCities]);

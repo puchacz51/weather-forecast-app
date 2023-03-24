@@ -71,14 +71,7 @@
       box-shadow: 0 0 100px 7px var(--moon-color);
       background-color: var(--moon-background-color);
     }
-    & .cloud {
-      color: var(--cloud-lightrain-color);
-      z-index: 4;
-    }
-    & .rain {
-      color: var(--rain-color);
-      z-index: 3;
-    }
+  
   }
   & .ground {
     position: relative;

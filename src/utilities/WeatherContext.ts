@@ -1,20 +1,26 @@
 import { createContext, useContext } from 'react';
 import { CurrentWeather } from '../WeatherTypes';
-type WeatherContextType = {
-  weather: CurrentWeather;
-  iconParams: {
-    skyContainer: null | HTMLDivElement;
-    groundContainer: null | HTMLDivElement;
-    isNight: boolean;
-    cloudity: number;
-    windSpeed: number;
-    isSnowy: boolean;
-    snow: number;
-    rain: number;
-  };
+type WeatherIconParams = {
+  skyContainer?: null | HTMLDivElement;
+  groundContainer?: null | HTMLDivElement;
+  isNight: boolean;
+  cloudity: number;
+  windSpeed: number;
+  isSnowy: boolean;
+  snow: number;
+  rain: number;
 };
 
-export const WeatherContext = createContext<WeatherContextType>({
+type CurrentWeatherContextType = {
+  weather: CurrentWeather;
+  iconParams: WeatherIconParams;
+};
+type FiveDaysWeatherContextType = {
+  weather: CurrentWeather;
+  iconParams: WeatherIconParams;
+};
+
+export const WeatherContext = createContext<CurrentWeatherContextType>({
   weather: {} as CurrentWeather,
   iconParams: {
     skyContainer: null,
@@ -28,4 +34,10 @@ export const WeatherContext = createContext<WeatherContextType>({
   },
 });
 export const useWeatherContext = () =>
-  useContext<WeatherContextType>(WeatherContext);
+  useContext<FiveDaysWeatherContextType>(WeatherContext);
+const fiveDaysWeatherContext = createContext<FiveDaysWeatherContextType | null>(
+  null
+);
+
+const useFiveDaysWeatherContext = () =>
+  useContext<FiveDaysWeatherContextType | null>(fiveDaysWeatherContext);

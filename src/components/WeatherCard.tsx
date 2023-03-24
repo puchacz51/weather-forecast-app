@@ -1,5 +1,5 @@
 import './styles/weatherCard.scss';
-import { City, WeatherObjectResult } from '../utilities/type';
+import { City,  } from '../utilities/type';
 import { useCurrentWeather } from '../utilities/useWeather';
 import { CgSpinnerAlt } from 'react-icons/cg';
 import { CurrentWeatherIcon } from '../currentWeather/CurrentWeatherIcon';
@@ -9,6 +9,8 @@ import { FaTemperatureHigh, FaWind } from 'react-icons/fa';
 import { WiHumidity, WiBarometer } from 'react-icons/wi';
 import { GiHeavyRain } from 'react-icons/gi';
 import { IconType } from 'react-icons';
+import { CurrentWeather } from '../WeatherTypes';
+import { getCurrentWeatherIconValues } from '../utilities/getWeatherIconValues';
 
 type WeatherValueProps = {
   name: string;
@@ -86,22 +88,11 @@ export const CurrentWeatherCard = () => {
   );
   if (isLoading) return <CgSpinnerAlt />;
   if (!weatherData) return <p>undifined</p>;
-  const {
-    weather,
-    wind,
-    clouds,
-    main: { temp, snow, rain },
-    timezone,
-  } = weatherData;
+  const { timezone } = weatherData;
   const currentTime = new Date(Date.now() - timezone * 1000);
   const [hours, minutes] = currentTime.toLocaleTimeString().split(':');
   const [day, month, year] = currentTime.toLocaleDateString().split('.');
-  const { speed } = wind;
-  const { icon } = weather[0];
-  const { all: cloudity } = clouds;
-  const isNight = icon.includes('n');
-  const windSpeed = Math.min(100, Math.ceil(speed));
-  const isSnowy = temp < 0 && snow ? true : false;
+  const iconValues = getCurrentWeatherIconValues(weatherData);
   return (
     <WeatherContext.Provider
       value={{
@@ -109,12 +100,7 @@ export const CurrentWeatherCard = () => {
         iconParams: {
           skyContainer: null,
           groundContainer: null,
-          cloudity,
-          isNight,
-          windSpeed,
-          isSnowy,
-          snow: snow || 0,
-          rain: rain || 0,
+          ...iconValues,
         },
       }}>
       <div className='currentWeatherContainer'>

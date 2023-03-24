@@ -75,8 +75,8 @@ interface City {
 interface CityApiResponse {
   data: City[];
   metadata: {
-    currentOffset: Number;
-    totalCount: Number;
+    currentOffset: number;
+    totalCount: number;
   };
 }
 
