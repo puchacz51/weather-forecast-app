@@ -4,9 +4,10 @@
   width: 95%;
   margin: 20px auto;
   position: relative;
-  overflow: hidden;
-  font-size: 100px;
   & .fiveDaysWeatherIcon {
+    font-size: 100px;
+    overflow: hidden;
+
     position: relative;
     height: 250px;
     border: 1px solid black;
@@ -22,6 +23,27 @@
       & .moon {
         position: absolute;
         transform: translate(-50%, -50%);
+      }
+    }
+  }
+  & .fiveDaysWeatherList {
+    display: flex;
+    overflow: scroll;
+    margin: 10px 0;
+
+    & .fiveDaysWeatherDayContainer {
+      
+      & .dayName {
+        width: 100%;
+        text-align: center;
+      }
+      & .fiveDayWeatherListElement {
+        flex-shrink: 0;
+        border: 1px solid black;
+        & .elementHeader {
+          font-size: 1rem;
+          margin: 0.5rem;
+        }
       }
     }
   }

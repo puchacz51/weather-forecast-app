@@ -1,10 +1,20 @@
 import { motion } from 'framer-motion';
 import { BsSunFill } from 'react-icons/bs';
 import { WiMoonAltNew } from 'react-icons/wi';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useFiveDaysWeatherContext } from '../../utilities/WeatherContext';
 
 export const SunMoonCircle = () => {
-  const [rotate, setRotate] = useState(0);
+  const { isNight } = useFiveDaysWeatherContext().iconParams;
+  const [rotate, setRotate] = useState(isNight ? 90 : 0);
+  const [prevIsNight, setPrevIsNIght] = useState(isNight);
+  useEffect(() => {
+    if (isNight != prevIsNight) {
+      console.log(prevIsNight, isNight);
+      setPrevIsNIght(isNight);
+      setRotate((deg) => deg + 90);
+    }
+  }, [isNight]);
   return (
     <motion.div
       animate={{
@@ -13,7 +23,8 @@ export const SunMoonCircle = () => {
           duration: 2,
         },
       }}
-      onClick={() => setRotate((state) => state + 90)}
+      // onClick={() => setRotate((state) => state + 90)}
+
       initial={{
         position: 'absolute',
         width: '150%',

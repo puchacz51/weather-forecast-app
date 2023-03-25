@@ -67,7 +67,7 @@ type City = {
   sunset: number;
   timezone: number;
 };
-type FiveDaysWeatherElement = {
+export type FiveDaysWeatherElement = {
   weather: Weather[];
   main: Main;
   visibility: number;
@@ -82,8 +82,8 @@ type FiveDaysWeatherElement = {
 };
 
 export interface FiveDaysWeather {
-  City: City;
+  city: City;
   cnt: number;
   cod: string;
-  list: FiveDaysWeather;
+  list: FiveDaysWeatherElement[];
 }

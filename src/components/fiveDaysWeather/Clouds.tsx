@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { HiCloud } from 'react-icons/hi';
 import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import { Precipitation } from '../../currentWeather/Rain';
+import { useFiveDaysWeatherContext } from '../../utilities/WeatherContext';
+import { getAmountOfClouds } from '../../utilities/getWeatherIconValues';
 
 type CloudProps = {
   top: number;
@@ -58,46 +60,36 @@ export const RainyCloud = ({ top, left, size, from = 'left' }: CloudProps) => {
     </motion.div>
   );
 };
-const cloudity = 50;
 
 export const CloudsContainer = () => {
-  const [cloudAmount, setCloudAmount] = useState(0);
+  const { cloudity } = useFiveDaysWeatherContext().iconParams;
+  const cloudAmount = getAmountOfClouds(cloudity);
 
   return (
     <AnimatePresence>
-      <button
-        key='btn1'
-        onClick={() => setCloudAmount((amount) => (amount + 10) % 100)}>
-        +
-      </button>
-      <button
-        key='btn2'
-        onClick={() => setCloudAmount((amount) => (amount - 10) % 100)}>
-        -
-      </button>
-      {cloudAmount > 10 && (
+      {cloudAmount > 0 && (
         <RainyCloud
           key='cloud1'
           left={55}
           top={53}
-          size={50 + cloudAmount / 2.5}
+          size={50 + cloudity / 2.5}
         />
       )}
-      {cloudAmount > 40 && (
+      {cloudAmount > 1 && (
         <RainyCloud
           key='cloud2'
           left={45}
           top={51}
-          size={50 + cloudAmount / 2}
+          size={50 + cloudity / 2}
           from='right'
         />
       )}
-      {cloudAmount > 70 && (
+      {cloudAmount > 2 && (
         <RainyCloud
           key='cloud3'
           left={50}
           top={50}
-          size={50 + cloudAmount / 1.5}
+          size={50 + cloudity / 1.5}
           from='top'
         />
       )}

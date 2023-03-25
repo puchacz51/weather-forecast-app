@@ -1,5 +1,5 @@
 import './styles/weatherCard.scss';
-import { City,  } from '../utilities/type';
+import { City } from '../utilities/type';
 import { useCurrentWeather } from '../utilities/useWeather';
 import { CgSpinnerAlt } from 'react-icons/cg';
 import { CurrentWeatherIcon } from '../currentWeather/CurrentWeatherIcon';
@@ -10,7 +10,7 @@ import { WiHumidity, WiBarometer } from 'react-icons/wi';
 import { GiHeavyRain } from 'react-icons/gi';
 import { IconType } from 'react-icons';
 import { CurrentWeather } from '../WeatherTypes';
-import { getCurrentWeatherIconValues } from '../utilities/getWeatherIconValues';
+import { getWeatherIconValues } from '../utilities/getWeatherIconValues';
 
 type WeatherValueProps = {
   name: string;
@@ -92,7 +92,7 @@ export const CurrentWeatherCard = () => {
   const currentTime = new Date(Date.now() - timezone * 1000);
   const [hours, minutes] = currentTime.toLocaleTimeString().split(':');
   const [day, month, year] = currentTime.toLocaleDateString().split('.');
-  const iconValues = getCurrentWeatherIconValues(weatherData);
+  const iconValues = getWeatherIconValues(weatherData);
   return (
     <WeatherContext.Provider
       value={{
