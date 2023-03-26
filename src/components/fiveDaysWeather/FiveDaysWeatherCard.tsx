@@ -6,6 +6,29 @@ import { FiveDaysWeather, FiveDaysWeatherElement } from '../../WeatherTypes';
 import { FiveDaysWeatherContext } from '../../utilities/WeatherContext';
 import { getWeatherIconValues } from '../../utilities/getWeatherIconValues';
 
+type WeatherLegend = {
+  minTemp: number;
+  maxTemp: number;
+  precipitationMin: number;
+  precipitationMax: number;
+};
+
+const WeatherListLegend = ({ info }: { info: WeatherLegend }) => {
+  const {maxTemp,minTemp,precipitationMax,precipitationMin} = info 
+
+
+
+
+
+  return (
+    <div className='fiveDaysWeatherDayContainer'>
+      <h3 className='dayName'>day</h3>
+      <div className='weatherLegend'>
+      </div>
+    </div>
+  );
+};
+
 const FiveDaysWeatherListElement = ({
   weather,
   selectDate,
@@ -13,14 +36,24 @@ const FiveDaysWeatherListElement = ({
   weather: FiveDaysWeatherElement;
   selectDate: () => void;
 }) => {
-  const { dt, dt_txt } = weather;
-
+  const { dt_txt, weather: weatherDesc, main, rain = 0, snow = 0 } = weather;
+  const { icon } = weatherDesc[0];
+  const { temp } = main;
   const [hours] = dt_txt.split(' ')[1].split(':');
 
   return (
-    <div className='fiveDayWeatherListElement'>
+    <button className='dayWeatherElement' onClick={selectDate}>
       <h3 className='elementHeader'>{hours}:00</h3>
-    </div>
+      <div className='weatherIconContainer'>
+        <img
+          src={`http://openweathermap.org/img/wn/${icon}.png`}
+          alt='weather icon'
+          className='weatherIcon'
+        />
+        <span className='temperature'>{(temp / 10).toFixed(0)} &deg;</span>
+      </div>
+      <div className='precipitation'></div>
+    </button>
   );
 };
 
@@ -31,7 +64,6 @@ const FiveDaysWeatherList = ({
   weatherList: FiveDaysWeather['list'];
   selectDate: (date: number) => void;
 }) => {
-
   const weatherDaysList = weatherList.reduce((acc, currentTime) => {
     const dayOfMonth = currentTime.dt_txt.split(' ')[0].split('-')[2];
     if (
@@ -50,28 +82,37 @@ const FiveDaysWeatherList = ({
     }
     return acc;
   }, [] as { dayOfMonth: string; dayName: string }[]);
-
-
+  const tempList = weatherList.map((weather) => weather.main.temp);
+  const precipitationlist = weatherList.map(
+    (weather) => (weather?.rain || 0) + (weather?.snow || 0)
+  );
+  const minTemp = Math.min(...tempList);
+  const maxTemp = Math.max(...tempList);
+  const precipitationMin = Math.min(...precipitationlist);
+  const precipitationMax = Math.max(...precipitationlist);
+  const legendInfo = { minTemp, maxTemp, precipitationMax, precipitationMin };
   return (
     <div className='fiveDaysWeatherList'>
+      <WeatherListLegend info={legendInfo} />
       {weatherDaysList.map(({ dayName, dayOfMonth }) => (
         <div key={dayName} className='fiveDaysWeatherDayContainer'>
           <h3 className='dayName'>{dayName}</h3>
-
-          {weatherList
-            .filter((weatherInfo) => {
-              const dayOfMonthElement = weatherInfo.dt_txt
-                .split(' ')[0]
-                .split('-')[2];
-              return dayOfMonthElement === dayOfMonth;
-            })
-            .map((weatherInfo, index) => (
-              <FiveDaysWeatherListElement
-                selectDate={() => selectDate(index)}
-                key={weatherInfo.dt}
-                weather={weatherInfo}
-              />
-            ))}
+          <div className='dayWeatherList'>
+            {weatherList
+              .filter((weatherInfo) => {
+                const dayOfMonthElement = weatherInfo.dt_txt
+                  .split(' ')[0]
+                  .split('-')[2];
+                return dayOfMonthElement === dayOfMonth;
+              })
+              .map((weatherInfo, index) => (
+                <FiveDaysWeatherListElement
+                  selectDate={() => selectDate(index)}
+                  key={weatherInfo.dt}
+                  weather={weatherInfo}
+                />
+              ))}
+          </div>
         </div>
       ))}
     </div>
