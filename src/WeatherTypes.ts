@@ -1,5 +1,3 @@
-export const p = 1;
-
 export interface CurrentWeather {
   coord: Coord;
   weather: Weather[];
@@ -44,15 +42,48 @@ export interface Sys {
   sunset: number;
 }
 
-export interface Weather {
+export type Weather = {
   id: number;
   main: string;
   description: string;
   icon: string;
-}
+};
 
-export interface Wind {
+export type Wind = {
   speed: number;
   deg: number;
   gust: number;
+};
+
+type City = {
+  coord: {
+    lat: number;
+    lon: number;
+  };
+  id: number;
+  name: string;
+  population: number;
+  sunrise: number;
+  sunset: number;
+  timezone: number;
+};
+type FiveDaysWeatherElement = {
+  weather: Weather[];
+  main: Main;
+  visibility: number;
+  wind: Wind;
+  clouds: Clouds;
+  dt: number;
+  dt_txt: string;
+  sys: Sys;
+  pop: number;
+  rain?: number;
+  snow?: number;
+};
+
+export interface FiveDaysWeather {
+  City: City;
+  cnt: number;
+  cod: string;
+  list: FiveDaysWeather;
 }

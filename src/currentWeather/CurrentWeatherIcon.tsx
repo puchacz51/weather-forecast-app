@@ -1,6 +1,6 @@
 import { Clouds, Moon, Sun, Wind } from './skyIcons';
 import { useWeatherContext } from '../utilities/WeatherContext';
-import { useEffect, useRef } from 'react';
+import {  useRef } from 'react';
 import { PrecipitationResult, Trees } from './groundIcons';
 
 type IconProps = {
