@@ -77,8 +77,8 @@ export type FiveDaysWeatherElement = {
   dt_txt: string;
   sys: Sys;
   pop: number;
-  rain?: number;
-  snow?: number;
+  rain?: { '3h': number };
+  snow?: { '3h': number };
 };
 
 export interface FiveDaysWeather {

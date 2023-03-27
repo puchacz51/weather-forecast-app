@@ -5,29 +5,44 @@ import {
 } from '../WeatherTypes';
 
 export const getWeatherIconValues = (
-  weatherObject: CurrentWeather | FiveDaysWeatherElement
+  weatherObject: CurrentWeather | FiveDaysWeatherElement,
+  type: 'currentWeather' | 'fiveDaysWeather'
 ) => {
   const {
-    weather,
     wind,
     clouds,
-    main: { temp, snow, rain },
+    main: { temp },
+    main,
+    dt,
+    sys,
   } = weatherObject;
-
+  const { sunrise, sunset } = sys;
+  let snowQuantity;
+  let rainQuantity;
+  if (type == 'fiveDaysWeather') {
+    const { rain, snow } = weatherObject as FiveDaysWeatherElement;
+    rainQuantity = rain?.['3h'] || 0;
+    snowQuantity = snow?.['3h'] || 0;
+  } else {
+    const { snow, rain } = main;
+    rainQuantity = rain || 0;
+    snowQuantity = snow || 0;
+  }
   const { speed } = wind;
-  const { icon } = weather[0];
   const { all: cloudity } = clouds;
-  const isNight = icon.includes('n');
+  const isNight = dt < sunrise || dt > sunset;
+  console.log(sunrise, dt, sunset,dt < sunrise , dt > sunset);
+
   const windSpeed = Math.min(100, Math.ceil(speed));
-  const isSnowy = temp < 0 && snow ? true : false;
+  const isSnowy = temp < 0 && snowQuantity ? true : false;
 
   return {
     isSnowy,
     cloudity,
     windSpeed,
     isNight,
-    snow: snow || 0,
-    rain: rain || 0,
+    snow: snowQuantity,
+    rain: rainQuantity,
   };
 };
 

@@ -4,13 +4,19 @@ import { useCurrentWeather } from '../utilities/useWeather';
 import { CgSpinnerAlt } from 'react-icons/cg';
 import { CurrentWeatherIcon } from '../currentWeather/CurrentWeatherIcon';
 import { useWaeatherStore } from '../store/store';
-import { useWeatherContext, WeatherContext } from '../utilities/WeatherContext';
+import {
+  useWeatherContext,
+  WeatherContext,
+  WeatherIconContext,
+  useWaetherIconContext,
+} from '../utilities/WeatherContext';
 import { FaTemperatureHigh, FaWind } from 'react-icons/fa';
 import { WiHumidity, WiBarometer } from 'react-icons/wi';
 import { GiHeavyRain } from 'react-icons/gi';
 import { IconType } from 'react-icons';
-import { CurrentWeather } from '../WeatherTypes';
+// import { CurrentWeather } from '../WeatherTypes';
 import { getWeatherIconValues } from '../utilities/getWeatherIconValues';
+import { CurrentWeather } from '../WeatherTypes';
 
 type WeatherValueProps = {
   name: string;
@@ -30,8 +36,7 @@ const WeatherValue = ({ name, value, unit, Icon }: WeatherValueProps) => {
   );
 };
 
-const WeatherValues = () => {
-  const weatherData = useWeatherContext().weather;
+const WeatherValues = ({ weatherData }: { weatherData: CurrentWeather }) => {
   const {
     weather: [sky],
     sys: { sunrise, sunset },
@@ -92,27 +97,28 @@ export const CurrentWeatherCard = () => {
   const currentTime = new Date(Date.now() - timezone * 1000);
   const [hours, minutes] = currentTime.toLocaleTimeString().split(':');
   const [day, month, year] = currentTime.toLocaleDateString().split('.');
-  const iconValues = getWeatherIconValues(weatherData);
+  const iconValues = getWeatherIconValues(weatherData, 'currentWeather');
   return (
-    <WeatherContext.Provider
-      value={{
-        weather: weatherData,
-        iconParams: {
-          skyContainer: null,
-          groundContainer: null,
-          ...iconValues,
-        },
-      }}>
-      <div className='currentWeatherContainer'>
-        <h3 className='cityName'>{name}</h3>
-        <h4 className='cityTime'>
-          {day}.{month}.{year} {hours}:{minutes}
-        </h4>
+    // <WeatherContext.Provider
+    //   value={{
+    //     weather: weatherData,
+    //     iconParams: {
+    //       skyContainer: null,
+    //       groundContainer: null,
+    //       ...iconValues,
+    //     },
+    //   }}>
+    <div className='currentWeatherContainer'>
+      <h3 className='cityName'>{name}</h3>
+      <h4 className='cityTime'>
+        {day}.{month}.{year} {hours}:{minutes}
+      </h4>
+      <WeatherIconContext.Provider value={iconValues}>
         <CurrentWeatherIcon />
-        <div className='iconContainer'></div>
-        <WeatherValues />
-      </div>
-    </WeatherContext.Provider>
+      </WeatherIconContext.Provider>
+      {/* <WeatherValues /> */}
+      <WeatherValues weatherData={weatherData} />
+    </div>
   );
 };
 

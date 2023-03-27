@@ -1,19 +1,19 @@
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
-import { useWeatherContext } from '../utilities/WeatherContext';
+import { useWaetherIconContext } from '../../utilities/WeatherContext';
 import { GiGrass } from 'react-icons/gi';
 import { IoCloudSharp } from 'react-icons/io5';
-import tree from '../assets/pine.png';
-import snowHill from '../assets/snow.png';
-import snowTree from '../assets/snowTree.png';
-import puddle from '../assets/puddle.svg';
+import tree from '../../assets/pine.png';
+import snowHill from '../../assets/snow.png';
+import snowTree from '../../assets/snowTree.png';
+import puddle from '../../assets/puddle.svg';
 type TreeProps = {
   left: number;
 };
 
 export const Tree = ({ left }: TreeProps) => {
   const animation = useAnimation();
-  const { windSpeed, isSnowy } = useWeatherContext().iconParams;
+  const { windSpeed, isSnowy } = useWaetherIconContext();
 
   const windSpeedPercent = 10 / windSpeed / 100;
   const animationDelay = left * windSpeedPercent;
@@ -32,7 +32,6 @@ export const Tree = ({ left }: TreeProps) => {
         },
       });
     }
-
   }, []);
 
   return (
@@ -83,7 +82,7 @@ export const Trees = ({ amount }: { amount: number }) => {
   );
 };
 export const PrecipitationResult = () => {
-  const { isSnowy, rain, snow } = useWeatherContext().iconParams;
+  const { isSnowy, rain, snow } = useWaetherIconContext();
   const animation = useAnimation();
   useEffect(() => {
     animation.start({
@@ -110,5 +109,16 @@ export const PrecipitationResult = () => {
       }}>
       <img src={type} className='puddle' />
     </motion.div>
+  );
+};
+
+export const GroundIcon = () => {
+  const { isNight, isSnowy } = useWaetherIconContext();
+
+  return (
+    <div className={`ground ${isSnowy && 'snow'}`}>
+      <Trees amount={10} />
+      <PrecipitationResult />
+    </div>
   );
 };

@@ -39,7 +39,6 @@ const fetchFiveDaysWeather = async (
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
   );
 
-
   return res.data;
 };
 
@@ -54,7 +53,11 @@ type UseCurrentWeather = (
 
 const useCurrentWeather: UseCurrentWeather = (lat, lon) => {
   const params = { params: { lat: lat, lon: lon } };
-  return useQuery<CurrentWeather>([lon, lat], () => testFetch(10), {});
+  return useQuery<CurrentWeather>(
+    [lon, lat],
+    () => fetchCurrentWeather(params),
+    {}
+  );
 };
 
 const useFiveDaysWeather: UseCurrentWeather = (lat, lon) => {

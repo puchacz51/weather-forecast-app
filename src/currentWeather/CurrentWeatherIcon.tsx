@@ -1,14 +1,18 @@
-import { Clouds, Moon, Sun, Wind } from './skyIcons';
-import { useWeatherContext } from '../utilities/WeatherContext';
-import {  useRef } from 'react';
-import { PrecipitationResult, Trees } from './groundIcons';
+// import { Clouds, Moon, Sun, Wind } from './skyIcons';
+import { useWaetherIconContext } from '../utilities/WeatherContext';
+import { useRef } from 'react';
+import { GroundIcon } from '../components/iconComponents/groundIcons';
+import { Wind } from '../components/iconComponents/SkyIcon';
+import { SkyIcon } from '../components/iconComponents/SkyIcon';
 
 type IconProps = {
   children?: React.ReactNode | React.ReactNode[];
 };
 
 const IconBackGround: React.FC<IconProps> = ({ children }: IconProps) => {
-  const { isNight } = useWeatherContext().iconParams;
+  const { isNight } = useWaetherIconContext();
+  console.log(isNight);
+  
   return (
     <div className={`CurrentWeatherIconContainer ${isNight && 'night'}`}>
       {children}
@@ -17,21 +21,11 @@ const IconBackGround: React.FC<IconProps> = ({ children }: IconProps) => {
 };
 
 export const CurrentWeatherIcon = () => {
-  const skyRef = useRef<HTMLDivElement>(null);
-  const groundRef = useRef<HTMLDivElement>(null);
-  const { isNight, isSnowy } = useWeatherContext().iconParams;
-
   return (
     <IconBackGround>
       <Wind />
-      <div ref={skyRef} className='sky'>
-        <Clouds />
-        {isNight ? <Moon /> : <Sun />}
-      </div>
-      <div ref={groundRef} className={`ground ${isSnowy && 'snow'}`}>
-        <Trees amount={10} />
-        <PrecipitationResult />
-      </div>
+      <SkyIcon />
+      <GroundIcon></GroundIcon>
     </IconBackGround>
   );
 };

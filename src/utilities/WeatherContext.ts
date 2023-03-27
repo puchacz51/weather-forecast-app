@@ -19,6 +19,14 @@ type FiveDaysWeatherContextType = {
   weather: FiveDaysWeatherElement;
   iconParams: WeatherIconParams;
 };
+type IconContextType = {
+  isNight: boolean;
+  cloudity: number;
+  windSpeed: number;
+  isSnowy: boolean;
+  snow: number;
+  rain: number;
+};
 
 export const WeatherContext = createContext<CurrentWeatherContextType>({
   weather: {} as CurrentWeather,
@@ -51,5 +59,15 @@ export const FiveDaysWeatherContext = createContext<FiveDaysWeatherContextType>(
   }
 );
 
+export const WeatherIconContext = createContext<IconContextType>({
+  isNight: false,
+  cloudity: 0,
+  windSpeed: 0,
+  isSnowy: false,
+  rain: 0,
+  snow: 0,
+});
+export const useWaetherIconContext = () =>
+  useContext<IconContextType>(WeatherIconContext);
 export const useFiveDaysWeatherContext = () =>
   useContext<FiveDaysWeatherContextType>(FiveDaysWeatherContext);

@@ -1,0 +1,12 @@
+.header {
+  padding: 0.5rem;
+  width: 100%;
+  position: fixed;
+  background-color: blue;
+  & .searchCityContainer {
+    width: 100%;
+    & .searchCityInput {
+      border: none;
+    }
+  }
+}

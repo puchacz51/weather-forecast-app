@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { HiCloud } from 'react-icons/hi';
 import { AnimatePresence, motion, useAnimation } from 'framer-motion';
-import { Precipitation } from '../../currentWeather/Rain';
-import { useFiveDaysWeatherContext } from '../../utilities/WeatherContext';
+import { Precipitation } from './Rain';
+import { useWaetherIconContext } from '../../utilities/WeatherContext';
 import { getAmountOfClouds } from '../../utilities/getWeatherIconValues';
 
 type CloudProps = {
@@ -62,7 +62,7 @@ export const RainyCloud = ({ top, left, size, from = 'left' }: CloudProps) => {
 };
 
 export const CloudsContainer = () => {
-  const { cloudity } = useFiveDaysWeatherContext().iconParams;
+  const { cloudity } = useWaetherIconContext();
   const cloudAmount = getAmountOfClouds(cloudity);
 
   return (
