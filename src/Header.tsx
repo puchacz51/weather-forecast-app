@@ -1,14 +1,18 @@
 import './Header.scss';
 import { SearchCity } from './components/headerComponents/SearchCity';
+import { CurrentWeatherCard } from './components/WeatherCard';
+import { useWaeatherStore } from './store/store';
 
-const ThemeSwitch = ()=>{
-	return <button></button>
-}
+const ThemeSwitch = () => {
+  return <button></button>;
+};
 
 export const Header = () => {
   return (
-    <header className='header'>
-      <SearchCity />
-    </header>
+    <div className='wrapper'>
+      <header className='header'>
+        <SearchCity />
+      </header>
+    </div>
   );
 };

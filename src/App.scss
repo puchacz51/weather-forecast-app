@@ -12,6 +12,14 @@
   --ground-snow-color: rgb(255, 255, 255);
   --snow-color: rgb(244, 244, 244);
   --grass-color: rgba(32, 136, 11, 0.793);
+  --header-background: rgb(35, 221, 87);
+  --header-gradnient: linear-gradient(
+    45deg,
+    rgba(35, 221, 87, 1) 10%,
+    rgba(11, 222, 238, 1) 30%,
+    rgba(35, 221, 87, 1) 50%,
+    rgba(11, 222, 238, 1) 70%
+  );
 }
 
 .cloud {
@@ -46,7 +54,6 @@
     transform: translate(-50%, -50%);
     height: min-content;
     aspect-ratio: 1;
- 
   }
   & .moonContainer {
     z-index: 2;
@@ -77,10 +84,10 @@
   box-shadow: 0 8px 10px 1px rgb(80, 79, 79);
   border-radius: 0 0 2% 2%;
 
-  & .skyIcon{
-  width: 100%;
-  aspect-ratio: 3;
-  height: auto;    
+  & .skyIcon {
+    width: 100%;
+    aspect-ratio: 3;
+    height: auto;
   }
   &.night {
     &::after {

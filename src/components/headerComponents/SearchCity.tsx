@@ -4,6 +4,46 @@ import { useWaeatherStore } from '../../store/store';
 import { City } from '../../utilities/type';
 import { useCity } from '../../utilities/useCity';
 import { CurrentWeatherCard } from '../WeatherCard';
+import { CustomValueType, motion, MotionStyle } from 'framer-motion';
+
+const ToggleSwitch = () => {
+  const [isOn, setIsOn] = useState(false);
+  const switchOnAnimation = {
+    backgroundColor: '#00ccff',
+    left: '100%',
+    translateX: '-100%',
+    translateY: '-50%',
+    transition: {
+      duration: 1,
+    },
+  };
+  const switchOFFAnimation = {
+    backgroundColor: '#3cff00',
+    left: 0,
+    translateX: '0%',
+    translateY: '-50%',
+    transition: {
+      duration: 1,
+    },
+  };
+
+  const toggleSwitch = () => {
+    setIsOn((isOn) => !isOn);
+  };
+
+  return (
+    <motion.div
+      className='switchContainer'
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}>
+      <motion.div
+        className='toggleElement'
+        onClick={toggleSwitch}
+        animate={isOn ? switchOnAnimation : switchOFFAnimation}
+      />
+    </motion.div>
+  );
+};
 
 export const SearchCity = () => {
   const [textInput, setTextInput] = useState('');
@@ -24,10 +64,14 @@ export const SearchCity = () => {
 
   const handleCityChange = (e: SyntheticEvent<HTMLInputElement, Event>) => {
     const inputValue = e.currentTarget.value;
-    const cityIndex = cities?.findIndex((city) => city.city === inputValue);
+    const cityIndex = cities?.findIndex(
+      (city) =>
+        city.city.toLowerCase().trim() === inputValue.toLowerCase().trim()
+    );
     setTextInput(inputValue);
+    console.log('select', inputValue, cityIndex, cities);
 
-    if (cityIndex && cities) {
+    if (cityIndex !== -1 && cityIndex !== undefined && cities) {
       setSelectedCity(cities[cityIndex]);
     }
   };
@@ -42,23 +86,23 @@ export const SearchCity = () => {
   // }
   useEffect(() => {
     const timeout = setTimeout(refetchCities, 300);
-
     return () => clearTimeout(timeout);
   }, [textInput, refetchCities]);
   return (
     <div className='searchCityContainer'>
-      <label htmlFor='city'></label>
-      <input
-        className='searchCityInput'
-        value={textInput}
-        onChange={handleCityChange}
-        type='text'
-        list='cities'
-        placeholder='city name'
-      />
+      <label htmlFor='city'>
+        <input
+          className='searchCityInput'
+          value={textInput}
+          onChange={handleCityChange}
+          onSelect={handleCityChange}
+          type='text'
+          list='cities'
+          placeholder='city name'
+        />
+      </label>
+      {/* <ToggleSwitch /> */}
       {isLoading && textInput && <>...loading </>}
-      {/* {selectedCity && <FiveDaysWeatherCard />} */}
-      {selectedCity && <CurrentWeatherCard />}
 
       <CityList cities={cities} />
     </div>
