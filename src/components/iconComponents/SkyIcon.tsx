@@ -8,13 +8,11 @@ import { RiWindyFill } from 'react-icons/ri';
 
 export const SunMoonCircle = () => {
   const { isNight } = useWaetherIconContext();
-  console.log(isNight);
 
   const [rotate, setRotate] = useState(isNight ? 0 : 90);
   const [prevIsNight, setPrevIsNIght] = useState(isNight);
   useEffect(() => {
     if (isNight != prevIsNight) {
-      console.log(isNight, prevIsNight);
       setPrevIsNIght(isNight);
       setRotate((deg) => deg + 90);
     }

@@ -11,8 +11,6 @@ type IconProps = {
 
 const IconBackGround: React.FC<IconProps> = ({ children }: IconProps) => {
   const { isNight } = useWaetherIconContext();
-  console.log(isNight);
-  
   return (
     <div className={`CurrentWeatherIconContainer ${isNight && 'night'}`}>
       {children}

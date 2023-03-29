@@ -84,15 +84,16 @@ export const Trees = ({ amount }: { amount: number }) => {
 export const PrecipitationResult = () => {
   const { isSnowy, rain, snow } = useWaetherIconContext();
   const animation = useAnimation();
+  const RainSnow = rain + snow;
+  const elementSize = Math.min(10 * RainSnow, 5);
+  const type = isSnowy ? snowHill : puddle;
   useEffect(() => {
     animation.start({
       width: '20%',
-      transition: { duration: 5, delay: 2 },
+      transition: { duration: 10 / (elementSize || 0), delay: 2 },
     });
-  });
-  if (!(snow && rain)) return <></>;
-
-  const type = isSnowy ? snowHill : puddle;
+  }, []);
+  if (!(snow || rain)) return <></>;
 
   return (
     <motion.div
@@ -100,7 +101,7 @@ export const PrecipitationResult = () => {
       initial={{
         top: '50%',
         left: '50%',
-        width: '5%',
+        width: elementSize + '%',
         position: 'absolute',
         aspectRatio: 1,
         zIndex: 1000,
@@ -113,7 +114,7 @@ export const PrecipitationResult = () => {
 };
 
 export const GroundIcon = () => {
-  const { isNight, isSnowy } = useWaetherIconContext();
+  const { isSnowy } = useWaetherIconContext();
 
   return (
     <div className={`ground ${isSnowy && 'snow'}`}>

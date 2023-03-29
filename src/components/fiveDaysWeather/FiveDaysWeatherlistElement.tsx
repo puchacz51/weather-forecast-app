@@ -54,7 +54,10 @@ export const FiveDaysWeatherListElement = ({
   const { temp } = main;
   const [hours] = dt_txt.split(' ')[1].split(':');
   const precipitationBarHeight =
-    Math.ceil((rain['3h'] + snow['3h']) / Math.max(precipitationMax, 10)) * 10;
+    Math.ceil(
+      ((rain?.['3h'] || 0) + (snow?.['3h'] || 0)) /
+        Math.max(precipitationMax, 10)
+    ) * 10;
 
   return (
     <button className='dayWeatherElement' onClick={selectDate}>

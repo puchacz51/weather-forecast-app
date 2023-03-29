@@ -15,8 +15,12 @@ import { WiHumidity, WiBarometer } from 'react-icons/wi';
 import { GiHeavyRain } from 'react-icons/gi';
 import { IconType } from 'react-icons';
 // import { CurrentWeather } from '../WeatherTypes';
-import { getWeatherIconValues } from '../utilities/getWeatherIconValues';
+import {
+  getPrecitipation,
+  getWeatherIconValues,
+} from '../utilities/getWeatherIconValues';
 import { CurrentWeather } from '../WeatherTypes';
+import { BsFillCloudsFill } from 'react-icons/bs';
 
 type WeatherValueProps = {
   name: string;
@@ -40,14 +44,14 @@ const WeatherValues = ({ weatherData }: { weatherData: CurrentWeather }) => {
   const {
     weather: [sky],
     sys: { sunrise, sunset },
-    clouds,
+    clouds: { all: cloudity },
     timezone,
     wind,
     main,
   } = weatherData;
-  const { temp, humidity, pressure, rain, snow } = main;
+  const { temp, humidity, pressure } = main;
   const { deg: windDeg, speed: windSpeed } = wind;
-
+  const { rain, snow } = getPrecitipation(weatherData);
   return (
     <div className='weatherValues'>
       <WeatherValue
@@ -80,6 +84,12 @@ const WeatherValues = ({ weatherData }: { weatherData: CurrentWeather }) => {
         Icon={GiHeavyRain}
         value={(rain || 0) + (snow || 0)}
       />
+      <WeatherValue
+        name='cloudity'
+        unit='%'
+        Icon={BsFillCloudsFill}
+        value={cloudity}
+      />
     </div>
   );
 };
@@ -97,17 +107,8 @@ export const CurrentWeatherCard = () => {
   const currentTime = new Date(Date.now() - timezone * 1000);
   const [hours, minutes] = currentTime.toLocaleTimeString().split(':');
   const [day, month, year] = currentTime.toLocaleDateString().split('.');
-  const iconValues = getWeatherIconValues(weatherData, 'currentWeather');
+  const iconValues = getWeatherIconValues(weatherData);
   return (
-    // <WeatherContext.Provider
-    //   value={{
-    //     weather: weatherData,
-    //     iconParams: {
-    //       skyContainer: null,
-    //       groundContainer: null,
-    //       ...iconValues,
-    //     },
-    //   }}>
     <div className='currentWeatherContainer'>
       <h3 className='cityName'>{name}</h3>
       <h4 className='cityTime'>

@@ -7,6 +7,21 @@
   position: relative;
   & .fiveDaysWeatherListContainer {
     display: flex;
+    flex-direction: column;
+    & .weatherDaysSelectorContainer {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+
+      & .weatherDaySelectorButton {
+        padding: 0.3rem 0;
+        width: 30%;
+        text-transform: capitalize;
+        font-size: 1rem;
+        flex-grow: 1;
+      }
+    }
+
     & .fiveDaysWeatherList {
       display: flex;
       overflow: scroll;
@@ -63,7 +78,7 @@
         }
       }
       & .precipitation {
-        height: 100px;
+        height: 60px;
         width: 100%;
         border: 1px solid pink;
         display: flex;

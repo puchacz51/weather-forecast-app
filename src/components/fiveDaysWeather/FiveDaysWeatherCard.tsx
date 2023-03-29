@@ -32,9 +32,7 @@ export const FiveDaysWeatherCard = () => {
   const [selectedWeatherDate, setSelectedWeatherDate] = useState(0);
   const [weather5days] = useState(dataForWeather);
   const iconsParams = getWeatherIconValues(
-    weather5days.list[selectedWeatherDate],
-    'fiveDaysWeather'
-  );
+    weather5days.list[selectedWeatherDate]  );
 
   return (
     <div className='fiveDaysWeatherCard'>

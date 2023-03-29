@@ -12,6 +12,8 @@ export interface CurrentWeather {
   id: number;
   name: string;
   cod: number;
+  rain?: { '3h'?: number; '1h'?: number };
+  snow?: { '3h'?: number; '1h'?: number };
 }
 
 export interface Clouds {
@@ -32,8 +34,6 @@ export interface Main {
   humidity: number;
   sea_level: number;
   grnd_level: number;
-  rain?: number;
-  snow?: number;
 }
 
 export interface Sys {
@@ -77,8 +77,8 @@ export type FiveDaysWeatherElement = {
   dt_txt: string;
   sys: Sys;
   pop: number;
-  rain?: { '3h': number };
-  snow?: { '3h': number };
+  rain?: { '3h'?: number; '1h'?: number };
+  snow?: { '3h'?: number; '1h'?: number };
 };
 
 export interface FiveDaysWeather {

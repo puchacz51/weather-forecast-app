@@ -1,7 +1,6 @@
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
 import { BsFillDropletFill } from 'react-icons/bs';
-
 import { IoMdSnow } from 'react-icons/io';
 import { IconType } from 'react-icons/lib';
 import {
@@ -94,7 +93,6 @@ export const Precipitation = ({
   cloud: React.MutableRefObject<null> | React.MutableRefObject<HTMLDivElement>;
 }) => {
   const { rain, snow, cloudity } = useWaetherIconContext();
-  console.log(rain, cloudity, 's');
 
   if (cloud.current == null || (!rain && !snow)) return <></>;
   const { offsetWidth } = cloud.current;
