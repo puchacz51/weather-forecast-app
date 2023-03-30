@@ -12,6 +12,8 @@ export interface CurrentWeather {
   id: number;
   name: string;
   cod: number;
+  rain?: { '3h'?: number; '1h'?: number };
+  snow?: { '3h'?: number; '1h'?: number };
 }
 
 export interface Clouds {
@@ -32,8 +34,6 @@ export interface Main {
   humidity: number;
   sea_level: number;
   grnd_level: number;
-  rain?: number;
-  snow?: number;
 }
 
 export interface Sys {
@@ -67,7 +67,7 @@ type City = {
   sunset: number;
   timezone: number;
 };
-type FiveDaysWeatherElement = {
+export type FiveDaysWeatherElement = {
   weather: Weather[];
   main: Main;
   visibility: number;
@@ -75,15 +75,15 @@ type FiveDaysWeatherElement = {
   clouds: Clouds;
   dt: number;
   dt_txt: string;
-  sys: Sys;
+  sys: { pod: string };
   pop: number;
-  rain?: number;
-  snow?: number;
+  rain?: { '3h'?: number; '1h'?: number };
+  snow?: { '3h'?: number; '1h'?: number };
 };
 
 export interface FiveDaysWeather {
-  City: City;
+  city: City;
   cnt: number;
   cod: string;
-  list: FiveDaysWeather;
+  list: FiveDaysWeatherElement[];
 }

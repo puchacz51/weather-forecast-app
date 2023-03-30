@@ -1,0 +1,156 @@
+.fiveDaysWeatherCard {
+  max-width: 500px;
+  border: 1px solid black;
+  min-height: 300px;
+  width: 95%;
+  margin: 20px auto;
+  position: relative;
+  & .fiveDaysWeatherListContainer {
+    display: flex;
+    flex-direction: column;
+    & .weatherDaysSelectorContainer {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+
+      & .weatherDaySelectorButton {
+        padding: 0.3rem 0;
+        width: 30%;
+        text-transform: capitalize;
+        font-size: 1rem;
+        flex-grow: 1;
+      }
+    }
+
+    & .fiveDaysWeatherList {
+      display: flex;
+      overflow-x: scroll;
+      gap: 0.5rem;
+    }
+  }
+}
+
+.fiveDaysWeatherDayContainer {
+  margin-right: 5px;
+  border-radius: 1rem;
+
+  & .dayName {
+    border: 2px solid red;
+    border-radius: 1rem;
+    width: 100%;
+    font-size: 1.5rem;
+    text-align: center;
+    line-height: 1.5rem;
+    margin: 0 0 0.5rem 0;
+  }
+  & .dayWeatherList {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    gap: 0.2rem;
+
+    & .dayWeatherElement {
+      flex-shrink: 0;
+      border: 1px solid black;
+      position: relative;
+      border-radius: 1rem;
+      display: flex;
+      flex-direction: column;
+
+      & .elementHeader {
+        font-size: 1rem;
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      & .weatherIconContainer {
+        position: relative;
+        border-bottom: 3px black solid;
+
+        & .weatherIcon {
+          width: 60px;
+        }
+        & .sky {
+          &.night {
+            &::after {
+              content: '';
+              display: block;
+              z-index: 1;
+              background-color: rgba(0, 0, 0, 0.275);
+              position: absolute;
+              inset: 0;
+            }
+          }
+        }
+        & .temperature {
+          font-size: 0.8rem;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          color: white;
+          border-radius: 1rem;
+          padding: 0.2rem;
+          background-color: black;
+        }
+      }
+      & .precipitationElement {
+        height: 60px;
+        width: 100%;
+        display: flex;
+        align-items: end;
+        justify-content: end;
+        flex-direction: column;
+        & .precipitationBar {
+          width: 100%;
+          background-color: rgb(0, 189, 247);
+          border-bottom: 5px black solid;
+          overflow: hidden;
+        }
+        & .precipitationAmountSpan {
+          width: 100%;
+        }
+        & .noPrecipitationElement {
+          width: 100%;
+          height: 100%;
+          font-size: 2rem;
+          position: relative;
+          & svg {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute;
+          }
+        }
+      }
+    }
+  }
+  & .weatherLegend {
+    height: 100%;
+    width: 20px;
+    display: flex;
+    align-items: end;
+    & .elementHeader {
+      font-size: 1rem;
+      width: 100%;
+      text-align: center;
+      margin: 0;
+      position: absolute;
+    }
+    & .precipitationLegend {
+      width: 100%;
+      height: 100px;
+      background-color: grey;
+      position: relative;
+      & .levelLine {
+        position: absolute;
+        right: 0;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}

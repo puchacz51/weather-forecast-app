@@ -22,7 +22,7 @@
         "snow": 3
       },
       "visibility": 10000,
-      "wind": { "speed": 5.06, "deg": 260 },
+      "wind": { "speed": 15.06, "deg": 260 },
       "clouds": { "all": 50 },
       "dt": 1677625401,
       "sys": {

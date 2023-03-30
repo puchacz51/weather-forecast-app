@@ -1,19 +1,19 @@
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
-import { useWeatherContext } from '../utilities/WeatherContext';
+import { useWaetherIconContext } from '../../../utilities/WeatherContext';
 import { GiGrass } from 'react-icons/gi';
 import { IoCloudSharp } from 'react-icons/io5';
-import tree from '../assets/pine.png';
-import snowHill from '../assets/snow.png';
-import snowTree from '../assets/snowTree.png';
-import puddle from '../assets/puddle.svg';
+import tree from '../../../assets/pine.png';
+import snowHill from '../../../assets/snow.png';
+import snowTree from '../../../assets/snowTree.png';
+import puddle from '../../../assets/puddle.svg';
 type TreeProps = {
   left: number;
 };
 
 export const Tree = ({ left }: TreeProps) => {
   const animation = useAnimation();
-  const { windSpeed, isSnowy } = useWeatherContext().iconParams;
+  const { windSpeed, isSnowy } = useWaetherIconContext();
 
   const windSpeedPercent = 10 / windSpeed / 100;
   const animationDelay = left * windSpeedPercent;
@@ -32,7 +32,6 @@ export const Tree = ({ left }: TreeProps) => {
         },
       });
     }
-
   }, []);
 
   return (
@@ -83,17 +82,18 @@ export const Trees = ({ amount }: { amount: number }) => {
   );
 };
 export const PrecipitationResult = () => {
-  const { isSnowy, rain, snow } = useWeatherContext().iconParams;
+  const { isSnowy, rain, snow } = useWaetherIconContext();
   const animation = useAnimation();
+  const RainSnow = rain + snow;
+  const elementSize = Math.min(10 * RainSnow, 5);
+  const type = isSnowy ? snowHill : puddle;
   useEffect(() => {
     animation.start({
       width: '20%',
-      transition: { duration: 5, delay: 2 },
+      transition: { duration: 10 / (elementSize || 0), delay: 2 },
     });
-  });
-  if (!(snow && rain)) return <></>;
-
-  const type = isSnowy ? snowHill : puddle;
+  }, []);
+  if (!(snow || rain)) return <></>;
 
   return (
     <motion.div
@@ -101,7 +101,7 @@ export const PrecipitationResult = () => {
       initial={{
         top: '50%',
         left: '50%',
-        width: '5%',
+        width: elementSize + '%',
         position: 'absolute',
         aspectRatio: 1,
         zIndex: 1000,
@@ -110,5 +110,16 @@ export const PrecipitationResult = () => {
       }}>
       <img src={type} className='puddle' />
     </motion.div>
+  );
+};
+
+export const GroundIcon = () => {
+  const { isSnowy } = useWaetherIconContext();
+
+  return (
+    <div className={`ground ${isSnowy && 'snow'}`}>
+      <Trees amount={10} />
+      <PrecipitationResult />
+    </div>
   );
 };

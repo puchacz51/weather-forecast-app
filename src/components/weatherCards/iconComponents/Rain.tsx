@@ -1,10 +1,9 @@
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
 import { BsFillDropletFill } from 'react-icons/bs';
-
 import { IoMdSnow } from 'react-icons/io';
 import { IconType } from 'react-icons/lib';
-import { useWeatherContext } from '../utilities/WeatherContext';
+import { useWaetherIconContext } from '../../../utilities/WeatherContext';
 type DroppedElementsTypes = 'rain' | 'snow';
 type DroppedElements = {
   [key: string]: {
@@ -31,10 +30,7 @@ const DroppedElement = ({
   element,
 }: RainDropProps) => {
   const { Icon, animationParams } = droppedElements[element];
-  const {
-    weather,
-    iconParams: { groundContainer, skyContainer },
-  } = useWeatherContext();
+
   const animation = useAnimation();
   useEffect(() => {
     animation.start({
@@ -90,7 +86,7 @@ export const Precipitation = ({
 }: {
   cloud: React.MutableRefObject<null> | React.MutableRefObject<HTMLDivElement>;
 }) => {
-  const { rain, snow } = useWeatherContext().iconParams;
+  const { rain, snow, cloudity } = useWaetherIconContext();
 
   if (cloud.current == null || (!rain && !snow)) return <></>;
   const { offsetWidth } = cloud.current;
