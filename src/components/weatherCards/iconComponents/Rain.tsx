@@ -3,10 +3,7 @@ import { useEffect } from 'react';
 import { BsFillDropletFill } from 'react-icons/bs';
 import { IoMdSnow } from 'react-icons/io';
 import { IconType } from 'react-icons/lib';
-import {
-  useWaetherIconContext,
-  useWeatherContext,
-} from '../../utilities/WeatherContext';
+import { useWaetherIconContext } from '../../../utilities/WeatherContext';
 type DroppedElementsTypes = 'rain' | 'snow';
 type DroppedElements = {
   [key: string]: {
@@ -33,10 +30,7 @@ const DroppedElement = ({
   element,
 }: RainDropProps) => {
   const { Icon, animationParams } = droppedElements[element];
-  const {
-    weather,
-    iconParams: { groundContainer, skyContainer },
-  } = useWeatherContext();
+
   const animation = useAnimation();
   useEffect(() => {
     animation.start({

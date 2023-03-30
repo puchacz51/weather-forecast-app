@@ -1,9 +1,9 @@
 // import { Clouds, Moon, Sun, Wind } from './skyIcons';
-import { useWaetherIconContext } from '../utilities/WeatherContext';
+import { useWaetherIconContext } from '../../../utilities/WeatherContext';
 import { useRef } from 'react';
-import { GroundIcon } from '../components/iconComponents/groundIcons';
-import { Wind } from '../components/iconComponents/SkyIcon';
-import { SkyIcon } from '../components/iconComponents/SkyIcon';
+import { GroundIcon } from '../iconComponents/groundIcons';
+import { Wind } from '../iconComponents/SkyIcon';
+import { SkyIcon } from '../iconComponents/SkyIcon';
 
 type IconProps = {
   children?: React.ReactNode | React.ReactNode[];

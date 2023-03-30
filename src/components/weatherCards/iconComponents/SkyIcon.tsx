@@ -2,7 +2,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { BsSunFill } from 'react-icons/bs';
 import { WiMoonAltNew } from 'react-icons/wi';
 import { useState, useEffect } from 'react';
-import { useWaetherIconContext } from '../../utilities/WeatherContext';
+import { useWaetherIconContext } from '../../../utilities/WeatherContext';
 import { CloudsContainer } from './Clouds';
 import { RiWindyFill } from 'react-icons/ri';
 
@@ -33,7 +33,7 @@ export const SunMoonCircle = () => {
         translateX: '-50%',
         aspectRatio: '1',
       }}
-      className='sunMoonContainer sky'
+      className={`sunMoonContainer sky `}
       style={{ left: '50%', top: 0 }}>
       <div className='moonContainer' style={{ left: '50%', top: 0 }}>
         <WiMoonAltNew className='moon' />
@@ -85,8 +85,9 @@ export const Wind = () => {
 };
 
 export const SkyIcon = () => {
+  const { isNight } = useWaetherIconContext();
   return (
-    <div className='skyIcon '>
+    <div className={`skyIcon ${isNight && 'night'}`}>
       <SunMoonCircle />
       <CloudsContainer />
     </div>

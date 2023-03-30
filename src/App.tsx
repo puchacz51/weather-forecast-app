@@ -1,8 +1,8 @@
 import './App.scss';
 import { Header } from './Header';
 import { useWaeatherStore } from './store/store';
-import { CurrentWeatherCard } from './components/WeatherCard';
-import { FiveDaysWeatherCard } from './components/fiveDaysWeather/FiveDaysWeatherCard';
+import { CurrentWeatherCard } from './components/weatherCards/currentWeather/CurrentWeatherCard';
+import { FiveDaysWeatherCard } from './components/weatherCards/fiveDaysWeather/FiveDaysWeatherCard';
 
 function App() {
   const { selectedCity } = useWaeatherStore();
@@ -11,7 +11,7 @@ function App() {
     <div className='App'>
       <Header />
       <main>{selectedCity && <CurrentWeatherCard />}</main>
-      <FiveDaysWeatherCard />
+      {/* <FiveDaysWeatherCard /> */}
     </div>
   );
 }

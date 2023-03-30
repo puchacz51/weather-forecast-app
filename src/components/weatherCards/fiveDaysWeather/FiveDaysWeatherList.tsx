@@ -1,9 +1,7 @@
-import { FiveDaysWeather, FiveDaysWeatherElement } from '../../WeatherTypes';
-import {
-  FiveDaysWeatherListElement,
-  WeatherListLegend,
-} from './FiveDaysWeatherlistElement';
+import { FiveDaysWeather, FiveDaysWeatherElement } from '../../../WeatherTypes';
+import { FiveDaysWeatherListElement } from './FiveDaysWeatherlistElement';
 import { useRef, useState } from 'react';
+import { getPrecitipation } from '../../../utilities/getWeatherIconValues';
 type WeatherDaysSelectorProps = {
   days: { dayOfMonth: string; dayName: string }[];
   selectDay: (day: string) => void;
@@ -52,9 +50,10 @@ export const FiveDaysWeatherList = ({
     return acc;
   }, [] as { dayOfMonth: string; dayName: string }[]);
   const tempList = weatherList.map((weather) => weather.main.temp);
-  const precipitationlist = weatherList.map(
-    (weather) => (weather?.rain?.['3h'] || 0) + (weather?.snow?.['3h'] || 0)
-  );
+  const precipitationlist = weatherList.map((weather) => {
+    const { rain, snow } = getPrecitipation(weather);
+    return rain + snow;
+  });
   const minTemp = Math.min(...tempList);
   const maxTemp = Math.max(...tempList);
   const precipitationMin = Math.min(...precipitationlist);
@@ -66,13 +65,11 @@ export const FiveDaysWeatherList = ({
       ?.childNodes as NodeListOf<
       ChildNode & { id: string; offsetLeft: number }
     >;
-    const containerWidth = weatherListContainerRef.current?.offsetWidth || 1;
-    console.log(weatherListContainerRef.current);
-
     dayContainers?.forEach((child) => {
       if (child.id === selectedDay) {
-        const position = child.offsetLeft / containerWidth;
-        setDayContainerPosition(position);
+        if (weatherListContainerRef.current) {
+          weatherListContainerRef.current?.scrollTo(child.offsetLeft, 0);
+        }
       }
     });
   };

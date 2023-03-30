@@ -1,10 +1,51 @@
-import { FiveDaysWeatherElement } from '../../WeatherTypes';
-
+import { FiveDaysWeatherElement } from '../../../WeatherTypes';
+import { WiRaindrop } from 'react-icons/wi';
+import { ImBlocked } from 'react-icons/im';
+import { getPrecitipation } from '../../../utilities/getWeatherIconValues';
 type WeatherLegend = {
   minTemp: number;
   maxTemp: number;
   precipitationMin: number;
   precipitationMax: number;
+};
+
+const NoRainIconElement = () => {
+  return (
+    <div className='noPrecipitationElement'>
+      <WiRaindrop className='dropIcon' />
+      <ImBlocked className='blockedIcon' />
+    </div>
+  );
+};
+const PrecipitationAmountElemnt = ({
+  snow,
+  rain,
+  precipitationMax,
+}: {
+  snow: number;
+  rain: number;
+  precipitationMax: number;
+}) => {
+  const precipitationTotal = rain + snow;
+  const barHeight = Math.max(
+    5,
+    (precipitationTotal / (precipitationMax | 1)) * 80
+  );
+  if (!precipitationTotal)
+    return (
+      <div className='precipitationElement'>
+        <NoRainIconElement />
+      </div>
+    );
+
+  return (
+    <div className='precipitationElement'>
+      <span className='precipitationAmountSpan'>{precipitationTotal} mm</span>
+      <div
+        className='precipitationBar'
+        style={{ height: barHeight + '%' }}></div>
+    </div>
+  );
 };
 
 export const WeatherListLegend = ({ info }: { info: WeatherLegend }) => {
@@ -42,22 +83,11 @@ export const FiveDaysWeatherListElement = ({
   legendInfo: WeatherLegend;
 }) => {
   const { precipitationMax } = legendInfo;
-  const {
-    dt_txt,
-    weather: weatherDesc,
-    main,
-    rain = { '3h': 0 },
-    snow = { '3h': 0 },
-  } = weather;
-
+  const { dt_txt, weather: weatherDesc, main } = weather;
+  const { rain, snow } = getPrecitipation(weather);
   const { icon } = weatherDesc[0];
   const { temp } = main;
   const [hours] = dt_txt.split(' ')[1].split(':');
-  const precipitationBarHeight =
-    Math.ceil(
-      ((rain?.['3h'] || 0) + (snow?.['3h'] || 0)) /
-        Math.max(precipitationMax, 10)
-    ) * 10;
 
   return (
     <button className='dayWeatherElement' onClick={selectDate}>
@@ -70,11 +100,11 @@ export const FiveDaysWeatherListElement = ({
         />
         <span className='temperature'>{(temp / 10).toFixed(0)} &deg;</span>
       </div>
-      <div className='precipitation'>
-        <div
-          className='precipitationQuantityBar'
-          style={{ height: precipitationBarHeight + '%' }}></div>
-      </div>
+      <PrecipitationAmountElemnt
+        rain={rain || 0}
+        snow={snow || 0}
+        precipitationMax={precipitationMax}
+      />
     </button>
   );
 };

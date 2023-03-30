@@ -3,8 +3,7 @@ import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import { useWaeatherStore } from '../../store/store';
 import { City } from '../../utilities/type';
 import { useCity } from '../../utilities/useCity';
-import { CurrentWeatherCard } from '../WeatherCard';
-import { CustomValueType, motion, MotionStyle } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const ToggleSwitch = () => {
   const [isOn, setIsOn] = useState(false);

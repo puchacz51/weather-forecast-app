@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { HiCloud } from 'react-icons/hi';
 import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import { Precipitation } from './Rain';
-import { useWaetherIconContext } from '../../utilities/WeatherContext';
-import { getAmountOfClouds } from '../../utilities/getWeatherIconValues';
+import { useWaetherIconContext } from '../../../utilities/WeatherContext';
+import { getAmountOfClouds } from '../../../utilities/getWeatherIconValues';
 
 type CloudProps = {
   top: number;

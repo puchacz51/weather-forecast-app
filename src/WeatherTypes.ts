@@ -75,7 +75,7 @@ export type FiveDaysWeatherElement = {
   clouds: Clouds;
   dt: number;
   dt_txt: string;
-  sys: Sys;
+  sys: { pod: string };
   pop: number;
   rain?: { '3h'?: number; '1h'?: number };
   snow?: { '3h'?: number; '1h'?: number };

@@ -1,10 +1,5 @@
 
-.night {
-  --sky-color: #112f67;
-  --cloud-lightrain-color: rgba(218, 214, 214, 0.834);
-  --cloud-rain-color: rgba(144, 136, 136, 0.71);
-  --cloud-heavyrain-color: rgba(70, 65, 65, 0.71);
-}
+
 .WeatherCard {
   display: grid;
   width: min-content;
@@ -19,7 +14,7 @@
   z-index: 2;
 }
 
-.currentWeatherContainer {
+.WeatherContainer {
   margin: auto;
   display: flex;
   flex-direction: column;
