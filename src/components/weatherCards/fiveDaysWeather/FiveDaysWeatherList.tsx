@@ -1,21 +1,21 @@
-import { FiveDaysWeather, FiveDaysWeatherElement } from '../../../WeatherTypes';
+import { FiveDaysWeather } from '../../../WeatherTypes';
 import { FiveDaysWeatherListElement } from './FiveDaysWeatherlistElement';
 import { useRef, useState } from 'react';
 import { getPrecitipation } from '../../../utilities/getWeatherIconValues';
 type WeatherDaysSelectorProps = {
-  days: { dayOfMonth: string; dayName: string }[];
+  days: { dayOfMonth: string; dayName: string; dayNameShort: string }[];
   selectDay: (day: string) => void;
 };
 
 const WeatherDaysSelector = ({ days, selectDay }: WeatherDaysSelectorProps) => {
   return (
     <div className='weatherDaysSelectorContainer'>
-      {days.map(({ dayName, dayOfMonth }) => (
+      {days.map(({ dayName, dayOfMonth, dayNameShort }) => (
         <button
           key={`btn${dayOfMonth}`}
           onClick={() => selectDay(dayName)}
           className='weatherDaySelectorButton'>
-          {dayName}
+          {dayNameShort}
         </button>
       ))}
     </div>
@@ -30,25 +30,28 @@ export const FiveDaysWeatherList = ({
   selectDate: (date: number) => void;
 }) => {
   const [dayContainerPosition, setDayContainerPosition] = useState(0);
-
   const weatherDaysList = weatherList.reduce((acc, currentTime) => {
     const dayOfMonth = currentTime.dt_txt.split(' ')[0].split('-')[2];
     if (
       (acc.length && acc[acc.length - 1]?.dayOfMonth !== dayOfMonth) ||
       !acc.length
     ) {
+      const date = new Date(currentTime.dt * 1000);
       return [
         ...acc,
         {
           dayOfMonth,
-          dayName: new Date(currentTime.dt * 1000).toLocaleDateString('en-US', {
+          dayName: date.toLocaleDateString('en-US', {
             weekday: 'long',
+          }),
+          dayNameShort: date.toLocaleDateString('en-US', {
+            weekday: 'short',
           }),
         },
       ];
     }
     return acc;
-  }, [] as { dayOfMonth: string; dayName: string }[]);
+  }, [] as { dayOfMonth: string; dayName: string; dayNameShort: string }[]);
   const tempList = weatherList.map((weather) => weather.main.temp);
   const precipitationlist = weatherList.map((weather) => {
     const { rain, snow } = getPrecitipation(weather);
@@ -79,7 +82,6 @@ export const FiveDaysWeatherList = ({
       <WeatherDaysSelector
         days={weatherDaysList}
         selectDay={(s) => {
-          console.log(s);
           handleSelectDay(s);
         }}
       />
@@ -101,20 +103,22 @@ export const FiveDaysWeatherList = ({
                     .split('-')[2];
                   return dayOfMonthElement === dayOfMonth;
                 })
-                .map((weatherInfo) => (
-                  <FiveDaysWeatherListElement
-                    selectDate={() =>
-                      selectDate(
-                        weatherList.findIndex(
-                          (weather) => weatherInfo.dt === weather.dt
+                .map((weatherInfo) => {
+                  return (
+                    <FiveDaysWeatherListElement
+                      selectDate={() =>
+                        selectDate(
+                          weatherList.findIndex(
+                            (weather) => weatherInfo.dt === weather.dt
+                          )
                         )
-                      )
-                    }
-                    key={weatherInfo.dt}
-                    weather={weatherInfo}
-                    legendInfo={legendInfo}
-                  />
-                ))}
+                      }
+                      key={weatherInfo.dt}
+                      weather={weatherInfo}
+                      legendInfo={legendInfo}
+                    />
+                  );
+                })}
             </div>
           </div>
         ))}

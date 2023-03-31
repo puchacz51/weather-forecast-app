@@ -5,13 +5,21 @@ import { CurrentWeatherCard } from './components/weatherCards/currentWeather/Cur
 import { FiveDaysWeatherCard } from './components/weatherCards/fiveDaysWeather/FiveDaysWeatherCard';
 
 function App() {
-  const { selectedCity } = useWaeatherStore();
-
+  const { selectedCity, selectedCardType } = useWaeatherStore();
+  console.log(selectedCity && selectedCardType === 'CURRENT');
+  if (!selectedCity)
+    return (
+      <main>
+        <Header />
+      </main>
+    );
   return (
     <div className='App'>
       <Header />
-      <main>{selectedCity && <CurrentWeatherCard />}</main>
-      {/* <FiveDaysWeatherCard /> */}
+      <main>
+        {selectedCardType === 'CURRENT' && <CurrentWeatherCard />}
+        {selectedCardType === '5DAYS' && <FiveDaysWeatherCard />}
+      </main>
     </div>
   );
 }

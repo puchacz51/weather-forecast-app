@@ -1,4 +1,14 @@
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+    transform-origin: center;
+  }
 
+  100% {
+    transform: rotate(360deg);
+    transform-origin: center;
+  }
+}
 
 .WeatherCard {
   display: grid;
@@ -14,7 +24,7 @@
   z-index: 2;
 }
 
-.WeatherContainer {
+.weatherContainer {
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -24,52 +34,71 @@
   width: 90%;
   max-width: 800px;
   min-width: 300px;
+  min-height: 400px;
+  position: relative;
+  & .wrapperLoadingIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    & .loadingIcon {
+      font-size: 100px;
+      animation: rotate infinite 1s linear;
+      position: absolute;
+      transform-origin: center;
+    }}
 
-  & .cityName {
-    font-size: 1.5rem;
-    text-transform: capitalize;
-    text-align: center;
-    margin: 5px 0 0 0;
-  }
-  & .cityTime {
-    font-size: 1rem;
+    & .cityName {
+      font-size: 1.5rem;
+      text-transform: capitalize;
+      text-align: center;
+      margin: 5px 0 0 0;
+    }
+    & .cityTime {
+      font-size: 1rem;
 
-    text-align: center;
-    margin: 0;
-  }
-  & .weatherValues {
-    margin-top: 15px;
-    padding: 10px;
-    text-transform: uppercase;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 0;
-    text-transform: uppercase;
-    row-gap: 0.5em;
-    & .weatherValue {
-      background-color: rgba(174, 166, 166, 0.501);
-      border-radius: 1em;
+      text-align: center;
+      margin: 0;
+    }
+    & .weatherValues {
+      margin-top: 15px;
+      padding: 10px;
+      text-transform: uppercase;
       display: flex;
-      align-items: center;
-      & .iconContainer {
-        height: 2rem;
+      flex-direction: column;
+      flex-grow: 0;
+      text-transform: uppercase;
+      row-gap: 0.5em;
+      & .weatherValue {
+        background-color: rgba(174, 166, 166, 0.501);
+        border-radius: 1em;
         display: flex;
         align-items: center;
-        justify-content: center;
-        background-color: rgba(255, 255, 255, 0.561);
-        border-radius: 50%;
-        margin: 0 0.5rem 0 0;
-        aspect-ratio: 1;
-        & .icon {
-          font-size: 2rem;
-          margin: 0 0.5rem;
+        & .iconContainer {
+          height: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: rgba(255, 255, 255, 0.561);
+          border-radius: 50%;
+          margin: 0 0.5rem 0 0;
+          aspect-ratio: 1;
+          & .icon {
+            font-size: 2rem;
+            margin: 0 0.5rem;
+          }
+        }
+
+        & .name {
+          width: 50%;
+          line-height: 100%;
         }
       }
-
-      & .name {
-        width: 50%;
-        line-height: 100%;
-      }
+    }
+    & .selectWaetherTypeButton{
+      background-color: none;
+      font-size: 2rem;
     }
   }
-}

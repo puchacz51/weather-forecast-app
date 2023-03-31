@@ -19,7 +19,7 @@ export const FiveDaysWeatherCard = () => {
   );
 
   return (
-    <div className='fiveDaysWeatherCard WeatherContainer'>
+    <div className='fiveDaysWeatherCard weatherContainer'>
       <WeatherIconContext.Provider value={iconsParams}>
         <h3 className='cityName'>{name}</h3>
 

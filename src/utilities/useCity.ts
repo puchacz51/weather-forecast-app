@@ -12,7 +12,15 @@ const options = {
 };
 
 const getCity = async (prefix: string) => {
-  const params = { params: { namePrefix: prefix } };
+  const params = {
+    params: {
+      namePrefix: prefix,
+      types: 'CITY',
+      SORT_FIELD: 'population',
+      LIMIT: 10,
+    },
+  };
+
   const result = await axios.request<CityApiResponse>({
     ...options,
     ...params,
