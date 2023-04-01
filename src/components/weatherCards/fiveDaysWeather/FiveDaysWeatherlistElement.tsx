@@ -77,10 +77,12 @@ export const FiveDaysWeatherListElement = ({
   weather,
   selectDate,
   legendInfo,
+  selected,
 }: {
   weather: FiveDaysWeatherElement;
   selectDate: () => void;
   legendInfo: WeatherLegend;
+  selected: boolean;
 }) => {
   const { precipitationMax } = legendInfo;
   const { dt_txt, weather: weatherDesc, main } = weather;
@@ -88,17 +90,22 @@ export const FiveDaysWeatherListElement = ({
   const { icon } = weatherDesc[0];
   const { temp } = main;
   const [hours] = dt_txt.split(' ')[1].split(':');
-
+  const displayedHours = (Number.parseInt(hours) + 21) % 24;
   return (
-    <button className='dayWeatherElement' onClick={selectDate}>
-      <h3 className='elementHeader'>{hours}:00</h3>
+    <button
+      className={`dayWeatherElement ${selected && 'selected'}`}
+      onClick={selectDate}>
+      <h3 className='elementHeader'>
+        {displayedHours < 10 && '0'}
+        {displayedHours}:00
+      </h3>
       <div className='weatherIconContainer'>
         <img
           src={`http://openweathermap.org/img/wn/${icon}.png`}
           alt='weather icon'
           className='weatherIcon'
         />
-        <span className='temperature'>{(temp / 10).toFixed(0)} &deg;</span>
+        <span className='temperature'>{temp.toFixed(0)} &deg;</span>
       </div>
       <PrecipitationAmountElemnt
         rain={rain || 0}

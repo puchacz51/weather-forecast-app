@@ -25,11 +25,12 @@ const WeatherDaysSelector = ({ days, selectDay }: WeatherDaysSelectorProps) => {
 export const FiveDaysWeatherList = ({
   weatherList,
   selectDate,
+  selectedDate,
 }: {
   weatherList: FiveDaysWeather['list'];
+  selectedDate: number;
   selectDate: (date: number) => void;
 }) => {
-  const [dayContainerPosition, setDayContainerPosition] = useState(0);
   const weatherDaysList = weatherList.reduce((acc, currentTime) => {
     const dayOfMonth = currentTime.dt_txt.split(' ')[0].split('-')[2];
     if (
@@ -88,7 +89,7 @@ export const FiveDaysWeatherList = ({
       <div
         className='fiveDaysWeatherList'
         ref={weatherListContainerRef}
-        style={{ left: dayContainerPosition + '%' }}>
+     >
         {weatherDaysList.map(({ dayName, dayOfMonth }) => (
           <div
             key={dayName}
@@ -104,18 +105,16 @@ export const FiveDaysWeatherList = ({
                   return dayOfMonthElement === dayOfMonth;
                 })
                 .map((weatherInfo) => {
+                  const weatherID = weatherList.findIndex(
+                    (weather) => weatherInfo.dt === weather.dt
+                  );
                   return (
                     <FiveDaysWeatherListElement
-                      selectDate={() =>
-                        selectDate(
-                          weatherList.findIndex(
-                            (weather) => weatherInfo.dt === weather.dt
-                          )
-                        )
-                      }
+                      selectDate={() => selectDate(weatherID)}
                       key={weatherInfo.dt}
                       weather={weatherInfo}
                       legendInfo={legendInfo}
+                      selected={selectedDate === weatherID}
                     />
                   );
                 })}

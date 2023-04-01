@@ -5,8 +5,12 @@ import { CgSpinnerAlt } from 'react-icons/cg';
 import { CurrentWeatherIcon } from './CurrentWeatherIcon';
 import { useWaeatherStore } from '../../../store/store';
 import { WeatherIconContext } from '../../../utilities/WeatherContext';
-import { getWeatherIconValues } from '../../../utilities/getWeatherIconValues';
+import {
+  getTimeFromTimezone,
+  getWeatherIconValues,
+} from '../../../utilities/getWeatherIconValues';
 import { WeatherValues } from '../WeatherValues';
+import { log } from 'console';
 
 export const CurrentWeatherCard = () => {
   const { selectedCity: city, setSelectedWeatherType } = useWaeatherStore();
@@ -27,15 +31,9 @@ export const CurrentWeatherCard = () => {
 
   if (!weatherData) return <p>undifined</p>;
   const { timezone } = weatherData;
-  const currentTime = new Date(Date.now() - timezone * 1000);
-  const [hours, minutes] = currentTime
-    .toLocaleTimeString('en-US', { timeZone: 'Europe/London' })
-    .split(':');
-  const [day, month, year] = currentTime
-    .toLocaleDateString('en-US', { timeZone: 'Europe/London' })
-    .split('.');
+  const { day, hours, minutes, month, year } = getTimeFromTimezone(timezone);
+
   const iconValues = getWeatherIconValues(weatherData);
-  console.log(timezone, new Date(Date.now()));
   return (
     <div className='currentWeather weatherContainer'>
       <h3 className='cityName'>{name}</h3>

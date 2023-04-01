@@ -8,6 +8,7 @@
   & .fiveDaysWeatherListContainer {
     display: flex;
     flex-direction: column;
+    overflow:hidden ;
     & .weatherDaysSelectorContainer {
       display: flex;
       gap: 5px;
@@ -57,6 +58,10 @@
       border-radius: 1rem;
       display: flex;
       flex-direction: column;
+      &.selected {
+        border: 4px solid black;
+        transform: scale(1.1);
+      }
 
       & .elementHeader {
         font-size: 1rem;

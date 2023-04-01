@@ -6,7 +6,7 @@ import { FiveDaysWeatherCard } from './components/weatherCards/fiveDaysWeather/F
 
 function App() {
   const { selectedCity, selectedCardType } = useWaeatherStore();
-  console.log(selectedCity && selectedCardType === 'CURRENT');
+  
   if (!selectedCity)
     return (
       <main>
