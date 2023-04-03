@@ -89,15 +89,15 @@ export const FiveDaysWeatherListElement = ({
   const { rain, snow } = getPrecitipation(weather);
   const { icon } = weatherDesc[0];
   const { temp } = main;
-  const [hours] = dt_txt.split(' ')[1].split(':');
-  const displayedHours = (Number.parseInt(hours) + 21) % 24;
+  const hours = Number.parseInt(dt_txt.split(' ')[1].split(':')[0]);
+
   return (
     <button
       className={`dayWeatherElement ${selected && 'selected'}`}
       onClick={selectDate}>
       <h3 className='elementHeader'>
-        {displayedHours < 10 && '0'}
-        {displayedHours}:00
+        {hours < 10 && '0'}
+        {hours}:00
       </h3>
       <div className='weatherIconContainer'>
         <img

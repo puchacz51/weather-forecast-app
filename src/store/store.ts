@@ -6,18 +6,22 @@ type Store = {
   selectedCardType: 'CURRENT' | '5DAYS';
   headerInputIsOpen: boolean;
   headerInputText: string;
+  theme: 'DARK' | 'LIGHT';
   // currentweatherData: CurrentWeather | null;
   // fiveDaysWeatherData: FiveDaysWeather | null;
   setSelectedCity: (name: City) => void;
   setHeaderInputText: (text: string) => void;
   setHeaderInputIsOpen: (isOpen: boolean) => void;
   setSelectedWeatherType: (type: 'CURRENT' | '5DAYS') => void;
+  setTheme: (type: 'LIGHT' | 'DARK') => void;
+
   // setCurrentWeatherData: (data: CurrentWeather) => void;
   // set5daysWeatherData: (data: FiveDaysWeather) => void;
   // setSelectedCardType: (selectedType: 'CURRENT' | '5DAYS') => void;
 };
 
 export const useWaeatherStore = create<Store>((set) => ({
+  theme: 'DARK',
   selectedCity: null,
   selectedCardType: 'CURRENT',
   headerInputIsOpen: false,
@@ -43,6 +47,9 @@ export const useWaeatherStore = create<Store>((set) => ({
   },
   setSelectedWeatherType(type: 'CURRENT' | '5DAYS') {
     set((state) => ({ ...state, selectedCardType: type }));
+  },
+  setTheme(type) {
+    set((state) => ({ ...state, theme: type }));
   },
   // set5daysWeatherData(data) {
   //   set((state) => ({

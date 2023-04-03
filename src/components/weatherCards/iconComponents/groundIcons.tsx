@@ -19,7 +19,7 @@ export const Tree = ({ left }: TreeProps) => {
   const animationDelay = left * windSpeedPercent;
 
   useEffect(() => {
-    if (windSpeed > 2) {
+    if (windSpeed > 1) {
       animation.start({
         rotateZ: 5 * windSpeed ** (1 / 2),
         skewY: 5 * windSpeed ** (1 / 2),

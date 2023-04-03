@@ -5,10 +5,9 @@ import { City } from '../../utilities/type';
 import { useCity } from '../../utilities/useCity';
 import { motion } from 'framer-motion';
 import { TbSearch } from 'react-icons/tb';
+import { CgSpinnerAlt } from 'react-icons/cg';
 
-const SearchCityInput = () => {
-  return;
-};
+
 export const SearchCity = () => {
   const {
     setSelectedCity,
@@ -20,7 +19,7 @@ export const SearchCity = () => {
   const {
     refetch,
     data: cities,
-    isLoading,
+    isFetching,
   } = useCity(headerInputText, {
     enabled: false,
     keepPreviousData: true,
@@ -48,6 +47,7 @@ export const SearchCity = () => {
       }
     }
   };
+
   useEffect(() => {
     const timeout = setTimeout(refetchCities, 300);
     return () => clearTimeout(timeout);
@@ -62,12 +62,12 @@ export const SearchCity = () => {
       <motion.label
         className='inputWrapper'
         htmlFor='city'
-        style={{ display: 'block' }}
+        style={{ display: 'flex' }}
         initial={{
           width: '0ch',
         }}
         animate={{
-          width: headerInputIsOpen ? '16ch' : '0ch',
+          width: headerInputIsOpen ? '20ch' : '0ch',
           transition: { duration: 0.5 },
         }}>
         <input
@@ -79,8 +79,12 @@ export const SearchCity = () => {
           list='cities'
           placeholder='city name'
         />
+        {isFetching && (
+          <div className='wrapperLoadingIcon'>
+            <CgSpinnerAlt className='loadingIcon' />
+          </div>
+        )}
       </motion.label>
-      {isLoading && headerInputText && <>...loading </>}
 
       <CityList cities={cities} />
     </div>

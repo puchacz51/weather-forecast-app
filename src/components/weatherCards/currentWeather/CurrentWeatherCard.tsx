@@ -10,15 +10,20 @@ import {
   getWeatherIconValues,
 } from '../../../utilities/getWeatherIconValues';
 import { WeatherValues } from '../WeatherValues';
-import { log } from 'console';
+import { mockCurrrentWeatherData } from './data';
 
 export const CurrentWeatherCard = () => {
-  const { selectedCity: city, setSelectedWeatherType } = useWaeatherStore();
+  const { setSelectedWeatherType, selectedCity:city } = useWaeatherStore();
+  // const city = { city: 'testowe', longitude: 41, latitude: 30 };
+
   const { city: name, longitude, latitude } = city as City;
-  const { data: weatherData, isLoading } = useCurrentWeather(
+   const { data: weatherData, isLoading } = useCurrentWeather(
     latitude,
     longitude
   );
+
+  // const weatherData = mockCurrrentWeatherData;
+  // const isLoading = false;
   if (isLoading)
     return (
       <div className='currentWeather weatherContainer'>
@@ -36,10 +41,12 @@ export const CurrentWeatherCard = () => {
   const iconValues = getWeatherIconValues(weatherData);
   return (
     <div className='currentWeather weatherContainer'>
-      <h3 className='cityName'>{name}</h3>
-      <h4 className='cityTime'>
-        {day}.{month}.{year} {hours}:{minutes}
-      </h4>
+      <div className='title'>
+        <h3 className='cityName'>{name}</h3>
+        <h4 className='cityTime'>
+          {day}.{month}.{year} {hours}:{minutes}
+        </h4>
+      </div>
       <WeatherIconContext.Provider value={iconValues}>
         <CurrentWeatherIcon />
         <WeatherValues />
@@ -47,7 +54,7 @@ export const CurrentWeatherCard = () => {
       <button
         className='selectWaetherTypeButton'
         onClick={() => setSelectedWeatherType('5DAYS')}>
-        Weather for 5 days
+        5 days weather
       </button>
     </div>
   );

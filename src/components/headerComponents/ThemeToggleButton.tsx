@@ -1,8 +1,8 @@
 import '../../Header.scss';
-import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useWaeatherStore } from '../../store/store';
 export const ToggleSwitch = () => {
-  const [isOn, setIsOn] = useState(false);
+  const { theme, setTheme } = useWaeatherStore();
   const switchOnAnimation = {
     backgroundColor: '#00ccff',
     translateX: '100%',
@@ -19,7 +19,7 @@ export const ToggleSwitch = () => {
   };
 
   const toggleSwitch = () => {
-    setIsOn((isOn) => !isOn);
+    setTheme(theme === 'DARK' ? 'LIGHT' : 'DARK');
   };
 
   return (
@@ -31,7 +31,9 @@ export const ToggleSwitch = () => {
           translateY: '-50%',
           left: 0,
         }}
-        animate={isOn ? switchOnAnimation : switchOFFAnimation}></motion.div>
+        animate={
+          theme === 'DARK' ? switchOnAnimation : switchOFFAnimation
+        }></motion.div>
     </div>
   );
 };

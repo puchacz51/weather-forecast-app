@@ -20,6 +20,7 @@
   background: var(--header-background);
   background: var(--header-gradnient);
   height: 2.5rem;
+  z-index: 1000;
 
   & .searchCityContainer {
     width: fit-content;
@@ -34,7 +35,7 @@
       background-color: rgba(255, 255, 255, 0.61);
       border: 1px solid black;
       border-radius: 50%;
-      font-size: 1.3em;
+      font-size: 1.2em;
       top: 50%;
       transform: translate(-50%, -50%);
       display: flex;
@@ -43,17 +44,31 @@
       padding: 2px;
     }
     & .inputWrapper {
-      display: block;
       overflow: hidden;
       height: 100%;
+      display: flex;
       & .searchCityInput {
         font-size: inherit;
         line-height: 1em;
         border: none;
-        width: 15ch;
-        padding: 0em 1.2rem;
+        width: 13ch;
+        margin-left: .6em;
+        padding: 0em .2rem;
         &:focus-visible {
           outline: none;
+        }
+      }
+      & .wrapperLoadingIcon {
+        height: 100%;
+        position: relative;
+        width: 2em;
+        & .loadingIcon {
+          font-size: 1em;
+          animation: rotate infinite 1s linear;
+          position: absolute;
+          transform-origin: center;
+          z-index: 10;
+          color: black;
         }
       }
     }

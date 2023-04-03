@@ -2,9 +2,6 @@ import './Header.scss';
 import { SearchCity } from './components/headerComponents/SearchCity';
 import { ToggleSwitch } from './components/headerComponents/ThemeToggleButton';
 
-const ThemeSwitch = () => {
-  return <button></button>;
-};
 
 export const Header = () => {
   return (
