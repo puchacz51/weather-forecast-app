@@ -5,13 +5,27 @@ import { CurrentWeatherCard } from './components/weatherCards/currentWeather/Cur
 import { FiveDaysWeatherCard } from './components/weatherCards/fiveDaysWeather/FiveDaysWeatherCard';
 
 function App() {
-  const { selectedCity } = useWaeatherStore();
-
+  const { selectedCity, selectedCardType } = useWaeatherStore();
+  const { theme } = useWaeatherStore();
+  if (!selectedCity)
+    return (
+      <main>
+        <Header />
+      </main>
+    );
   return (
-    <div className='App'>
+    <div className={`App ${theme === 'DARK' && 'dark'}`}>
       <Header />
-      <main>{selectedCity && <CurrentWeatherCard />}</main>
-      {/* <FiveDaysWeatherCard /> */}
+
+      <main>
+        {/* <WeatherValues /> */}
+
+        {/* <FiveDaysWeatherCard />
+        <CurrentWeatherCard />
+         */}
+        {selectedCardType === 'CURRENT' && <CurrentWeatherCard />}
+        {selectedCardType === '5DAYS' && <FiveDaysWeatherCard />}
+      </main>
     </div>
   );
 }

@@ -1,9 +1,17 @@
+@font-face {
+  font-family: 'Josefin Sans';
+  src: url(./assets/font/JosefinSans-VariableFont_wght.ttf);
+}
+
 body {
+  font-family: 'Josefin Sans';
+}
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  // transition-duration: .5s;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

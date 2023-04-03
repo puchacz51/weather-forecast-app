@@ -1,21 +1,21 @@
-import { FiveDaysWeather, FiveDaysWeatherElement } from '../../../WeatherTypes';
+import { FiveDaysWeather } from '../../../WeatherTypes';
 import { FiveDaysWeatherListElement } from './FiveDaysWeatherlistElement';
 import { useRef, useState } from 'react';
 import { getPrecitipation } from '../../../utilities/getWeatherIconValues';
 type WeatherDaysSelectorProps = {
-  days: { dayOfMonth: string; dayName: string }[];
+  days: { dayOfMonth: string; dayName: string; dayNameShort: string }[];
   selectDay: (day: string) => void;
 };
 
 const WeatherDaysSelector = ({ days, selectDay }: WeatherDaysSelectorProps) => {
   return (
     <div className='weatherDaysSelectorContainer'>
-      {days.map(({ dayName, dayOfMonth }) => (
+      {days.map(({ dayName, dayOfMonth, dayNameShort }) => (
         <button
           key={`btn${dayOfMonth}`}
           onClick={() => selectDay(dayName)}
           className='weatherDaySelectorButton'>
-          {dayName}
+          {dayNameShort}
         </button>
       ))}
     </div>
@@ -25,30 +25,34 @@ const WeatherDaysSelector = ({ days, selectDay }: WeatherDaysSelectorProps) => {
 export const FiveDaysWeatherList = ({
   weatherList,
   selectDate,
+  selectedDate,
 }: {
   weatherList: FiveDaysWeather['list'];
+  selectedDate: number;
   selectDate: (date: number) => void;
 }) => {
-  const [dayContainerPosition, setDayContainerPosition] = useState(0);
-
   const weatherDaysList = weatherList.reduce((acc, currentTime) => {
     const dayOfMonth = currentTime.dt_txt.split(' ')[0].split('-')[2];
     if (
       (acc.length && acc[acc.length - 1]?.dayOfMonth !== dayOfMonth) ||
       !acc.length
     ) {
+      const date = new Date(currentTime.dt * 1000);
       return [
         ...acc,
         {
           dayOfMonth,
-          dayName: new Date(currentTime.dt * 1000).toLocaleDateString('en-US', {
+          dayName: date.toLocaleDateString('en-US', {
             weekday: 'long',
+          }),
+          dayNameShort: date.toLocaleDateString('en-US', {
+            weekday: 'short',
           }),
         },
       ];
     }
     return acc;
-  }, [] as { dayOfMonth: string; dayName: string }[]);
+  }, [] as { dayOfMonth: string; dayName: string; dayNameShort: string }[]);
   const tempList = weatherList.map((weather) => weather.main.temp);
   const precipitationlist = weatherList.map((weather) => {
     const { rain, snow } = getPrecitipation(weather);
@@ -79,14 +83,13 @@ export const FiveDaysWeatherList = ({
       <WeatherDaysSelector
         days={weatherDaysList}
         selectDay={(s) => {
-          console.log(s);
           handleSelectDay(s);
         }}
       />
       <div
         className='fiveDaysWeatherList'
         ref={weatherListContainerRef}
-        style={{ left: dayContainerPosition + '%' }}>
+     >
         {weatherDaysList.map(({ dayName, dayOfMonth }) => (
           <div
             key={dayName}
@@ -101,20 +104,20 @@ export const FiveDaysWeatherList = ({
                     .split('-')[2];
                   return dayOfMonthElement === dayOfMonth;
                 })
-                .map((weatherInfo) => (
-                  <FiveDaysWeatherListElement
-                    selectDate={() =>
-                      selectDate(
-                        weatherList.findIndex(
-                          (weather) => weatherInfo.dt === weather.dt
-                        )
-                      )
-                    }
-                    key={weatherInfo.dt}
-                    weather={weatherInfo}
-                    legendInfo={legendInfo}
-                  />
-                ))}
+                .map((weatherInfo) => {
+                  const weatherID = weatherList.findIndex(
+                    (weather) => weatherInfo.dt === weather.dt
+                  );
+                  return (
+                    <FiveDaysWeatherListElement
+                      selectDate={() => selectDate(weatherID)}
+                      key={weatherInfo.dt}
+                      weather={weatherInfo}
+                      legendInfo={legendInfo}
+                      selected={selectedDate === weatherID}
+                    />
+                  );
+                })}
             </div>
           </div>
         ))}

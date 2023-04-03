@@ -5,49 +5,57 @@ import { CgSpinnerAlt } from 'react-icons/cg';
 import { CurrentWeatherIcon } from './CurrentWeatherIcon';
 import { useWaeatherStore } from '../../../store/store';
 import { WeatherIconContext } from '../../../utilities/WeatherContext';
-// import { CurrentWeather } from '../WeatherTypes';
-import { getWeatherIconValues } from '../../../utilities/getWeatherIconValues';
+import {
+  getTimeFromTimezone,
+  getWeatherIconValues,
+} from '../../../utilities/getWeatherIconValues';
 import { WeatherValues } from '../WeatherValues';
+import { mockCurrrentWeatherData } from './data';
 
 export const CurrentWeatherCard = () => {
-  const { selectedCity: city } = useWaeatherStore();
+  const { setSelectedWeatherType, selectedCity:city } = useWaeatherStore();
+  // const city = { city: 'testowe', longitude: 41, latitude: 30 };
+
   const { city: name, longitude, latitude } = city as City;
-  const { data: weatherData, isLoading } = useCurrentWeather(
+   const { data: weatherData, isLoading } = useCurrentWeather(
     latitude,
     longitude
   );
-  if (isLoading) return <CgSpinnerAlt />;
+
+  // const weatherData = mockCurrrentWeatherData;
+  // const isLoading = false;
+  if (isLoading)
+    return (
+      <div className='currentWeather weatherContainer'>
+        <h3 className='cityName'>{name}</h3>
+        <div className='wrapperLoadingIcon'>
+          <CgSpinnerAlt className='loadingIcon' />
+        </div>
+      </div>
+    );
+
   if (!weatherData) return <p>undifined</p>;
   const { timezone } = weatherData;
-  const currentTime = new Date(Date.now() - timezone * 1000);
-  const [hours, minutes] = currentTime.toLocaleTimeString().split(':');
-  const [day, month, year] = currentTime.toLocaleDateString().split('.');
+  const { day, hours, minutes, month, year } = getTimeFromTimezone(timezone);
+
   const iconValues = getWeatherIconValues(weatherData);
   return (
-    <div className='currentWeather WeatherContainer'>
-      <h3 className='cityName'>{name}</h3>
-      <h4 className='cityTime'>
-        {day}.{month}.{year} {hours}:{minutes}
-      </h4>
+    <div className='currentWeather weatherContainer'>
+      <div className='title'>
+        <h3 className='cityName'>{name}</h3>
+        <h4 className='cityTime'>
+          {day}.{month}.{year} {hours}:{minutes}
+        </h4>
+      </div>
       <WeatherIconContext.Provider value={iconValues}>
         <CurrentWeatherIcon />
         <WeatherValues />
       </WeatherIconContext.Provider>
-    </div>
-  );
-};
-
-export const DayWeatherList = () => {
-  return (
-    <div className='DayWeatherList'>
-      <DayWeatherItem />
-    </div>
-  );
-};
-const DayWeatherItem = () => {
-  return (
-    <div className='DayWeatherItem'>
-      <img src='./icons/c01d.png' alt='weatherIcon' />
+      <button
+        className='selectWaetherTypeButton'
+        onClick={() => setSelectedWeatherType('5DAYS')}>
+        5 days weather
+      </button>
     </div>
   );
 };

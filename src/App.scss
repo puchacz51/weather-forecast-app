@@ -1,5 +1,3 @@
-
-
 :root {
   --sky-color: #90b0eb;
   --sun-color: rgb(223, 223, 18);
@@ -22,7 +20,26 @@
     rgba(35, 221, 87, 1) 50%,
     rgba(11, 222, 238, 1) 70%
   );
+  --primary-color: rgb(5, 207, 190);
+  --secondary-color: rgba(7, 7, 7, 0.644);
+  --tertiary-color: rgba(255, 255, 255, 0.377);;
 }
+.app {
+  transition-duration: 0.3;
+}
+.dark {
+  --primary-color: rgb(38, 43, 43);
+  --secondary-color: rgba(36, 32, 32, 0.644);
+  color: white;
+  --header-gradnient: linear-gradient(
+    45deg,
+    rgb(43, 46, 44) 10%,
+    rgb(76, 91, 92) 30%,
+    rgb(43, 46, 44) 50%,
+    rgb(76, 91, 92) 70%
+  );
+}
+
 .night {
   --sky-color: #112f67;
   --cloud-lightrain-color: rgba(218, 214, 214, 0.834);

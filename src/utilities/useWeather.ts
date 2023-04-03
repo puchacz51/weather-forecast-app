@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios from 'axios';
-import { CurrentWeather } from '../WeatherTypes';
+import { CurrentWeather, FiveDaysWeather } from '../WeatherTypes';
 
 type CoOrdinates = {
   params: { lon: number; lat: number };
@@ -31,21 +31,21 @@ const fetchCurrentWeather = async (
 
 const fetchFiveDaysWeather = async (
   coOrdinates: CoOrdinates
-): Promise<CurrentWeather> => {
+): Promise<FiveDaysWeather> => {
   const {
     params: { lon, lat },
   } = coOrdinates;
   const res = await axios.get(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+    `https://api.openweathermap.org/data/2.5/forecast?units=metric&lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
   );
 
   return res.data;
 };
 
-type UseWeather = (
+type UseFiveDaysWeather = (
   lon: number,
   lat: number
-) => UseQueryResult<CurrentWeather[]>;
+) => UseQueryResult<FiveDaysWeather>;
 type UseCurrentWeather = (
   lon: number,
   lat: number
@@ -60,9 +60,12 @@ const useCurrentWeather: UseCurrentWeather = (lat, lon) => {
   );
 };
 
-const useFiveDaysWeather: UseCurrentWeather = (lat, lon) => {
+export const useFiveDaysWeather: UseFiveDaysWeather = (lat, lon) => {
   const params = { params: { lat: lat, lon: lon } };
-  return useQuery<any>([lon, lat], () => fetchFiveDaysWeather(params), {});
+  return useQuery<FiveDaysWeather>(
+    [lon, lat,'5Days'],
+    () => fetchFiveDaysWeather(params),
+    {}
+  );
 };
-// fetchFiveDaysWeather({ params: { lon: 50, lat: 50 } });
 export { useCurrentWeather };
