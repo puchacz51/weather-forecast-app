@@ -26,7 +26,7 @@ export const SearchCity = () => {
   });
   const refetchCities = useCallback(() => {
     if (headerInputText) {
-      refetch();
+      refetch({});
     }
   }, [headerInputText, refetch]);
 
