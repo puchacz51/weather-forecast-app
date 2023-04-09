@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { City } from '../utilities/type';
+import { supabase } from '../utilities/supabase/supabase';
 
 type Store = {
   selectedCity: City | null;
@@ -7,11 +8,18 @@ type Store = {
   headerInputIsOpen: boolean;
   headerInputText: string;
   theme: 'DARK' | 'LIGHT';
+  user: object | null;
   setSelectedCity: (name: City) => void;
   setHeaderInputText: (text: string) => void;
   setHeaderInputIsOpen: (isOpen: boolean) => void;
   setSelectedWeatherType: (type: 'CURRENT' | '5DAYS') => void;
   setTheme: (theme: 'LIGHT' | 'DARK') => void;
+  setUser: (user: object | null) => void;
+};
+const getCurrentUser = async () => {
+  const { data, error } = await supabase.auth.getUser();
+  if (error) return null;
+  return data.user;
 };
 
 export const useWaeatherStore = create<Store>((set) => ({
@@ -20,7 +28,7 @@ export const useWaeatherStore = create<Store>((set) => ({
   selectedCardType: 'CURRENT',
   headerInputIsOpen: false,
   headerInputText: '',
-
+  user: null,
   setSelectedCity(name) {
     set((state) => ({
       ...state,
@@ -43,5 +51,8 @@ export const useWaeatherStore = create<Store>((set) => ({
   },
   setTheme(theme) {
     set((state) => ({ ...state, theme: theme }));
+  },
+  setUser(user) {
+    set((state) => ({ ...state, user: user }));
   },
 }));

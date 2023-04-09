@@ -10,20 +10,18 @@ import {
   getWeatherIconValues,
 } from '../../../utilities/getWeatherIconValues';
 import { WeatherValues } from '../WeatherValues';
-import { mockCurrrentWeatherData } from './data';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const CurrentWeatherCard = () => {
-  const { setSelectedWeatherType, selectedCity:city } = useWaeatherStore();
-  // const city = { city: 'testowe', longitude: 41, latitude: 30 };
-
+  const { selectedCity: city } = useWaeatherStore();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { city: name, longitude, latitude } = city as City;
-   const { data: weatherData, isLoading } = useCurrentWeather(
+  const { data: weatherData, isLoading } = useCurrentWeather(
     latitude,
     longitude
   );
 
-  // const weatherData = mockCurrrentWeatherData;
-  // const isLoading = false;
   if (isLoading)
     return (
       <div className='currentWeather weatherContainer'>
@@ -53,7 +51,7 @@ export const CurrentWeatherCard = () => {
       </WeatherIconContext.Provider>
       <button
         className='selectWaetherTypeButton'
-        onClick={() => setSelectedWeatherType('5DAYS')}>
+        onClick={() => navigate(pathname.replace('current', '5days'))}>
         5 days weather
       </button>
     </div>

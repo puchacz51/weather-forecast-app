@@ -32,7 +32,6 @@
   --background-color: rgb(37, 33, 33);
   --primary-color: rgb(38, 43, 43);
   --secondary-color: rgba(36, 32, 32, 0.644);
-  color: white;
   --header-gradnient: linear-gradient(
     45deg,
     rgb(43, 46, 44) 10%,
@@ -40,6 +39,12 @@
     rgb(43, 46, 44) 50%,
     rgb(76, 91, 92) 70%
   );
+
+  --background-color: rgb(43, 46, 44);
+}
+
+body {
+  background-color: var(--background-color);
 }
 
 .night {
@@ -172,7 +177,7 @@
   border: 5px solid var(--primary-color);
   border-radius: 20px;
   margin: 40px auto;
-  width: 90%;
+  width: 95%;
   height: 50%;
   padding: 1.5em 0;
   display: flex;
@@ -186,30 +191,35 @@
     & .searchInput {
       border: none;
       border-bottom: 2px solid black;
-      font-size: 0.8em;
+      font-size: 1.2em;
+      width: 20ch;
       outline: none;
     }
     & .searchIcon {
       padding: 0.1em;
-      font-size: 1.2em;
+      font-size: 1.5em;
     }
+  }
+  & .searchLocationHeader {
+    font-size: 1.8em;
   }
   & .locationListContainer {
     display: flex;
     flex-direction: column;
-    font-size: 0.8em;
+    font-size: 1em;
     width: 100%;
     padding: 0.5em;
     border-top: 2px solid var(--secondary-color);
     & .locationListElement {
       border: 1px solid var(--secondary-color);
-      padding: 0.2em;
+      padding: 0.3em 0.2em;
       margin: 0.2em 0;
       background: none;
       display: grid;
       grid-template-columns: 5% 45% 25% 25%;
       text-align: left;
       overflow: hidden;
+      font-size: 0.8em;
       & .index {
       }
       & .name {

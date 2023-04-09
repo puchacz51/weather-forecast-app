@@ -4,7 +4,6 @@ export interface Weather {
   description: string;
 }
 
-
 export interface WeatherData {
   app_max_temp: number;
   app_min_temp: number;
@@ -72,7 +71,7 @@ interface City {
   population: number;
 }
 
-interface CityApiResponse {
+interface CitiesApiResponse {
   data: City[];
   metadata: {
     currentOffset: number;
@@ -80,4 +79,12 @@ interface CityApiResponse {
   };
 }
 
-export type { CityApiResponse, City };
+interface CityApiResponse {
+  data: City;
+  metadata: {
+    currentOffset: number;
+    totalCount: number;
+  };
+}
+
+export type { CitiesApiResponse, City, CityApiResponse };

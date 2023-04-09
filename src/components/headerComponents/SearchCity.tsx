@@ -6,7 +6,7 @@ import { useCity } from '../../utilities/useCity';
 import { motion } from 'framer-motion';
 import { TbSearch } from 'react-icons/tb';
 import { CgSpinnerAlt } from 'react-icons/cg';
-
+import { useNavigate } from 'react-router-dom';
 
 export const SearchCity = () => {
   const {
@@ -29,7 +29,7 @@ export const SearchCity = () => {
       refetch({});
     }
   }, [headerInputText, refetch]);
-
+  const navigate = useNavigate();
   const handleCityChange = (e: SyntheticEvent<HTMLInputElement, Event>) => {
     const inputValue = e.currentTarget.value;
     const eventType = e.type;
@@ -44,6 +44,7 @@ export const SearchCity = () => {
       if (cityIndex !== -1 && cityIndex !== undefined && cities) {
         setSelectedCity(cities[cityIndex]);
         setHeaderInputText('');
+        navigate(`weather/${cities[cityIndex].id}/current`);
       }
     }
   };

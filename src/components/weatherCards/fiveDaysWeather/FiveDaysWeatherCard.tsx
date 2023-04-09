@@ -8,20 +8,16 @@ import { WeatherValues } from '../WeatherValues';
 import { City } from '../../../utilities/type';
 import { useWaeatherStore } from '../../../store/store';
 import { CgSpinnerAlt } from 'react-icons/cg';
-import { dataForWeather } from './data5';
 import { useFiveDaysWeather } from '../../../utilities/useWeather';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const FiveDaysWeatherCard = () => {
   const { selectedCity: city, setSelectedWeatherType } = useWaeatherStore();
   const { city: name, latitude: lat, longitude: lon } = city as City;
   const [selectedWeatherDate, setSelectedWeatherDate] = useState(0);
   const { data, isLoading } = useFiveDaysWeather(lat, lon);
-  // const city = { city: 'testowe', longitude: 41, latitude: 30 };
-  // const city = { city: 'testowe', longitude: 41, latitude: 30 };
-
-  // const { city: name, longitude, latitude } = city as City;
-  // const isLoading = false;
-  // const data = dataForWeather;
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   if (isLoading)
     return (
       <div className='currentWeather weatherContainer'>
@@ -52,7 +48,7 @@ export const FiveDaysWeatherCard = () => {
       </WeatherIconContext.Provider>
       <button
         className='selectWaetherTypeButton'
-        onClick={() => setSelectedWeatherType('CURRENT')}>
+        onClick={() => navigate(pathname.replace('5days', 'current'))}>
         current weather
       </button>
     </div>
