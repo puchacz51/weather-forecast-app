@@ -1,4 +1,4 @@
-.wrapper {
+.headerWrapper {
   &::before {
     width: 100vw;
     padding: 0.5rem;
@@ -122,6 +122,28 @@
         right: 0%;
         background-color: aquamarine;
       }
+    }
+  }
+  & .profileInfoWrapper {
+    position: relative;
+    aspect-ratio: 1;
+    height: 100%;
+    & .profileBtn {
+    height: 100%;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+
+      & img {
+        width: 100%;
+      }
+    }
+
+    & .profileInfoList {
+      position: absolute;
+      top: 100%;
+      right: 0;
     }
   }
 }

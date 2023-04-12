@@ -23,11 +23,9 @@
   --primary-color: rgb(5, 207, 190);
   --secondary-color: rgba(7, 7, 7, 0.644);
   --tertiary-color: rgba(255, 255, 255, 0.377);
-  --background-color: white;
+  --background-color: transparent;
 }
-.app {
-  transition-duration: 0.3;
-}
+
 .dark {
   --background-color: rgb(37, 33, 33);
   --primary-color: rgb(38, 43, 43);
@@ -43,6 +41,11 @@
   --background-color: rgb(43, 46, 44);
 }
 
+.app {
+  transition-duration: 0.3;
+  min-height: 100vh;
+  background-color:  var(--background-color);
+}
 body {
   background-color: var(--background-color);
 }
@@ -228,6 +231,27 @@ body {
       }
       & .region {
         width: max-content;
+      }
+    }
+  }
+
+  & .historySearchContainer {
+    width: 90%;
+    display: flex;
+    justify-content: end;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    & .historyElementBtn {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      padding: 0.3rem;
+      border-radius: 0.5rem;
+      gap: 0.2rem;
+      font-weight: 600;
+      & .icon {
+        font-size: 1.1rem;
+        font-weight: 700;
       }
     }
   }

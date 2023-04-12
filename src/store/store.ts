@@ -1,26 +1,29 @@
 import { create } from 'zustand';
 import { City } from '../utilities/type';
 import { supabase } from '../utilities/supabase/supabase';
+import {
+  getSearchHistory,
+  setSearchHistory,
+} from '../utilities/getSearchHistory';
 
-type Store = {
+type State = {
   selectedCity: City | null;
   selectedCardType: 'CURRENT' | '5DAYS';
   headerInputIsOpen: boolean;
   headerInputText: string;
   theme: 'DARK' | 'LIGHT';
-  user: object | null;
+  searchHistory: City[] | [];
+};
+type Actions = {
   setSelectedCity: (name: City) => void;
   setHeaderInputText: (text: string) => void;
   setHeaderInputIsOpen: (isOpen: boolean) => void;
   setSelectedWeatherType: (type: 'CURRENT' | '5DAYS') => void;
   setTheme: (theme: 'LIGHT' | 'DARK') => void;
-  setUser: (user: object | null) => void;
+  setSearchHistory: (newSearch: City) => void;
 };
-const getCurrentUser = async () => {
-  const { data, error } = await supabase.auth.getUser();
-  if (error) return null;
-  return data.user;
-};
+
+type Store = State & Actions;
 
 export const useWaeatherStore = create<Store>((set) => ({
   theme: 'LIGHT',
@@ -28,7 +31,7 @@ export const useWaeatherStore = create<Store>((set) => ({
   selectedCardType: 'CURRENT',
   headerInputIsOpen: false,
   headerInputText: '',
-  user: null,
+  searchHistory: getSearchHistory(),
   setSelectedCity(name) {
     set((state) => ({
       ...state,
@@ -52,7 +55,18 @@ export const useWaeatherStore = create<Store>((set) => ({
   setTheme(theme) {
     set((state) => ({ ...state, theme: theme }));
   },
-  setUser(user) {
-    set((state) => ({ ...state, user: user }));
+  setSearchHistory: (newSearch: City) => {
+    set((state) => {
+      let newSearchHistory = state.searchHistory.filter(
+        (city) => city.id !== newSearch.id
+      );
+      newSearchHistory = [newSearch, ...newSearchHistory];
+      newSearchHistory.length > 5 && newSearchHistory.pop();
+      setSearchHistory(newSearchHistory);
+      newSearchHistory.forEach((city) => {
+        console.log(city.id);
+      });
+      return { ...state, searchHistory: newSearchHistory };
+    });
   },
 }));

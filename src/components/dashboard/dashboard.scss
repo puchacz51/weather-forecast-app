@@ -1,0 +1,35 @@
+.dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 1rem 0;
+  & .dashboardWeatherCard {
+    width: 80%;
+    & .title {
+      font-size: 2rem;
+      margin: 0;
+      width: 100%;
+      text-align: center;
+      background-color: var(--primary-color);
+      border-radius: 1rem 1rem 0 0;
+    }
+    & .wrapper {
+      position: relative;
+      width: 100%;
+      & .temperature {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        line-height: 3rem;
+        font-weight: 900;
+        padding: 1rem;
+        border-radius: 2rem;
+        background-color: rgba(255, 255, 255, 0.452);
+      }
+    }
+  }
+}

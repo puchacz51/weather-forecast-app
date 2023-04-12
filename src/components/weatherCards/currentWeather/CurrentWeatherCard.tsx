@@ -45,7 +45,8 @@ export const CurrentWeatherCard = () => {
           {day}.{month}.{year} {hours}:{minutes}
         </h4>
       </div>
-      <WeatherIconContext.Provider value={iconValues}>
+      <WeatherIconContext.Provider
+        value={{ ...iconValues, timezoneOffset: timezone }}>
         <CurrentWeatherIcon />
         <WeatherValues />
       </WeatherIconContext.Provider>

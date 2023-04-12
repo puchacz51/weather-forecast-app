@@ -14,6 +14,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export const FiveDaysWeatherCard = () => {
   const { selectedCity: city, setSelectedWeatherType } = useWaeatherStore();
   const { city: name, latitude: lat, longitude: lon } = city as City;
+
   const [selectedWeatherDate, setSelectedWeatherDate] = useState(0);
   const { data, isLoading } = useFiveDaysWeather(lat, lon);
   const { pathname } = useLocation();
@@ -34,7 +35,8 @@ export const FiveDaysWeatherCard = () => {
   const iconsParams = getWeatherIconValues(data.list[selectedWeatherDate]);
   return (
     <div className='fiveDaysWeatherCard weatherContainer'>
-      <WeatherIconContext.Provider value={iconsParams}>
+      <WeatherIconContext.Provider
+        value={{ ...iconsParams, timezoneOffset: data.city.timezone }}>
         <div className='title'>
           <h3 className='cityName'>{name}</h3>
         </div>
