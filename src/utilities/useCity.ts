@@ -1,7 +1,6 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import axios from 'axios';
 import { CitiesApiResponse, City, CityApiResponse } from './type';
-import { log } from 'console';
 const header = {
   'X-RapidAPI-Key': process.env.REACT_APP_GEO_API_KEY,
   'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com',
@@ -47,7 +46,7 @@ const getCityById = async (cityId: string) => {
   return result.data.data;
 };
 
-export const useCity = (prefix: string, options: UseQueryOptions<City[]>) => {
+export const useCityQuery = (prefix: string, options: UseQueryOptions<City[]>) => {
   const prefixCity = prefix.toLowerCase();
   return useQuery<City[]>([prefix], async () => getCities(prefixCity), options);
 };

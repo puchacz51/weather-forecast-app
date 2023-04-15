@@ -63,9 +63,6 @@ export const useWaeatherStore = create<Store>((set) => ({
       newSearchHistory = [newSearch, ...newSearchHistory];
       newSearchHistory.length > 5 && newSearchHistory.pop();
       setSearchHistory(newSearchHistory);
-      newSearchHistory.forEach((city) => {
-        console.log(city.id);
-      });
       return { ...state, searchHistory: newSearchHistory };
     });
   },

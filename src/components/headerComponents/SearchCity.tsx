@@ -2,7 +2,7 @@ import '../../Header.scss';
 import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import { useWaeatherStore } from '../../store/store';
 import { City } from '../../utilities/type';
-import { useCity } from '../../utilities/useCity';
+import { useCityQuery } from '../../utilities/useCity';
 import { motion } from 'framer-motion';
 import { TbSearch } from 'react-icons/tb';
 import { CgSpinnerAlt } from 'react-icons/cg';
@@ -20,7 +20,7 @@ export const SearchCity = () => {
     refetch,
     data: cities,
     isFetching,
-  } = useCity(headerInputText, {
+  } = useCityQuery(headerInputText, {
     enabled: false,
     keepPreviousData: true,
   });

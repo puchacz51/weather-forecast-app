@@ -44,7 +44,7 @@
 .app {
   transition-duration: 0.3;
   min-height: 100vh;
-  background-color:  var(--background-color);
+  background-color: var(--background-color);
 }
 body {
   background-color: var(--background-color);
@@ -253,6 +253,25 @@ body {
         font-size: 1.1rem;
         font-weight: 700;
       }
+    }
+  }
+}
+.textInputContainer {
+  font-size: 1rem;
+  display: block;
+  position: relative;
+  & .textInput {
+    font-size: inherit;
+    text-transform: uppercase;
+    padding: 0 0.5rem;
+    font-size: inherit;
+    border: none;
+    border-bottom: 2px solid black;
+    &:focus-visible {
+      outline: none;
+    }
+    &::placeholder {
+      color: black;
     }
   }
 }

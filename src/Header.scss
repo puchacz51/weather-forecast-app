@@ -124,16 +124,32 @@
       }
     }
   }
+  & .dashboardLinkContainer {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & .dashboardLink {
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.5rem;
+    }
+  }
+
   & .profileInfoWrapper {
     position: relative;
     aspect-ratio: 1;
     height: 100%;
     & .profileBtn {
-    height: 100%;
-    overflow: hidden;
-    border-radius: 50%;
-    background-color: var(--secondary-color);
-    border: 2px solid var(--secondary-color);
+      height: 100%;
+      overflow: hidden;
+      border-radius: 50%;
+      background-color: var(--secondary-color);
+      border: 2px solid var(--secondary-color);
 
       & img {
         width: 100%;
@@ -144,6 +160,14 @@
       position: absolute;
       top: 100%;
       right: 0;
+    }
+  }
+
+  &.inputOpen {
+    & .utilsContainer,
+    .dashboardLinkContainer,
+    .profileInfoWrapper {
+      display: none;
     }
   }
 }

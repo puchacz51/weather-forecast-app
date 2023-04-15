@@ -17,9 +17,7 @@ function App() {
   );
   const { setSession } = useUserStore();
   useEffect(() => {
-    console.log('useEffect');
     supabase.auth.onAuthStateChange((_event, ses) => {
-      console.log('session change', ses);
       setSession(ses);
     });
   }, []);
