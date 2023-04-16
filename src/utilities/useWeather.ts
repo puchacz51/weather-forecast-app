@@ -6,17 +6,6 @@ type CoOrdinates = {
   params: { lon: number; lat: number };
 };
 
-const fetchMockWeather = async () => {
-  const res = await axios.get(` http://localhost:3001/weather/1`);
-  return res.data;
-};
-
-const testFetch = (time: number): Promise<CurrentWeather> =>
-  new Promise((resolve, rejects) => {
-    setTimeout(async () => {
-      resolve(await fetchMockWeather());
-    }, time);
-  });
 const fetchCurrentWeather = async (
   coOrdinates: CoOrdinates
 ): Promise<CurrentWeather> => {
@@ -63,7 +52,7 @@ const useCurrentWeather: UseCurrentWeather = (lat, lon) => {
 export const useFiveDaysWeather: UseFiveDaysWeather = (lat, lon) => {
   const params = { params: { lat: lat, lon: lon } };
   return useQuery<FiveDaysWeather>(
-    [lon, lat,'5Days'],
+    [lon, lat, '5Days'],
     () => fetchFiveDaysWeather(params),
     {}
   );

@@ -1,7 +1,12 @@
 import { FiveDaysWeatherElement } from '../../../WeatherTypes';
 import { WiRaindrop } from 'react-icons/wi';
 import { ImBlocked } from 'react-icons/im';
-import { getPrecitipation } from '../../../utilities/getWeatherIconValues';
+import {
+  getPrecitipation,
+  getTimeFromTimezone,
+  getWeatherIconValues,
+} from '../../../utilities/getWeatherIconValues';
+import { useWaetherIconContext } from '../../../utilities/WeatherContext';
 type WeatherLegend = {
   minTemp: number;
   maxTemp: number;
@@ -85,18 +90,18 @@ export const FiveDaysWeatherListElement = ({
   selected: boolean;
 }) => {
   const { precipitationMax } = legendInfo;
-  const { dt_txt, weather: weatherDesc, main } = weather;
+  const { timezoneOffset } = useWaetherIconContext();
+  const { weather: weatherDesc, main, dt } = weather;
   const { rain, snow } = getPrecitipation(weather);
   const { icon } = weatherDesc[0];
   const { temp } = main;
-  const hours = Number.parseInt(dt_txt.split(' ')[1].split(':')[0]);
+  const { hours } = getTimeFromTimezone(timezoneOffset, new Date(dt * 1000));
 
   return (
     <button
       className={`dayWeatherElement ${selected && 'selected'}`}
       onClick={selectDate}>
       <h3 className='elementHeader'>
-        {hours < 10 && '0'}
         {hours}:00
       </h3>
       <div className='weatherIconContainer'>

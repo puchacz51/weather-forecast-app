@@ -1,7 +1,11 @@
 import { FiveDaysWeather } from '../../../WeatherTypes';
 import { FiveDaysWeatherListElement } from './FiveDaysWeatherlistElement';
 import { useRef, useState } from 'react';
-import { getPrecitipation } from '../../../utilities/getWeatherIconValues';
+import {
+  getPrecitipation,
+  getTimeFromTimezone,
+} from '../../../utilities/getWeatherIconValues';
+import { useWaetherIconContext } from '../../../utilities/WeatherContext';
 type WeatherDaysSelectorProps = {
   days: { dayOfMonth: string; dayName: string; dayNameShort: string }[];
   selectDay: (day: string) => void;
@@ -31,23 +35,24 @@ export const FiveDaysWeatherList = ({
   selectedDate: number;
   selectDate: (date: number) => void;
 }) => {
+  const { timezoneOffset } = useWaetherIconContext();
   const weatherDaysList = weatherList.reduce((acc, currentTime) => {
-    const dayOfMonth = currentTime.dt_txt.split(' ')[0].split('-')[2];
+    const {
+      day: dayOfMonth,
+      dayName,
+      dayNameShort,
+    } = getTimeFromTimezone(timezoneOffset, new Date(currentTime.dt * 1000));
+
     if (
       (acc.length && acc[acc.length - 1]?.dayOfMonth !== dayOfMonth) ||
       !acc.length
     ) {
-      const date = new Date(currentTime.dt * 1000);
       return [
         ...acc,
         {
           dayOfMonth,
-          dayName: date.toLocaleDateString('en-US', {
-            weekday: 'long',
-          }),
-          dayNameShort: date.toLocaleDateString('en-US', {
-            weekday: 'short',
-          }),
+          dayName,
+          dayNameShort,
         },
       ];
     }
@@ -86,10 +91,7 @@ export const FiveDaysWeatherList = ({
           handleSelectDay(s);
         }}
       />
-      <div
-        className='fiveDaysWeatherList'
-        ref={weatherListContainerRef}
-     >
+      <div className='fiveDaysWeatherList' ref={weatherListContainerRef}>
         {weatherDaysList.map(({ dayName, dayOfMonth }) => (
           <div
             key={dayName}

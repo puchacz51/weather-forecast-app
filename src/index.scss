@@ -2,10 +2,18 @@
   font-family: 'Josefin Sans';
   src: url(./assets/font/JosefinSans-VariableFont_wght.ttf);
 }
-
+html,
+body,
+#root {
+  height: 100%;
+}
 body {
   font-family: 'Josefin Sans';
+  background-color: var(--background-color);
+
 }
+
+
 * {
   margin: 0;
   padding: 0;

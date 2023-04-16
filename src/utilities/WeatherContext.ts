@@ -11,6 +11,7 @@ type IconContextType = {
   humidity: number;
   pressure: number;
   temp: number;
+  timezoneOffset: number;
 };
 
 export const WeatherIconContext = createContext<IconContextType>({
@@ -24,6 +25,7 @@ export const WeatherIconContext = createContext<IconContextType>({
   humidity: 0,
   pressure: 0,
   temp: 0,
+  timezoneOffset: 0,
 });
 export const useWaetherIconContext = () =>
   useContext<IconContextType>(WeatherIconContext);

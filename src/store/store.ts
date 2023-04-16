@@ -1,33 +1,37 @@
 import { create } from 'zustand';
 import { City } from '../utilities/type';
+import { supabase } from '../utilities/supabase/supabase';
+import {
+  getSearchHistory,
+  setSearchHistory,
+} from '../utilities/getSearchHistory';
 
-type Store = {
+type State = {
   selectedCity: City | null;
   selectedCardType: 'CURRENT' | '5DAYS';
   headerInputIsOpen: boolean;
   headerInputText: string;
   theme: 'DARK' | 'LIGHT';
-  // currentweatherData: CurrentWeather | null;
-  // fiveDaysWeatherData: FiveDaysWeather | null;
+  searchHistory: City[] | [];
+};
+type Actions = {
   setSelectedCity: (name: City) => void;
   setHeaderInputText: (text: string) => void;
   setHeaderInputIsOpen: (isOpen: boolean) => void;
   setSelectedWeatherType: (type: 'CURRENT' | '5DAYS') => void;
-  setTheme: (type: 'LIGHT' | 'DARK') => void;
-
-  // setCurrentWeatherData: (data: CurrentWeather) => void;
-  // set5daysWeatherData: (data: FiveDaysWeather) => void;
-  // setSelectedCardType: (selectedType: 'CURRENT' | '5DAYS') => void;
+  setTheme: (theme: 'LIGHT' | 'DARK') => void;
+  setSearchHistory: (newSearch: City) => void;
 };
 
+type Store = State & Actions;
+
 export const useWaeatherStore = create<Store>((set) => ({
-  theme: 'DARK',
+  theme: 'LIGHT',
   selectedCity: null,
   selectedCardType: 'CURRENT',
   headerInputIsOpen: false,
   headerInputText: '',
-  // currentweatherData: null,
-  // fiveDaysWeatherData: null,
+  searchHistory: getSearchHistory(),
   setSelectedCity(name) {
     set((state) => ({
       ...state,
@@ -48,24 +52,18 @@ export const useWaeatherStore = create<Store>((set) => ({
   setSelectedWeatherType(type: 'CURRENT' | '5DAYS') {
     set((state) => ({ ...state, selectedCardType: type }));
   },
-  setTheme(type) {
-    set((state) => ({ ...state, theme: type }));
+  setTheme(theme) {
+    set((state) => ({ ...state, theme: theme }));
   },
-  // set5daysWeatherData(data) {
-  //   set((state) => ({
-  //     ...state,
-  //     selectedCardType: '5DAYS',
-  //     fiveDaysWeatherData: data,
-  //   }));
-  // },
-  // setCurrentWeatherData(data) {
-  //   set((state) => ({
-  //     ...state,
-  //     selectedCardType: 'CURRENT',
-  //     currentweatherDatas: data,
-  //   }));
-  // },
-  // setSelectedCardType(selectedType) {
-  //   set((state) => ({ ...state, selectedCardType: selectedType }));
-  // },
+  setSearchHistory: (newSearch: City) => {
+    set((state) => {
+      let newSearchHistory = state.searchHistory.filter(
+        (city) => city.id !== newSearch.id
+      );
+      newSearchHistory = [newSearch, ...newSearchHistory];
+      newSearchHistory.length > 5 && newSearchHistory.pop();
+      setSearchHistory(newSearchHistory);
+      return { ...state, searchHistory: newSearchHistory };
+    });
+  },
 }));

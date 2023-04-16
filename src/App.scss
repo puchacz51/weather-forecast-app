@@ -22,15 +22,14 @@
   );
   --primary-color: rgb(5, 207, 190);
   --secondary-color: rgba(7, 7, 7, 0.644);
-  --tertiary-color: rgba(255, 255, 255, 0.377);;
+  --tertiary-color: rgba(255, 255, 255, 0.377);
+  --background-color: transparent;
 }
-.app {
-  transition-duration: 0.3;
-}
+
 .dark {
+  --background-color: rgb(37, 33, 33);
   --primary-color: rgb(38, 43, 43);
   --secondary-color: rgba(36, 32, 32, 0.644);
-  color: white;
   --header-gradnient: linear-gradient(
     45deg,
     rgb(43, 46, 44) 10%,
@@ -38,6 +37,17 @@
     rgb(43, 46, 44) 50%,
     rgb(76, 91, 92) 70%
   );
+
+  --background-color: rgb(43, 46, 44);
+}
+
+.app {
+  transition-duration: 0.3;
+  min-height: 100vh;
+  background-color: var(--background-color);
+}
+body {
+  background-color: var(--background-color);
 }
 
 .night {
@@ -164,5 +174,104 @@
     color: rgba(255, 255, 255, 0.438);
     width: 100%;
     z-index: 1000;
+  }
+}
+.searchLocationContainer {
+  border: 5px solid var(--primary-color);
+  border-radius: 20px;
+  margin: 40px auto;
+  width: 95%;
+  height: 50%;
+  padding: 1.5em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5em;
+  font-size: 20px;
+  & .inputWrapper {
+    display: flex;
+    & .searchInput {
+      border: none;
+      border-bottom: 2px solid black;
+      font-size: 1.2em;
+      width: 20ch;
+      outline: none;
+    }
+    & .searchIcon {
+      padding: 0.1em;
+      font-size: 1.5em;
+    }
+  }
+  & .searchLocationHeader {
+    font-size: 1.8em;
+  }
+  & .locationListContainer {
+    display: flex;
+    flex-direction: column;
+    font-size: 1em;
+    width: 100%;
+    padding: 0.5em;
+    border-top: 2px solid var(--secondary-color);
+    & .locationListElement {
+      border: 1px solid var(--secondary-color);
+      padding: 0.3em 0.2em;
+      margin: 0.2em 0;
+      background: none;
+      display: grid;
+      grid-template-columns: 5% 45% 25% 25%;
+      text-align: left;
+      overflow: hidden;
+      font-size: 0.8em;
+      & .index {
+      }
+      & .name {
+      }
+      & .country {
+      }
+      & .region {
+        width: max-content;
+      }
+    }
+  }
+
+  & .historySearchContainer {
+    width: 90%;
+    display: flex;
+    justify-content: end;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    & .historyElementBtn {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      padding: 0.3rem;
+      border-radius: 0.5rem;
+      gap: 0.2rem;
+      font-weight: 600;
+      & .icon {
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+    }
+  }
+}
+.textInputContainer {
+  font-size: 1rem;
+  display: block;
+  position: relative;
+  & .textInput {
+    font-size: inherit;
+    text-transform: uppercase;
+    padding: 0 0.5rem;
+    font-size: inherit;
+    border: none;
+    border-bottom: 2px solid black;
+    &:focus-visible {
+      outline: none;
+    }
+    &::placeholder {
+      color: black;
+    }
   }
 }
