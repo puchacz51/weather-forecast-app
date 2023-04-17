@@ -73,10 +73,12 @@ export const WeatherValues = () => {
           <span className='windLegend w'>
             <span className='letter'>W</span>
           </span>
-          <ImArrowUp2
-            className='windDirectionIcon'
-            style={{ transform: `rotate(${windDeg}deg)` }}
-          />
+          <div className='windDirectionIconWrapper'>
+            <ImArrowUp2
+              className='windDirectionIcon'
+              style={{ transform: `rotate(${windDeg}deg)` }}
+            />
+          </div>
         </div>
       </div>
       <div className='weatherValuesGroupContainer windContainer'>

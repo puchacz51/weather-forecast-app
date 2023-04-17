@@ -5,6 +5,7 @@ import { City } from '../../utilities/type';
 import z from 'zod';
 import { useUserStore } from '../../store/userStore';
 import { useAddUserWeatherCard } from '../../utilities/useUserWeatherCard';
+import { LoadingSpinner } from '../LoadingSpinner';
 const cityWeatherCardSchema = z.object({
   cityName: z.string(),
   latitude: z.number().min(-180).max(180),
@@ -38,10 +39,23 @@ const CityComponent = ({
 const CitiesList = ({
   cities,
   onSelect,
+  isLoading,
 }: {
-  cities: City[];
+  cities: City[] | null;
   onSelect: (city: City) => void;
+  isLoading: boolean;
 }) => {
+  if (isLoading)
+    return (
+      <div className='citiesListContainer'>
+        <LoadingSpinner />
+      </div>
+    );
+  if (cities === null) return <div className='citiesListContainer'></div>;
+
+  if (cities.length === 0)
+    return <div className='citiesListContainer'>not found</div>;
+
   return (
     <div className='citiesListContainer'>
       {cities.map((city) => (
@@ -58,7 +72,7 @@ const CitiesList = ({
 
 const AddNewWeatherCardBtn = ({ add }: { add: () => void }) => {
   return (
-    <button className='addNewWeatherCardBtn' onClick={add}>
+    <button className='addNewWeatherCardBtn' type='button' onClick={add}>
       <AiOutlineAppstoreAdd />
     </button>
   );
@@ -69,7 +83,11 @@ const AddNewWeatherCardForm = ({ close }: { close: () => void }) => {
   const [isValid, setIsValid] = useState(false);
   const userId = useUserStore((store) => store.session?.user.id);
   const { mutate, reset, isSuccess } = useAddUserWeatherCard(userId as string);
-  const { data: cities, refetch } = useCityQuery(cityInputVal, {
+  const {
+    data: cities,
+    refetch,
+    isFetching,
+  } = useCityQuery(cityInputVal, {
     enabled: false,
   });
   if (isSuccess) {
@@ -84,7 +102,7 @@ const AddNewWeatherCardForm = ({ close }: { close: () => void }) => {
   useEffect(() => {
     const timeout = setTimeout(refetchCities, 500);
     return () => clearTimeout(timeout);
-  }, [cityInputVal, refetchCities]);
+  }, [cityInputVal]);
   const handleSelectCity = (city: City) => {
     setCityInputVal('');
     setSelectedCity(city);
@@ -123,44 +141,51 @@ const AddNewWeatherCardForm = ({ close }: { close: () => void }) => {
   };
 
   return (
-    <form action='' className='addNewWeatherCardForm' onSubmit={handleSubmit}>
-      {selectedCity ? (
-        <>
-          <div className='selectedCity'>
-            <p>selected city:</p>
-            <CityComponent
-              BtnOnClick={() => setSelectedCity(null)}
-              city={selectedCity}
-              btnTitle='x'
+    <div className='addNewWeatherCardForm'>
+      <h3 className='title'>new weather</h3>
+      <form action='' onSubmit={handleSubmit}>
+        {selectedCity ? (
+          <>
+            <div className='selectedCity'>
+              <p>selected city:</p>
+              <CityComponent
+                BtnOnClick={() => setSelectedCity(null)}
+                city={selectedCity}
+                btnTitle='x'
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <label htmlFor='city' className='textInputContainer'>
+              <input
+                type='text'
+                placeholder='search city'
+                onChange={(e) => setCityInputVal(e.currentTarget.value)}
+                value={cityInputVal}
+                className='textInput'
+              />
+            </label>
+            <CitiesList
+              isLoading={isFetching}
+              onSelect={handleSelectCity}
+              cities={cities || null}
             />
-          </div>
-        </>
-      ) : (
-        <>
-          <label htmlFor='city' className='textInputContainer'>
-            <input
-              type='text'
-              placeholder='city'
-              onChange={(e) => setCityInputVal(e.currentTarget.value)}
-              value={cityInputVal}
-              className='textInput'
-            />
-          </label>
-          {cities && <CitiesList onSelect={handleSelectCity} cities={cities} />}
-        </>
-      )}
-      <button
-        type='submit'
-        disabled={!isValid}
-        className='submitWeatherCardBtn'>
-        add
-      </button>
-    </form>
+          </>
+        )}
+        <button
+          type='submit'
+          disabled={!isValid}
+          className='submitWeatherCardBtn'>
+          add
+        </button>
+      </form>
+    </div>
   );
 };
 
 export const AddNewWeatherCard = () => {
-  const [isAdding, setIsAdding] = useState(true);
+  const [isAdding, setIsAdding] = useState(false);
   return (
     <div className='addNewWeatherCardContainer'>
       {isAdding ? (

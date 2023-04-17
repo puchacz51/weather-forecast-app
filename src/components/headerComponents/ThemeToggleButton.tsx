@@ -1,4 +1,3 @@
-import '../../Header.scss';
 import { motion } from 'framer-motion';
 import { useWaeatherStore } from '../../store/store';
 export const ToggleSwitch = () => {

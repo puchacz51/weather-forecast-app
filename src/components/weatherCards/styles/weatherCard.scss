@@ -88,19 +88,18 @@
 
     & .weatherValuesGroupContainer {
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
       border-radius: 16px;
       border: 8px solid var(--tertiary-color);
       padding: 0.2em;
-      height: 150px;
-      gap: 0.2em;
+      width: 100%;
+      gap: 1%;
     }
 
     & .weatherValuesGroupContainer {
       & .valueWrapper {
         position: relative;
-        aspect-ratio: 1;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -110,7 +109,7 @@
         padding: 0.6em;
         border: 6px solid var(--secondary-color);
         text-align: center;
-        height: 70%;
+        flex-grow: 1;
         & .iconWrapper {
           color: white;
           position: absolute;
@@ -124,7 +123,6 @@
           border: none;
           border: 4px solid var(--secondary-color);
           padding: 0.3em;
-          opacity: 1;
           height: 1.5em;
           & .icon {
             position: absolute;
@@ -133,45 +131,36 @@
             transform: translate(-50%, -50%);
           }
         }
+        &.pressure,
+        &.precipitation {
+          width: 30%;
+        }
+
         &.temperature {
-          font-size: 1em;
-          height: 90%;
+          font-size: 1.1em;
+          flex-grow: 6;
+          min-width: max-content;
           & .iconWrapper {
             height: 2em;
-            font-size: 1.2em;
+            font-size: 1.1em;
           }
-        }
-      }
-
-      & .pressureWrapper,
-      .precipitationWrapper {
-        border-radius: 50%;
-        position: relative;
-        & .pressureIcon,
-        .precipitationIcon {
-          position: absolute;
-          font-size: 2em;
-          top: 0;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          border-radius: 50%;
-          background-color: rgba(255, 255, 255, 0.377);
         }
       }
     }
     & .windContainer {
       border: 8px solid rgba(255, 255, 255, 0.39);
-      padding: 1em;
       position: relative;
       display: flex;
       flex-direction: column;
       height: auto;
       justify-content: space-around;
       width: 45%;
+      padding: .5em 0;
       & .windSpeedValue {
         background-color: rgba(255, 255, 255, 0.377);
         border-radius: 0.5em;
         margin-bottom: 1em;
+        width: 80%;
       }
       & .windIcon {
         position: absolute;
@@ -183,12 +172,21 @@
       }
 
       & .windDirectionWrapper {
+        width: 80%;
+        aspect-ratio: 1;
         position: relative;
         padding: 0.8em;
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.377);
-        & .windDirectionIcon {
-          font-size: 1.5em;
+        & .windDirectionIconWrapper {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          & .windDirectionIcon {
+            transition-duration: .5s;
+            font-size: 1.5em;
+          }
         }
         & .windLegend {
           position: absolute;
@@ -198,7 +196,6 @@
           display: block;
           aspect-ratio: 1;
           height: 1.3em;
-          aspect-ratio: 1;
           background-color: var(--secondary-color);
           color: white;
           & .letter {

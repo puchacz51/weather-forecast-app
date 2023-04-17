@@ -1,4 +1,3 @@
-import '../../Header.scss';
 import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import { useWaeatherStore } from '../../store/store';
 import { City } from '../../utilities/type';
@@ -7,6 +6,7 @@ import { motion } from 'framer-motion';
 import { TbSearch } from 'react-icons/tb';
 import { CgSpinnerAlt } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
+import { LoadingSpinner } from '../LoadingSpinner';
 
 export const SearchCity = () => {
   const {
@@ -80,11 +80,7 @@ export const SearchCity = () => {
           list='cities'
           placeholder='city name'
         />
-        {isFetching && (
-          <div className='wrapperLoadingIcon'>
-            <CgSpinnerAlt className='loadingIcon' />
-          </div>
-        )}
+        {isFetching && <LoadingSpinner />}
       </motion.label>
 
       <CityList cities={cities} />
