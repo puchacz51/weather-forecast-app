@@ -1,4 +1,8 @@
-@import url("./__veriables.scss");
+// @import url('./__veriables.scss');
+@use './_veriables';
+@forward './Header.scss';
+@import url('./weatherCard.scss');
+@import url('./dashboard.scss');
 
 .app {
   transition-duration: 0.3;

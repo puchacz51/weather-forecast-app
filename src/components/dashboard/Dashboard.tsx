@@ -1,4 +1,3 @@
-import './dashboard.scss';
 import { useUserStore } from '../../store/userStore';
 import { Navigate } from 'react-router-dom';
 import { AddNewWeatherCard } from './AddNewWeatherCardBtn';

@@ -1,4 +1,3 @@
-import './fiveDaysWeatherCard.scss';
 import { SkyIcon } from '../iconComponents/SkyIcon';
 import { useState } from 'react';
 import { WeatherIconContext } from '../../../utilities/WeatherContext';
