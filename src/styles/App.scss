@@ -1,50 +1,21 @@
-:root {
-  --sky-color: #90b0eb;
-  --sun-color: rgb(223, 223, 18);
-  --moon-color: rgb(221, 235, 237);
-  --sun-background-color: rgba(223, 223, 18, 0.265);
-  --moon-background-color: rgba(255, 255, 254, 0.265);
-  --cloud-lightrain-color: rgba(255, 252, 252, 0.834);
-  --cloud-rain-color: rgba(180, 166, 166, 0.71);
-  --cloud-heavyrain-color: rgba(118, 110, 110, 0.71);
-  --rain-color: rgba(49, 117, 244, 0.567);
-  --ground-color: rgba(56, 124, 42, 0.763);
-  --ground-snow-color: rgb(255, 255, 255);
-  --snow-color: rgb(244, 244, 244);
-  --grass-color: rgba(32, 136, 11, 0.793);
-  --header-background: rgb(35, 221, 87);
-  --header-gradnient: linear-gradient(
-    45deg,
-    rgba(35, 221, 87, 1) 10%,
-    rgba(11, 222, 238, 1) 30%,
-    rgba(35, 221, 87, 1) 50%,
-    rgba(11, 222, 238, 1) 70%
-  );
-  --primary-color: rgb(5, 207, 190);
-  --secondary-color: rgba(7, 7, 7, 0.644);
-  --tertiary-color: rgba(255, 255, 255, 0.377);
-  --background-color: transparent;
-}
-
-.dark {
-  --background-color: rgb(37, 33, 33);
-  --primary-color: rgb(38, 43, 43);
-  --secondary-color: rgba(36, 32, 32, 0.644);
-  --header-gradnient: linear-gradient(
-    45deg,
-    rgb(43, 46, 44) 10%,
-    rgb(76, 91, 92) 30%,
-    rgb(43, 46, 44) 50%,
-    rgb(76, 91, 92) 70%
-  );
-
-  --background-color: rgb(43, 46, 44);
-}
+// @import url('./__veriables.scss');
+@use './_veriables';
+@forward './Header.scss';
+@import url('./weatherCard.scss');
+@import url('./dashboard.scss');
 
 .app {
   transition-duration: 0.3;
   min-height: 100vh;
   background-color: var(--background-color);
+  color: var(--text-color);
+}
+input {
+  background-color: var(--background-color);
+}
+button,
+input {
+  color: var(--text-color);
 }
 body {
   background-color: var(--background-color);
@@ -177,7 +148,7 @@ body {
   }
 }
 .searchLocationContainer {
-  border: 5px solid var(--primary-color);
+  border: 5px solid var(--secondary-color);
   border-radius: 20px;
   margin: 40px auto;
   width: 95%;
@@ -189,6 +160,7 @@ body {
   flex-direction: column;
   gap: 0.5em;
   font-size: 20px;
+  background-color: var(--primary-color);
   & .inputWrapper {
     display: flex;
     & .searchInput {
@@ -197,6 +169,7 @@ body {
       font-size: 1.2em;
       width: 20ch;
       outline: none;
+      background-color: transparent;
     }
     & .searchIcon {
       padding: 0.1em;
@@ -215,9 +188,9 @@ body {
     border-top: 2px solid var(--secondary-color);
     & .locationListElement {
       border: 1px solid var(--secondary-color);
+      background-color: var(--tertiary-color);
       padding: 0.3em 0.2em;
       margin: 0.2em 0;
-      background: none;
       display: grid;
       grid-template-columns: 5% 45% 25% 25%;
       text-align: left;
@@ -244,7 +217,7 @@ body {
     & .historyElementBtn {
       display: flex;
       align-items: center;
-      background-color: white;
+      background-color: var(--tertiary-color);
       padding: 0.3rem;
       border-radius: 0.5rem;
       gap: 0.2rem;
@@ -273,5 +246,19 @@ body {
     &::placeholder {
       color: black;
     }
+  }
+}
+
+.laodingSpinnerContainer {
+  height: 100%;
+  position: relative;
+  width: 2em;
+  & .loadingIcon {
+    font-size: 1em;
+    animation: rotate infinite 1s linear;
+    position: absolute;
+    transform-origin: center;
+    z-index: 10;
+    color: black;
   }
 }

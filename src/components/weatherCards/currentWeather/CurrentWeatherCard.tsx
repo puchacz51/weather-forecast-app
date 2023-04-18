@@ -1,4 +1,3 @@
-import '../styles/weatherCard.scss';
 import { City } from '../../../utilities/type';
 import { useCurrentWeather } from '../../../utilities/useWeather';
 import { CgSpinnerAlt } from 'react-icons/cg';

@@ -1,4 +1,3 @@
-import './styles/weatherCard.scss';
 import { FaTemperatureHigh, FaWind } from 'react-icons/fa';
 import { WiHumidity, WiBarometer } from 'react-icons/wi';
 import { GiHeavyRain } from 'react-icons/gi';
@@ -33,64 +32,66 @@ export const WeatherValues = () => {
     <div className='weatherValues'>
       <div className='weatherValuesGroupContainer'>
         <div className='pressure valueWrapper'>
-          <span className='pressureValue'>{pressure} MPA</span>
           <div className='iconWrapper'>
             <WiBarometer className='icon' />
           </div>
+          <span className='value'>{pressure} MPA</span>
         </div>
 
         <div className='valueWrapper temperature'>
-          <span className='temperatureValue'>{temp.toFixed(1)} &deg;C</span>
           <div className='iconWrapper'>
             <FaTemperatureHigh className='icon' />
           </div>
+          <span className='value'>{temp.toFixed(1)} &deg;C</span>
         </div>
         <div className='valueWrapper precipitation'>
-          <span className='Value'>{rain + snow} mm</span>
           <div className='iconWrapper'>
             <GiHeavyRain className='icon' />
           </div>
+          <span className='value'>{rain + snow} mm</span>
         </div>
       </div>
-
-      <div className='weatherValuesGroupContainer windContainer valueWrapper'>
-        <span className='windSpeedValue valueWrapper'>
-          <span className='Value'>{windSpeed} m/s</span>
-          <div className='iconWrapper'>
-            <FaWind className='icon' />
-          </div>
-        </span>
-        <div className='windDirectionWrapper'>
-          <span className='windLegend n'>
-            <span className='letter'>N</span>
+      <div className='weatherGroupWrapper'>
+        <div className='weatherValuesGroupContainer windContainer valueWrapper'>
+          <span className='windSpeedValue valueWrapper'>
+            <div className='iconWrapper'>
+              <FaWind className='icon' />
+            </div>
+            <span className='Value'>{windSpeed} m/s</span>
           </span>
-          <span className='windLegend e'>
-            <span className='letter'>E</span>
-          </span>
-          <span className='windLegend s'>
-            <span className='letter'>S</span>
-          </span>
-          <span className='windLegend w'>
-            <span className='letter'>W</span>
-          </span>
-          <ImArrowUp2
-            className='windDirectionIcon'
-            style={{ transform: `rotate(${windDeg}deg)` }}
-          />
-        </div>
-      </div>
-      <div className='weatherValuesGroupContainer windContainer'>
-        <div className='valueWrapper'>
-          <span className='Value'>{humidity} %</span>
-
-          <div className='iconWrapper'>
-            <WiHumidity className='icon' />
+          <div className='windDirectionWrapper'>
+            <span className='windLegend n'>
+              <span className='letter'>N</span>
+            </span>
+            <span className='windLegend e'>
+              <span className='letter'>E</span>
+            </span>
+            <span className='windLegend s'>
+              <span className='letter'>S</span>
+            </span>
+            <span className='windLegend w'>
+              <span className='letter'>W</span>
+            </span>
+            <div className='windDirectionIconWrapper'>
+              <ImArrowUp2
+                className='windDirectionIcon'
+                style={{ transform: `rotate(${windDeg}deg)` }}
+              />
+            </div>
           </div>
         </div>
-        <div className='valueWrapper'>
-          <span className='Value'>{cloudity} %</span>
-          <div className='iconWrapper'>
-            <BsFillCloudsFill className='icon' />
+        <div className='weatherValuesGroupContainer restContainer'>
+          <div className='valueWrapper'>
+            <div className='iconWrapper'>
+              <WiHumidity className='icon' />
+            </div>
+            <span className='Value'>{humidity} %</span>
+          </div>
+          <div className='valueWrapper'>
+            <div className='iconWrapper'>
+              <BsFillCloudsFill className='icon' />
+            </div>
+            <span className='Value'>{cloudity} %</span>
           </div>
         </div>
       </div>

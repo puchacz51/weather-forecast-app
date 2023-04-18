@@ -5,13 +5,17 @@ import { useCityQuery, useCityQueryById } from '../utilities/useCity';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { useWaeatherStore } from '../store/store';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineHistory} from 'react-icons/ai'
-
+import { AiOutlineHistory } from 'react-icons/ai';
+import { LoadingSpinner } from './LoadingSpinner';
 
 export const SearchLocation = () => {
   const { searchHistory } = useWaeatherStore();
   const [inputVal, setInputVal] = useState('');
-  const { data: cities, refetch } = useCityQuery(inputVal, { enabled: false });
+  const {
+    data: cities,
+    refetch,
+    isFetching,
+  } = useCityQuery(inputVal, { enabled: false });
   const refetchCities = () => {
     if (inputVal) {
       refetch();
@@ -21,7 +25,7 @@ export const SearchLocation = () => {
   useEffect(() => {
     const timeout = setTimeout(refetchCities, 500);
     return () => clearTimeout(timeout);
-  }, [inputVal, refetchCities]);
+  }, [inputVal]);
   return (
     <div className='searchLocationContainer'>
       <label htmlFor='city' className='searchLocationHeader'>
@@ -36,7 +40,7 @@ export const SearchLocation = () => {
           placeholder='type city'
           onChange={(e) => setInputVal(e.currentTarget.value)}
         />
-        <CgSpinnerAlt className='loadingIcon' />
+        {isFetching && <LoadingSpinner />}
       </div>
       {cities ? (
         <LocationList cities={cities} />
@@ -99,7 +103,7 @@ const LocationHistoryElement = ({ city }: { city: City }) => {
   };
   return (
     <button className='historyElementBtn' onClick={handleCitySelect}>
-      <AiOutlineHistory className='icon'/>
+      <AiOutlineHistory className='icon' />
       {city.name}
     </button>
   );

@@ -1,4 +1,4 @@
-import './App.scss';
+import './styles/App.scss';
 import { Header } from './Header';
 import { useWaeatherStore } from './store/store';
 import { CurrentWeatherCard } from './components/weatherCards/currentWeather/CurrentWeatherCard';
@@ -22,7 +22,7 @@ function App() {
     });
   }, []);
   return (
-    <div className={`App ${theme === 'DARK' && 'dark'}`}>
+    <div className={`app ${theme === 'DARK' && 'dark'}`}>
       <Header />
       <main>
         <Routes>

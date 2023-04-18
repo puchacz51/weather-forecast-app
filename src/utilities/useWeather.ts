@@ -45,7 +45,7 @@ const useCurrentWeather: UseCurrentWeather = (lat, lon) => {
   return useQuery<CurrentWeather>(
     [lon, lat],
     () => fetchCurrentWeather(params),
-    {}
+    { cacheTime: 300000, staleTime: 200000 }
   );
 };
 
