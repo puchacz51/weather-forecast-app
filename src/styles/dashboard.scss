@@ -1,3 +1,5 @@
+@use '_veriables' as *;
+
 .dashboard {
   display: flex;
   justify-content: center;
@@ -30,13 +32,15 @@
     padding: 0 2%;
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
     gap: 1rem;
     & .dashboardWeatherCard {
       text-decoration: none;
       color: inherit;
       width: 100%;
-
+      max-width: 350px;
       &.tempCard {
         & .wrapper {
           filter: blur(10px);
@@ -70,22 +74,45 @@
       }
     }
     & .dashboardChangeOrderContainer {
+      width: 100%;
       display: flex;
       border: 2px solid var(--secondary-color);
       padding: 1rem;
       flex-wrap: wrap;
       justify-content: space-between;
+      position: relative;
+      row-gap: 2%;
       & .changeOrderCard {
+        position: relative;
         width: 30%;
         border: 2px solid var(--secondary-color);
         border-radius: 0.5em;
         padding: 0.5em;
         text-align: center;
+        &.active {
+          & > * {
+            opacity: 0;
+          }
+        }
+
         & .order {
           font-size: 1.5em;
         }
+        & .deleteCardBtn {
+          position: absolute;
+          right: 0;
+          top: 0;
+          transform: translate(50%, -50%);
+          width: 1.8rem;
+          font-size: 1.4em;
+          aspect-ratio: 1;
+          background-color: red;
+          border-radius: 50%;
+        }
       }
       & .changeOrderBtn {
+        font-size: 2em;
+
         width: 100%;
         background-color: var(--green-color);
         &:disabled {
@@ -176,4 +203,7 @@
       }
     }
   }
+}
+
+@media (min-width: $width-mobile) {
 }
