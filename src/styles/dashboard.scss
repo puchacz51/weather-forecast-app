@@ -11,6 +11,7 @@
   margin: auto;
   border: 5px solid var(--primary-color);
   border-radius: 0 0 1rem 1rem;
+  max-width: 1200px;
   & .dashboardHeader {
     padding: 0.5rem 0;
     display: flex;
@@ -32,9 +33,9 @@
     padding: 0 2%;
     width: 100%;
     display: flex;
+    justify-content: space-evenly;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
     gap: 1rem;
     & .dashboardWeatherCard {
       text-decoration: none;
