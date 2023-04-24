@@ -2,7 +2,6 @@ import { City } from '../../../utilities/type';
 import { useCurrentWeather } from '../../../utilities/useWeather';
 import { CgSpinnerAlt } from 'react-icons/cg';
 import { CurrentWeatherIcon } from './CurrentWeatherIcon';
-import { useWaeatherStore } from '../../../store/store';
 import { WeatherIconContext } from '../../../utilities/WeatherContext';
 import {
   getTimeFromTimezone,
@@ -10,9 +9,10 @@ import {
 } from '../../../utilities/getWeatherIconValues';
 import { WeatherValues } from '../WeatherValues';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useRootStore } from '../../../store/store';
 
 export const CurrentWeatherCard = () => {
-  const { selectedCity: city } = useWaeatherStore();
+  const city = useRootStore((state) => state.selectedCity);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { city: name, longitude, latitude } = city as City;

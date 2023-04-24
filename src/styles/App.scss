@@ -3,6 +3,7 @@
 @forward './Header.scss';
 @import url('./weatherCard.scss');
 @import url('./dashboard.scss');
+@import url('./fiveDaysWeatherCard.scss');
 
 .app {
   transition-duration: 0.3;
@@ -71,86 +72,13 @@ body {
     width: min-content;
   }
 }
-.skyIcon {
-  font-size: 100px;
-  overflow: hidden;
-  aspect-ratio: 3;
-  position: relative;
-  border: 1px solid black;
-  background-color: var(--sky-color);
-}
 
-.CurrentWeatherIconContainer {
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 8px 10px 1px rgb(80, 79, 79);
-  border-radius: 0 0 2% 2%;
-
-  & .skyIcon {
-    width: 100%;
-    aspect-ratio: 3;
-    height: auto;
-    transition-duration: 1s;
-  }
-  &.night {
-    &::after {
-      content: '';
-      display: block;
-      z-index: 1;
-      background-color: rgba(0, 0, 0, 0.275);
-      position: absolute;
-      inset: 0;
-    }
-  }
-
-  & .ground {
-    position: relative;
-    background-color: var(--ground-color);
-    aspect-ratio: 5;
-    &.snow {
-      background-color: var(--ground-snow-color);
-    }
-
-    & .treeContainer {
-      height: 110%;
-      aspect-ratio: 1;
-      transform: translateX(-50%);
-      position: absolute;
-      & .grass {
-        position: absolute;
-        bottom: 0%;
-        color: var(--grass-color);
-        z-index: 1000;
-        right: 50%;
-        transform: translateX(50%);
-        font-size: 170%;
-      }
-      & .snowTrunk {
-        position: absolute;
-        bottom: 0%;
-        color: var(--snow-color);
-        z-index: 1000;
-        right: 50%;
-        transform: translate(50%, 50%);
-        font-size: 170%;
-      }
-    }
-    & .puddle {
-      width: 100%;
-    }
-  }
-  & .wind {
-    height: 100%;
-    color: rgba(255, 255, 255, 0.438);
-    width: 100%;
-    z-index: 1000;
-  }
-}
 .searchLocationContainer {
   border: 5px solid var(--secondary-color);
   border-radius: 20px;
   margin: 40px auto;
   width: 95%;
+  max-width: 800px;
   height: 50%;
   padding: 1.5em 0;
   display: flex;
@@ -209,6 +137,7 @@ body {
 
   & .historySearchContainer {
     width: 90%;
+    max-width: 300px;
     display: flex;
     justify-content: end;
     gap: 0.5rem;

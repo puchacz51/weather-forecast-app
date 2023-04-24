@@ -1,5 +1,4 @@
 import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
-import { useWaeatherStore } from '../../store/store';
 import { City } from '../../utilities/type';
 import { useCityQuery } from '../../utilities/useCity';
 import { motion } from 'framer-motion';
@@ -7,7 +6,7 @@ import { TbSearch } from 'react-icons/tb';
 import { CgSpinnerAlt } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
 import { LoadingSpinner } from '../LoadingSpinner';
-
+import { useRootStore } from '../../store/store';
 export const SearchCity = () => {
   const {
     setSelectedCity,
@@ -15,7 +14,7 @@ export const SearchCity = () => {
     headerInputText,
     headerInputIsOpen,
     setHeaderInputIsOpen,
-  } = useWaeatherStore();
+  } = useRootStore((state) => state);
   const {
     refetch,
     data: cities,

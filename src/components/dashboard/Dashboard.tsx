@@ -1,10 +1,10 @@
-import { useUserStore } from '../../store/userStore';
 import { Navigate } from 'react-router-dom';
 import { AddNewWeatherCard } from './AddNewWeatherCardBtn';
 import { useUserWeatherCardQuery } from '../../utilities/useUserWeatherCard';
 import { DashBoardWeatherCard } from './DahboardWeatherCard';
 import { BsFillGearFill } from 'react-icons/bs';
 import { DashboardChangeCardOrder } from './DashboardChanegeCardOrder';
+import { useRootStore } from '../../store/store';
 
 const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
   const { data, isFetching, isError, isLoading } =
@@ -18,13 +18,16 @@ const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
       {data.map((weatherCard) => (
         <DashBoardWeatherCard cardData={weatherCard} key={weatherCard.cityId} />
       ))}
-      {data.length < 4 && <AddNewWeatherCard />}
+      {data.length < 6 && <AddNewWeatherCard />}
     </div>
   );
 };
 
 export const Dashboard = () => {
-  const { loading, session } = useUserStore((state) => state);
+  const [loading, session] = useRootStore((state) => [
+    state.loading,
+    state.session,
+  ]);
   const user = session?.user;
   if (loading) return <>laoding</>;
   if (!loading && !user) return <Navigate to={'/'} replace />;

@@ -3,13 +3,13 @@ import { CgSpinnerAlt } from 'react-icons/cg';
 import { City } from '../utilities/type';
 import { useCityQuery, useCityQueryById } from '../utilities/useCity';
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { useWaeatherStore } from '../store/store';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHistory } from 'react-icons/ai';
 import { LoadingSpinner } from './LoadingSpinner';
+import { useRootStore } from '../store/store';
 
 export const SearchLocation = () => {
-  const { searchHistory } = useWaeatherStore();
+  const searchHistory = useRootStore((state) => state.searchHistory);
   const [inputVal, setInputVal] = useState('');
   const {
     data: cities,
@@ -21,7 +21,6 @@ export const SearchLocation = () => {
       refetch();
     }
   };
-
   useEffect(() => {
     const timeout = setTimeout(refetchCities, 500);
     return () => clearTimeout(timeout);
@@ -62,7 +61,10 @@ export const LocationListElement = ({
   index: number;
 }) => {
   const { city: name, region, countryCode, id } = city;
-  const { setSelectedCity, setSearchHistory } = useWaeatherStore();
+  const [setSelectedCity, setSearchHistory] = useRootStore((state) => [
+    state.setSelectedCity,
+    state.setSearchHistory,
+  ]);
   const navigate = useNavigate();
   const handleCitySelect = () => {
     setSearchHistory(city);
@@ -94,7 +96,10 @@ export const LocationList = ({ cities }: { cities: City[] }) => {
 };
 const LocationHistoryElement = ({ city }: { city: City }) => {
   const { city: name, region, countryCode, id } = city;
-  const { setSelectedCity, setSearchHistory } = useWaeatherStore();
+  const [setSelectedCity, setSearchHistory] = useRootStore((state) => [
+    state.setSelectedCity,
+    state.setSearchHistory,
+  ]);
   const navigate = useNavigate();
   const handleCitySelect = () => {
     setSearchHistory(city);

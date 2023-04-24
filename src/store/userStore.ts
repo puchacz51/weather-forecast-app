@@ -1,7 +1,7 @@
 import { Session } from '@supabase/supabase-js';
-import { create } from 'zustand';
-import { supabase } from '../utilities/supabase/supabase';
+import { StateCreator, create } from 'zustand';
 import { Database } from '../utilities/supabase/schema';
+import { RootStore } from './store';
 
 type State = {
   session: Session | null;
@@ -14,23 +14,22 @@ type Actions = {
     setUserWeatherCards: Database['public']['Tables']['weatherCard']['Row']
   ) => void;
 };
-const getCurrentSession = async () => {
-  const { data, error } = await supabase.auth.getSession();
-  if (error) return null;
-  return data.session;
-};
 
-export const useUserStore = create<State & Actions>((set) => ({
+export type SessionStore = State & Actions;
+
+export const useSessionStore: StateCreator<RootStore, [], [], SessionStore> = (
+  set
+) => ({
   session: null,
   loading: true,
   userWeatherCards: [],
   setSession(session) {
     set((state) => ({ ...state, session: session, loading: false }));
   },
-addNewWeatherCard(newWeatherCard) {
+  addNewWeatherCard(newWeatherCard) {
     set((state) => ({
       ...state,
       addNewWeatherCards: [...state.userWeatherCards, newWeatherCard],
     }));
   },
-}));
+});

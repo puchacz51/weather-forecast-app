@@ -1,6 +1,5 @@
 import './styles/App.scss';
 import { Header } from './Header';
-import { useWaeatherStore } from './store/store';
 import { CurrentWeatherCard } from './components/weatherCards/currentWeather/CurrentWeatherCard';
 import { FiveDaysWeatherCard } from './components/weatherCards/fiveDaysWeather/FiveDaysWeatherCard';
 import { SearchLocation } from './components/SearchLocation';
@@ -9,13 +8,11 @@ import { WeatherCards } from './components/weatherCards/currentWeather/WeatherCa
 import { supabase } from './utilities/supabase/supabase';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { useEffect } from 'react';
-import { useUserStore } from './store/userStore';
+import { useRootStore } from './store/store';
 function App() {
-  const theme = useWaeatherStore(
-    (stete) => stete.theme,
-    (oldTheme, newTheme) => oldTheme === newTheme
-  );
-  const { setSession } = useUserStore();
+  const theme = useRootStore((stete) => stete.theme);
+  const setSession = useRootStore((state) => state.setSession);
+
   useEffect(() => {
     supabase.auth.onAuthStateChange((_event, ses) => {
       setSession(ses);
