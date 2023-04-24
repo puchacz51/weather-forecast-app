@@ -1,8 +1,8 @@
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
-import { useWaeatherStore } from '../../../store/store';
 import { useCityQueryById } from '../../../utilities/useCity';
+import { useRootStore } from '../../../store/store';
 export const WeatherCards = () => {
-  const { selectedCity, setSelectedCity } = useWaeatherStore();
+  const { selectedCity, setSelectedCity } = useRootStore((state) => state.main);
   const { cityId = '' } = useParams();
   const navigate = useNavigate();
 
@@ -17,8 +17,8 @@ export const WeatherCards = () => {
       setSelectedCity(data);
     },
     onError: (err) => {
-		console.log(err);
-		
+      console.log(err);
+
       setInterval(() => {
         navigate('/');
       }, 1000);

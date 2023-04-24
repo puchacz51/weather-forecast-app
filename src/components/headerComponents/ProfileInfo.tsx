@@ -1,11 +1,11 @@
 import { Session } from '@supabase/supabase-js';
-import { useUserStore } from '../../store/userStore';
 import defualtPicture from '../../assets/moon.png';
 import { useState } from 'react';
 import { supabase } from '../../utilities/supabase/supabase';
+import { useRootStore } from '../../store/store';
 export const ProfileInfo = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useUserStore((state) => state.session) as Session;
+  const { user } = useRootStore((state) => state.session.session) as Session;
   user.user_metadata;
   let picture = defualtPicture;
   if (user.user_metadata?.picture) {

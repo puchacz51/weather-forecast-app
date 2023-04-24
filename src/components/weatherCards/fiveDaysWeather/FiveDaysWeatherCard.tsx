@@ -5,13 +5,15 @@ import { getWeatherIconValues } from '../../../utilities/getWeatherIconValues';
 import { FiveDaysWeatherList } from './FiveDaysWeatherList';
 import { WeatherValues } from '../WeatherValues';
 import { City } from '../../../utilities/type';
-import { useWaeatherStore } from '../../../store/store';
 import { CgSpinnerAlt } from 'react-icons/cg';
 import { useFiveDaysWeather } from '../../../utilities/useWeather';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useRootStore } from '../../../store/store';
 
 export const FiveDaysWeatherCard = () => {
-  const { selectedCity: city, setSelectedWeatherType } = useWaeatherStore();
+  const { selectedCity: city, setSelectedWeatherType } = useRootStore(
+    (state) => state.main
+  );
   const { city: name, latitude: lat, longitude: lon } = city as City;
 
   const [selectedWeatherDate, setSelectedWeatherDate] = useState(0);

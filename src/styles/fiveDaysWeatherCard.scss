@@ -362,7 +362,7 @@
         gap: 5px;
         flex-wrap: wrap;
         order: 2;
-
+        display: none;
         & .weatherDaySelectorButton {
           aspect-ratio: 3/1;
         }

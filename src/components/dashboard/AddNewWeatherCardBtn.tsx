@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import { useCityQuery } from '../../utilities/useCity';
 import { City } from '../../utilities/type';
 import z from 'zod';
-import { useUserStore } from '../../store/userStore';
 import { useAddUserWeatherCard } from '../../utilities/useUserWeatherCard';
 import { LoadingSpinner } from '../LoadingSpinner';
+import { useRootStore } from '../../store/store';
 const cityWeatherCardSchema = z.object({
   cityName: z.string(),
   latitude: z.number().min(-180).max(180),
@@ -81,7 +81,7 @@ const AddNewWeatherCardForm = ({ close }: { close: () => void }) => {
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
   const [cityInputVal, setCityInputVal] = useState('');
   const [isValid, setIsValid] = useState(false);
-  const userId = useUserStore((store) => store.session?.user.id);
+  const userId = useRootStore((state) => state.session?.session?.user?.id);
   const { mutate, reset, isSuccess } = useAddUserWeatherCard(userId as string);
   const {
     data: cities,
