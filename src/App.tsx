@@ -10,8 +10,9 @@ import { Dashboard } from './components/dashboard/Dashboard';
 import { useEffect } from 'react';
 import { useRootStore } from './store/store';
 function App() {
-  const theme = useRootStore((stete) => stete.main.theme);
-  const { setSession } = useRootStore((state) => state.session);
+  const theme = useRootStore((stete) => stete.theme);
+  const setSession = useRootStore((state) => state.setSession);
+
   useEffect(() => {
     supabase.auth.onAuthStateChange((_event, ses) => {
       setSession(ses);

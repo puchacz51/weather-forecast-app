@@ -44,7 +44,7 @@ const ChangeOrderCard = ({ data, style }: ChangeOrderCardProps) => (
 );
 
 const SortableChangeOrderCard = ({ data, activeId }: ChangeOrderCardProps) => {
-  const user = useRootStore((store) => store.session?.session?.user) as User;
+  const user = useRootStore((store) => store.session?.user) as User;
   const { mutate, isIdle } = useDeleteWeatherCardOrder(user?.id, data.cityId);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: data.cityId });
@@ -74,7 +74,7 @@ export const DashboardChangeCardOrder = ({
   cardList: WeatherCardCity[];
 }) => {
   const userId = useRootStore(
-    (state) => state.session.session?.user.id
+    (state) => state.session?.user.id
   ) as string;
   const [tempOrder, setTempOrder] = useState(cardList);
   const [initialOrder, setInitialOrder] = useState(cardList);

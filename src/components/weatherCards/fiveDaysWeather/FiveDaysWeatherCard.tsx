@@ -11,9 +11,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useRootStore } from '../../../store/store';
 
 export const FiveDaysWeatherCard = () => {
-  const { selectedCity: city, setSelectedWeatherType } = useRootStore(
-    (state) => state.main
-  );
+  const city = useRootStore((state) => state.selectedCity);
   const { city: name, latitude: lat, longitude: lon } = city as City;
 
   const [selectedWeatherDate, setSelectedWeatherDate] = useState(0);

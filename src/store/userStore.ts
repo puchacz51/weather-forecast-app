@@ -1,6 +1,7 @@
 import { Session } from '@supabase/supabase-js';
-import { create } from 'zustand';
+import { StateCreator, create } from 'zustand';
 import { Database } from '../utilities/supabase/schema';
+import { RootStore } from './store';
 
 type State = {
   session: Session | null;
@@ -16,7 +17,9 @@ type Actions = {
 
 export type SessionStore = State & Actions;
 
-export const useSessionStore = create<SessionStore>((set) => ({
+export const useSessionStore: StateCreator<RootStore, [], [], SessionStore> = (
+  set
+) => ({
   session: null,
   loading: true,
   userWeatherCards: [],
@@ -29,4 +32,4 @@ export const useSessionStore = create<SessionStore>((set) => ({
       addNewWeatherCards: [...state.userWeatherCards, newWeatherCard],
     }));
   },
-}));
+});

@@ -7,7 +7,6 @@ import { CgSpinnerAlt } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
 import { LoadingSpinner } from '../LoadingSpinner';
 import { useRootStore } from '../../store/store';
-
 export const SearchCity = () => {
   const {
     setSelectedCity,
@@ -15,7 +14,7 @@ export const SearchCity = () => {
     headerInputText,
     headerInputIsOpen,
     setHeaderInputIsOpen,
-  } = useRootStore(state=>state.main);
+  } = useRootStore((state) => state);
   const {
     refetch,
     data: cities,

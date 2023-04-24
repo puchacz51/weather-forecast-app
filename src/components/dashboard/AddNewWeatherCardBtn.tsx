@@ -81,7 +81,7 @@ const AddNewWeatherCardForm = ({ close }: { close: () => void }) => {
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
   const [cityInputVal, setCityInputVal] = useState('');
   const [isValid, setIsValid] = useState(false);
-  const userId = useRootStore((state) => state.session?.session?.user?.id);
+  const userId = useRootStore((state) => state.session?.user?.id);
   const { mutate, reset, isSuccess } = useAddUserWeatherCard(userId as string);
   const {
     data: cities,

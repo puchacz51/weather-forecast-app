@@ -2,7 +2,10 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useCityQueryById } from '../../../utilities/useCity';
 import { useRootStore } from '../../../store/store';
 export const WeatherCards = () => {
-  const { selectedCity, setSelectedCity } = useRootStore((state) => state.main);
+  const [selectedCity, setSelectedCity] = useRootStore((state) => [
+    state.selectedCity,
+    state.setSelectedCity,
+  ]);
   const { cityId = '' } = useParams();
   const navigate = useNavigate();
 

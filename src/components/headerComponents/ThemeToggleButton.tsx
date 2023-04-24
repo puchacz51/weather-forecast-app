@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
 import { useRootStore } from '../../store/store';
 export const ToggleSwitch = () => {
-  const { theme, setTheme } = useRootStore(state=>state.main);
+  const [theme, setTheme] = useRootStore((state) => [
+    state.theme,
+    state.setTheme,
+  ]);
   const switchOnAnimation = {
     backgroundColor: '#00ccff',
     translateX: '100%',

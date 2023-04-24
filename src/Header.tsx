@@ -9,8 +9,11 @@ import { useState } from 'react';
 import { MdDashboard } from 'react-icons/md';
 import { useRootStore } from './store/store';
 export const Header = () => {
-  const { session, loading } = useRootStore((state) => state.session);
-  const { headerInputIsOpen } = useRootStore((state) => state.main);
+  const [session, loading] = useRootStore((state) => [
+    state.session,
+    state.loading,
+  ]);
+  const headerInputIsOpen = useRootStore((state) => state.headerInputIsOpen);
   const [headerElementsIsVisible, setHeaderElementsIsVisible] = useState(
     !headerInputIsOpen
   );

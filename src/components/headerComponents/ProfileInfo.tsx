@@ -5,7 +5,7 @@ import { supabase } from '../../utilities/supabase/supabase';
 import { useRootStore } from '../../store/store';
 export const ProfileInfo = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useRootStore((state) => state.session.session) as Session;
+  const { user } = useRootStore((state) => state.session) as Session;
   user.user_metadata;
   let picture = defualtPicture;
   if (user.user_metadata?.picture) {

@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useRootStore } from '../../../store/store';
 
 export const CurrentWeatherCard = () => {
-  const { selectedCity: city } = useRootStore((state) => state.main);
+  const city = useRootStore((state) => state.selectedCity);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { city: name, longitude, latitude } = city as City;

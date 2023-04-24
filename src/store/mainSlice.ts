@@ -1,10 +1,11 @@
-import { create } from 'zustand';
+import { StateCreator, create } from 'zustand';
 import { City } from '../utilities/type';
 import {
   getSearchHistory,
   setSearchHistory,
 } from '../utilities/getSearchHistory';
 import { Main } from '../WeatherTypes';
+import { RootStore } from './store';
 
 type State = {
   selectedCity: City | null;
@@ -23,7 +24,9 @@ type Actions = {
   setSearchHistory: (newSearch: City) => void;
 };
 export type MainStore = State & Actions;
-export const useMainStore = create<MainStore>((set) => ({
+export const useMainStore: StateCreator<RootStore, [], [], MainStore> = (
+  set
+) => ({
   theme: 'LIGHT',
   selectedCity: null,
   selectedCardType: 'CURRENT',
@@ -68,4 +71,4 @@ export const useMainStore = create<MainStore>((set) => ({
       set((state) => ({ ...state, changeUserWeatherCardIsOpen: isOpen }));
     };
   },
-}));
+});

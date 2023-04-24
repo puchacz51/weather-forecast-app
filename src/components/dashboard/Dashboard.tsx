@@ -24,7 +24,10 @@ const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
 };
 
 export const Dashboard = () => {
-  const { loading, session } = useRootStore((state) => state.session);
+  const [loading, session] = useRootStore((state) => [
+    state.loading,
+    state.session,
+  ]);
   const user = session?.user;
   if (loading) return <>laoding</>;
   if (!loading && !user) return <Navigate to={'/'} replace />;

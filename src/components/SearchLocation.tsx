@@ -9,7 +9,7 @@ import { LoadingSpinner } from './LoadingSpinner';
 import { useRootStore } from '../store/store';
 
 export const SearchLocation = () => {
-  const { searchHistory } = useRootStore((state) => state.main);
+  const searchHistory = useRootStore((state) => state.searchHistory);
   const [inputVal, setInputVal] = useState('');
   const {
     data: cities,
@@ -61,9 +61,10 @@ export const LocationListElement = ({
   index: number;
 }) => {
   const { city: name, region, countryCode, id } = city;
-  const { setSelectedCity, setSearchHistory } = useRootStore(
-    (state) => state.main
-  );
+  const [setSelectedCity, setSearchHistory] = useRootStore((state) => [
+    state.setSelectedCity,
+    state.setSearchHistory,
+  ]);
   const navigate = useNavigate();
   const handleCitySelect = () => {
     setSearchHistory(city);
@@ -95,9 +96,10 @@ export const LocationList = ({ cities }: { cities: City[] }) => {
 };
 const LocationHistoryElement = ({ city }: { city: City }) => {
   const { city: name, region, countryCode, id } = city;
-  const { setSelectedCity, setSearchHistory } = useRootStore(
-    (state) => state.main
-  );
+  const [setSelectedCity, setSearchHistory] = useRootStore((state) => [
+    state.setSelectedCity,
+    state.setSearchHistory,
+  ]);
   const navigate = useNavigate();
   const handleCitySelect = () => {
     setSearchHistory(city);
