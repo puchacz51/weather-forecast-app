@@ -1,9 +1,10 @@
 import { useSortable } from '@dnd-kit/sortable';
 import {
   WeatherCardCity,
+  useDeleteWeatherCardOrder,
   useUpdateWeatherCardOrder,
 } from '../../utilities/useUserWeatherCard';
-import { useState } from 'react';
+import { CSSProperties, useState } from 'react';
 import { CSS } from '@dnd-kit/utilities';
 import {
   DndContext,
@@ -26,20 +27,25 @@ import {
   arrayMove,
 } from '@dnd-kit/sortable/dist/';
 import { useUserStore } from '../../store/userStore';
+import { User } from '@supabase/supabase-js';
 
 type TempOrder = { cityId: number; order: number; cityName: string };
 type ChangeOrderCardProps = {
   data: TempOrder;
+  activeId?: UniqueIdentifier | null;
+  style?: CSSProperties;
 };
 
-const ChangeOrderCard = ({ data }: ChangeOrderCardProps) => (
-  <div className='changeOrderCard'>
+const ChangeOrderCard = ({ data, style }: ChangeOrderCardProps) => (
+  <div className='changeOrderCard' style={style}>
     <p className='order'>{data.order}</p>
     <p>{data.cityName}</p>
   </div>
 );
 
-const SortableChangeOrderCard = ({ data }: ChangeOrderCardProps) => {
+const SortableChangeOrderCard = ({ data, activeId }: ChangeOrderCardProps) => {
+  const user = useUserStore((store) => store?.session?.user) as User;
+  const { mutate, isIdle } = useDeleteWeatherCardOrder(user?.id, data.cityId);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: data.cityId });
   const style = {
@@ -52,7 +58,11 @@ const SortableChangeOrderCard = ({ data }: ChangeOrderCardProps) => {
       style={style}
       {...attributes}
       {...listeners}
-      className='changeOrderCard'>
+      className={`changeOrderCard ${activeId == data.cityId && 'active'}`}>
+      <button className='deleteCardBtn' onClick={() => mutate()}>
+        {' '}
+        x
+      </button>
       <p className='order'>{data.order}</p>
       <p>{data.cityName}</p>
     </div>
@@ -73,8 +83,6 @@ export const DashboardChangeCardOrder = ({
   );
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const handleOrderChange = () => {
-    
-
     mutate();
   };
 
@@ -97,9 +105,10 @@ export const DashboardChangeCardOrder = ({
         items={tempOrder.map((temp) => temp.cityId)}
         strategy={verticalListSortingStrategy}>
         <div className='dashboardChangeOrderContainer'>
-          <DragOverlay>
+          <DragOverlay style={{ width: '30%' }}>
             {activeId ? (
               <ChangeOrderCard
+                style={{ width: '100%', background: 'red' }}
                 data={
                   tempOrder.find(
                     (data) => data.cityId === activeId
@@ -109,7 +118,11 @@ export const DashboardChangeCardOrder = ({
             ) : null}
           </DragOverlay>
           {tempOrder.map((tempOrder) => (
-            <SortableChangeOrderCard key={tempOrder.cityId} data={tempOrder} />
+            <SortableChangeOrderCard
+              key={tempOrder.cityId}
+              activeId={activeId}
+              data={tempOrder}
+            />
           ))}
 
           <button

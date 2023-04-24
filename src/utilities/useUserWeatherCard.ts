@@ -86,7 +86,6 @@ const checkOrderChange = (
     if (newCard !== undefined) {
       if (newCard.order !== orginalCard.order) {
         changedElements.push(newCard);
-        
       }
     }
   });
@@ -107,7 +106,6 @@ export const useUpdateWeatherCardOrder = (
       ]);
       if (orginalData?.length && newWeatherCardOrder.length) {
         const changedItems = checkOrderChange(orginalData, newWeatherCardOrder);
-        
 
         if (changedItems.length) {
           queryClient.setQueryData(
@@ -128,12 +126,42 @@ export const useUpdateWeatherCardOrder = (
     },
 
     onError: (err, variables, context) => {
+      queryClient.setQueryData([userId, 'weatherCards'], () => context);
+    },
+    onSuccess: (data, variables, context) => {
+      queryClient.refetchQueries([userId, 'weatherCards']);
+    },
+  });
+};
+
+export const useDeleteWeatherCardOrder = (
+  userId: string,
+  deletingCardId: number
+) => {
+  const queryClient = useQueryClient();
+  return useMutation([userId], {
+    mutationFn: async () => {
+      const orginalData = queryClient.getQueryData<WeatherCardCity[]>([
+        userId,
+        'weatherCards',
+      ]);
+      if (!orginalData?.find((card) => card.cityId === deletingCardId)) return;
+      queryClient.setQueryData<WeatherCardCity[]>(
+        [userId, 'weatherCards'],
+        (oldValue) => oldValue?.filter((card) => card.cityId !== deletingCardId)
+      );
+      return await supabase
+        .from('weatherCard')
+        .delete()
+        .eq('cityId', deletingCardId)
+        .eq('userId', userId);
+    },
+
+    onError: (err, variables, context) => {
       queryClient.setQueryData([userId], () => context);
-      
     },
     onSuccess: (data, variables, context) => {
       queryClient.refetchQueries([userId]);
-      
     },
   });
 };

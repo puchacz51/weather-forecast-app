@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { City } from '../utilities/type';
-import { supabase } from '../utilities/supabase/supabase';
 import {
   getSearchHistory,
   setSearchHistory,

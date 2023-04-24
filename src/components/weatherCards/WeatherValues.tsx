@@ -57,7 +57,7 @@ export const WeatherValues = () => {
             <div className='iconWrapper'>
               <FaWind className='icon' />
             </div>
-            <span className='Value'>{windSpeed} m/s</span>
+            <span className='value'>{windSpeed} m/s</span>
           </span>
           <div className='windDirectionWrapper'>
             <span className='windLegend n'>
@@ -85,13 +85,13 @@ export const WeatherValues = () => {
             <div className='iconWrapper'>
               <WiHumidity className='icon' />
             </div>
-            <span className='Value'>{humidity} %</span>
+            <span className='value'>{humidity} %</span>
           </div>
           <div className='valueWrapper'>
             <div className='iconWrapper'>
               <BsFillCloudsFill className='icon' />
             </div>
-            <span className='Value'>{cloudity} %</span>
+            <span className='value'>{cloudity} %</span>
           </div>
         </div>
       </div>
