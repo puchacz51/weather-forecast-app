@@ -9,11 +9,18 @@ import { useRootStore } from '../../store/store';
 const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
   const { data, isFetching, isError, isLoading } =
     useUserWeatherCardQuery(userId);
+
+  const changeUserWeatherCardIsOpen = useRootStore(
+    (state) => state.changeUserWeatherCardIsOpen
+  );
+
   if (isFetching || isLoading) return <div className='dashboard'>loading</div>;
   if (!data) return <div className='dashboard'>loading</div>;
   return (
     <div className='weatherCardList'>
-      <DashboardChangeCardOrder cardList={data} />
+      {!changeUserWeatherCardIsOpen && (
+        <DashboardChangeCardOrder cardList={data} />
+      )}
 
       {data.map((weatherCard) => (
         <DashBoardWeatherCard cardData={weatherCard} key={weatherCard.cityId} />
@@ -28,6 +35,9 @@ export const Dashboard = () => {
     state.loading,
     state.session,
   ]);
+  const setChangeUserWeatherCardIsOpen = useRootStore(
+    (state) => state.setChangeUserWeatherCardIsOpen
+  );
   const user = session?.user;
   if (loading) return <>laoding</>;
   if (!loading && !user) return <Navigate to={'/'} replace />;
@@ -35,7 +45,9 @@ export const Dashboard = () => {
     <div className='dashboard'>
       <div className='dashboardHeader'>
         <h2 className='dashboardTitle'>your weather</h2>
-        <button className='dashboardModifyBtn'>
+        <button
+          className='dashboardModifyBtn'
+          onClick={() => setChangeUserWeatherCardIsOpen(true)}>
           <BsFillGearFill />
         </button>
       </div>
