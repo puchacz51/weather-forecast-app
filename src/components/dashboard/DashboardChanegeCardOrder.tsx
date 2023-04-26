@@ -28,7 +28,8 @@ import {
 } from '@dnd-kit/sortable/dist/';
 import { User } from '@supabase/supabase-js';
 import { useRootStore } from '../../store/store';
-
+import { TiWeatherPartlySunny } from 'react-icons/ti';
+import { AiFillSave } from 'react-icons/ai';
 type TempOrder = { cityId: number; order: number; cityName: string };
 type ChangeOrderCardProps = {
   data: TempOrder;
@@ -39,7 +40,11 @@ type ChangeOrderCardProps = {
 const ChangeOrderCard = ({ data, style }: ChangeOrderCardProps) => (
   <div className='changeOrderCard' style={style}>
     <p className='order'>{data.order}</p>
-    <p>{data.cityName}</p>
+    <p>
+      {data.cityName.length > 10
+        ? data.cityName.slice(0, 7) + '...'
+        : data.cityName}
+    </p>
   </div>
 );
 
@@ -64,7 +69,15 @@ const SortableChangeOrderCard = ({ data, activeId }: ChangeOrderCardProps) => {
         x
       </button>
       <p className='order'>{data.order}</p>
-      <p>{data.cityName}</p>
+      <p>
+        {' '}
+        {data.cityName.length > 10
+          ? data.cityName.slice(0, 7) + '...'
+          : data.cityName}
+      </p>
+      <div className='iconWrapper'>
+        <TiWeatherPartlySunny className='icon' />
+      </div>
     </div>
   );
 };
@@ -73,9 +86,7 @@ export const DashboardChangeCardOrder = ({
 }: {
   cardList: WeatherCardCity[];
 }) => {
-  const userId = useRootStore(
-    (state) => state.session?.user.id
-  ) as string;
+  const userId = useRootStore((state) => state.session?.user.id) as string;
   const [tempOrder, setTempOrder] = useState(cardList);
   const [initialOrder, setInitialOrder] = useState(cardList);
   const [isChange, setIsChange] = useState(false);
@@ -131,7 +142,7 @@ export const DashboardChangeCardOrder = ({
             className='changeOrderBtn'
             onClick={handleOrderChange}
             disabled={!isChange}>
-            change{isChange + ''}
+            <AiFillSave />
           </button>
         </div>
       </SortableContext>

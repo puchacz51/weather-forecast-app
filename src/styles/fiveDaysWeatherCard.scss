@@ -351,8 +351,8 @@
       position: absolute;
       width: 50%;
       aspect-ratio: 5/3;
-      top: 2.5rem;
-      left: 0.5rem;
+      top: 2rem;
+      left: 0;
       min-width: 400px;
     }
 
@@ -369,6 +369,8 @@
       }
 
       & .fiveDaysWeatherList {
+        width: 95%;
+        margin: 10px auto;
         display: flex;
         overflow-x: scroll;
         gap: 0.5rem;
