@@ -5,6 +5,7 @@ type State = {
 };
 type Actions = {
   setChangeUserWeatherCardIsOpen: (isOpen: boolean) => void;
+  toggleChangeUserWeatherCardIsOpen: () => void;
 };
 
 export type DashBoardStore = State & Actions;
@@ -18,4 +19,11 @@ export const useDashboardStore: StateCreator<
   changeUserWeatherCardIsOpen: false,
   setChangeUserWeatherCardIsOpen: (isOpen) =>
     set((state) => ({ ...state, changeUserWeatherCardIsOpem: isOpen })),
+  toggleChangeUserWeatherCardIsOpen: () =>
+    set((state) => {
+      return {
+        ...state,
+        changeUserWeatherCardIsOpen: !state.changeUserWeatherCardIsOpen,
+      };
+    }),
 });

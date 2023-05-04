@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link,NavLink} from 'react-router-dom';
 import './styles/Header.scss';
 import { ProfileInfo } from './components/headerComponents/ProfileInfo';
 import { SearchCity } from './components/headerComponents/SearchCity';
@@ -33,9 +33,9 @@ export const Header = () => {
           }
           onAnimationEnd={() => setHeaderElementsIsVisible(!headerInputIsOpen)}>
           <div className='dashboardLinkContainer'>
-            <Link to='/dashboard' className='dashboardLink'>
+            <NavLink to='/dashboard' className={({isActive})=>isActive?'active dashboardLink':'dashboardLink'} >
               <MdDashboard />
-            </Link>
+            </NavLink>
           </div>
           <div className='utilsContainer'>
             <ToggleSwitch />

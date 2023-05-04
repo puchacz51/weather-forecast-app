@@ -53,7 +53,6 @@ export const getAmountOfClouds = (cloudity: number) => {
 };
 
 export const getTimeFromTimezone = (timezone: number, myDate = new Date()) => {
-  // const myDate = new Date();
   const utc = new Date(myDate.getTime() + myDate.getTimezoneOffset() * 60000);
   const currentTime = new Date(utc.getTime() + timezone * 1000);
   const [hours, minutes] = currentTime.toLocaleTimeString().split(':');
@@ -65,7 +64,15 @@ export const getTimeFromTimezone = (timezone: number, myDate = new Date()) => {
   const dayNameShort = currentTime.toLocaleDateString('en-US', {
     weekday: 'short',
   });
-  return { hours, minutes, day, month, year, dayName, dayNameShort };
+  return {
+    hours,
+    minutes,
+    day: day.length == 1 ? '0' + day : day,
+    month: month.length == 1 ? '0' + month : month,
+    year,
+    dayName,
+    dayNameShort,
+  };
 };
 
 // export const getDate

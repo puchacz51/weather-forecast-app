@@ -185,7 +185,7 @@ const AddNewWeatherCardForm = ({ close }: { close: () => void }) => {
 };
 
 export const AddNewWeatherCard = () => {
-  const [isAdding, setIsAdding] = useState(false);
+  const [isAdding, setIsAdding] = useState(true);
   return (
     <div className='addNewWeatherCardContainer'>
       {isAdding ? (

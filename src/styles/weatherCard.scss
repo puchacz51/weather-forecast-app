@@ -184,9 +184,7 @@
         justify-content: center;
         align-items: center;
         background-color: var(--tertiary-color);
-        border: 10px solid rgba(255, 255, 255, 0.171);
         aspect-ratio: 1;
-        padding: 0.6em;
         border: 6px solid var(--secondary-color);
         text-align: center;
         flex-grow: 1;
@@ -229,7 +227,7 @@
     }
     & .windContainer,
     & .restContainer {
-      border: 8px solid rgba(255, 255, 255, 0.39);
+      border: 8px solid var(--tertiary-color);
       position: relative;
       display: flex;
       flex-direction: column;
@@ -237,11 +235,13 @@
       justify-content: space-around;
       width: 45%;
       padding: 0.5em 0;
+      gap: 0.5rem;
+      & .valueWrapper {
+        width: 80%;
+      }
       & .windSpeedValue {
-        background-color: rgba(255, 255, 255, 0.377);
         border-radius: 0.5em;
         margin-bottom: 1em;
-        width: 80%;
       }
       & .windIcon {
         position: absolute;
@@ -249,7 +249,6 @@
         top: 0;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: rgba(255, 255, 255, 0.377);
       }
 
       & .windDirectionWrapper {
@@ -258,7 +257,7 @@
         position: relative;
         padding: 0.8em;
         border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.377);
+        background-color: var(--tertiary-color);
         border: 3px solid var(--secondary-color);
         & .windDirectionIconWrapper {
           position: absolute;
@@ -326,7 +325,6 @@
           margin: 0 0.5rem;
         }
       }
-
       & .name {
         width: 50%;
         line-height: 100%;
@@ -334,7 +332,8 @@
     }
   }
   & .selectWaetherTypeButton {
-    background-color: none;
+    border: 8px solid var(--secondary-color);
+    border-bottom: none;
     font-size: 2rem;
   }
 }
@@ -459,6 +458,7 @@
     max-width: 1000px;
     flex-direction: row;
     flex-wrap: wrap;
+
     & .CurrentWeatherIconContainer,
     & .weatherValues::before {
       width: 48%;
@@ -467,18 +467,23 @@
       aspect-ratio: 2/1;
     }
     & .CurrentWeatherIconContainer {
+      border: 8px solid var(--tertiary-color);
+      border-radius: 1rem;
+    }
+    & .CurrentWeatherIconContainer {
       position: absolute;
-      top:2em;
+      top: 3.5rem;
     }
 
     & .title {
-      height: 2em;
+      height: 3rem;
       width: 100%;
     }
     & .weatherValues {
       width: 100%;
-      margin: 0;
       padding: 0;
+      padding-top: 0.5rem;
+      margin: 0;
       justify-content: space-around;
       &::before {
         content: '';
@@ -489,11 +494,14 @@
       }
       & .weatherValuesGroupContainer {
         flex-direction: column;
+        justify-content: space-around;
         width: 4%;
         max-width: 400px;
         aspect-ratio: 2/1;
         flex-grow: 1;
         position: relative;
+        gap: 0.2em;
+        row-gap: 0.2em;
         & .valueWrapper {
           flex-wrap: wrap;
           &.pressure,
@@ -526,10 +534,12 @@
       }
 
       & .windContainer {
+        aspect-ratio: 0;
         max-height: 160px;
         order: -1;
-        min-width: 200px;
         width: 48%;
+        max-width: none;
+        flex-grow: 0;
         & .windDirectionWrapper {
           height: 90%;
           width: auto;
@@ -560,6 +570,7 @@
     }
     & .selectWaetherTypeButton {
       width: 100%;
+      margin-top: 1rem;
     }
   }
 }

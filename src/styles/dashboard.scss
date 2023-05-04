@@ -6,7 +6,6 @@
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  background-color: var(--tertiary-color);
   margin: auto;
   border: 5px solid var(--primary-color);
   border-radius: 0 0 1rem 1rem;
@@ -29,7 +28,6 @@
     }
   }
   & .weatherCardList {
-    padding: 0 2%;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -37,10 +35,11 @@
     flex-wrap: wrap;
     gap: 1rem;
     & .dashboardWeatherCard {
+      width: 90%;
+      min-width: 300px;
       text-decoration: none;
       color: inherit;
-      width: 100%;
-      max-width: 350px;
+      margin-top: 1rem;
       &.tempCard {
         & .wrapper {
           filter: blur(10px);
@@ -58,7 +57,6 @@
       & .wrapper {
         position: relative;
         width: 100%;
-
         & .temperature {
           position: absolute;
           top: 50%;
@@ -75,12 +73,15 @@
     }
     & .dashboardChangeOrderContainer {
       width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
       display: flex;
-      border: 0.3rem solid var(--secondary-color);
       flex-wrap: wrap;
       padding-top: 1rem;
       justify-content: space-around;
       position: relative;
+      background-color: var(--secondary-color);
+
       row-gap: 1rem;
       & .changeOrderCard {
         position: relative;
@@ -91,7 +92,7 @@
         border-radius: 0.5em;
         text-align: center;
         background-color: var(--primary-color);
-        border: 0.2rem solid var(--secondary-color);
+        border: 0.2rem solid var(--tertiary-color);
 
         &.active {
           & > * {
@@ -102,7 +103,7 @@
         & .order {
           width: 100%;
           font-size: 1.5em;
-          border-bottom: 0.2rem solid var(--secondary-color);
+          border-bottom: 0.2rem solid var(--tertiary-color);
         }
         & .iconWrapper {
           font-size: 3em;
@@ -131,7 +132,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        box-shadow: inset 0 0 .2em 0.05em var(--tertiary-color);
+        box-shadow: inset 0 0 0.2em 0.05em var(--tertiary-color);
         &:disabled {
           background-color: gray;
           color: var(--text-color);
@@ -148,12 +149,14 @@
     border: 2px solid var(--secondary-color);
     border-radius: 1rem;
     background-color: var(--primary-color);
+    overflow: hidden;
     & .citiesListContainer {
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
       justify-content: space-around;
-      align-items: center;
+      align-items: stretch;
+
       & .laodingSpinnerContainer {
         font-size: 3em;
         height: 3em;
@@ -171,33 +174,53 @@
     & .addNewWeatherCardForm {
       width: 100%;
       & .title {
+        padding: 1em 0;
         font-size: 1.8em;
-        margin: 1.5em 0;
         text-align: center;
         text-transform: uppercase;
+        background-color: var(--tertiary-color);
       }
       & .textInputContainer {
         width: 100%;
         margin: 1rem 0;
         padding: 0 1rem;
-        font-size: 1.2em;
+        font-size: 1.5em;
+        display: flex;
+        justify-content: center;
+        & .textInput {
+          margin: 1em auto;
+          padding-top: 0.1em;
+          background-color: var(--tertiary-color);
+          text-align: center;
+
+          &::placeholder {
+            font-weight: 700;
+          }
+        }
       }
       & .cityElement {
         width: 48%;
+        max-width: 200px;
         border-radius: 1rem;
         overflow: hidden;
-        border: 2px solid var(--primary-color);
+        border: 5px solid var(--secondary-color);
+        display: flex;
+        flex-direction: column;
+        background-color: var(--tertiary-color);
+
         & .citiesElementBtn {
           width: 100%;
-          font-size: 1.2rem;
+          font-size: 1.3rem;
           text-transform: uppercase;
           font-weight: 800;
+          background-color: var(--green-color);
         }
         & p {
           font-size: 1rem;
           border-bottom: 1px solid black;
           padding: 0.2rem;
           text-align: center;
+          flex-grow: 1;
           &.name {
             font-weight: 700;
           }
@@ -208,7 +231,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: var(--tertiary-color);
+      padding: 1em 0;
+      font-size: 2em;
     }
     & .submitWeatherCardBtn {
       width: 100%;
@@ -224,4 +248,152 @@
 }
 
 @media (min-width: $width-mobile) {
+  .dashboard {
+    & .dashboardHeader {
+    }
+    & .weatherCardList {
+      & .dashboardWeatherCard {
+        width: 75%;
+        min-width: 300px;
+        text-decoration: none;
+        color: inherit;
+        &.tempCard {
+          & .wrapper {
+            filter: blur(10px);
+          }
+        }
+        & .title {
+        }
+        & .wrapper {
+          & .temperature {
+          }
+        }
+      }
+      & .dashboardChangeOrderContainer {
+        & .changeOrderCard {
+          & .order {
+          }
+          & .iconWrapper {
+            & .icon {
+            }
+          }
+          & .deleteCardBtn {
+          }
+        }
+        & .changeOrderBtn {
+          &:disabled {
+          }
+        }
+      }
+    }
+
+    & .addNewWeatherCardContainer {
+      & .citiesListContainer {
+        & .laodingSpinnerContainer {
+        }
+      }
+
+      & .addNewWeatherCardBtn {
+      }
+      & .addNewWeatherCardForm {
+        & .title {
+        }
+        & .textInputContainer {
+          & .textInput {
+            &::placeholder {
+            }
+          }
+        }
+        & .cityElement {
+          & .citiesElementBtn {
+          }
+          & p {
+            &.name {
+            }
+          }
+        }
+      }
+      & .selectedCity {
+      }
+      & .submitWeatherCardBtn {
+        &:disabled {
+        }
+      }
+    }
+  }
+}
+@media (min-width: $width-tablet) {
+  .dashboard {
+    & .dashboardHeader {
+    }
+    & .weatherCardList {
+      & .dashboardWeatherCard {
+        width: 48%;
+        min-width: 300px;
+        text-decoration: none;
+        color: inherit;
+        &.tempCard {
+          & .wrapper {
+            filter: blur(10px);
+          }
+        }
+        & .title {
+        }
+        & .wrapper {
+          & .temperature {
+          }
+        }
+      }
+      & .dashboardChangeOrderContainer {
+        & .changeOrderCard {
+          & .order {
+          }
+          & .iconWrapper {
+            & .icon {
+            }
+          }
+          & .deleteCardBtn {
+          }
+        }
+        & .changeOrderBtn {
+          &:disabled {
+          }
+        }
+      }
+    }
+
+    & .addNewWeatherCardContainer {
+      & .citiesListContainer {
+        & .laodingSpinnerContainer {
+        }
+      }
+
+      & .addNewWeatherCardBtn {
+      }
+      & .addNewWeatherCardForm {
+        & .title {
+        }
+        & .textInputContainer {
+          & .textInput {
+            &::placeholder {
+            }
+          }
+        }
+        & .cityElement {
+          & .citiesElementBtn {
+          }
+          & p {
+            &.name {
+            }
+          }
+        }
+      }
+      & .selectedCity {
+      }
+      & .submitWeatherCardBtn {
+        &:disabled {
+        }
+      }
+    }
+  }
 }

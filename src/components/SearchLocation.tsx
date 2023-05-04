@@ -1,30 +1,51 @@
 import { TbSearch } from 'react-icons/tb';
-import { CgSpinnerAlt } from 'react-icons/cg';
 import { City } from '../utilities/type';
-import { useCityQuery, useCityQueryById } from '../utilities/useCity';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { useCityQuery } from '../utilities/useCity';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHistory } from 'react-icons/ai';
 import { LoadingSpinner } from './LoadingSpinner';
 import { useRootStore } from '../store/store';
+import { MdGpsFixed } from 'react-icons/md';
+import { useGpsLocation } from '../utilities/useGPSLocation';
 
 export const SearchLocation = () => {
   const searchHistory = useRootStore((state) => state.searchHistory);
+  const [currentSearchCities, setCurrentSearchCities] = useState<City[]>();
   const [inputVal, setInputVal] = useState('');
   const {
-    data: cities,
+    data: inputCities,
     refetch,
     isFetching,
+    dataUpdatedAt: lastInputUpdate,
   } = useCityQuery(inputVal, { enabled: false });
+  const {
+    data: gpsCities,
+    isFetching: gpsCityIsFetching,
+    start: gpsStart,
+    dataUpdatedAt: lastGpsUpadate,
+  } = useGpsLocation();
   const refetchCities = () => {
     if (inputVal) {
       refetch();
     }
   };
+
   useEffect(() => {
     const timeout = setTimeout(refetchCities, 500);
     return () => clearTimeout(timeout);
   }, [inputVal]);
+  useEffect(() => {
+    console.log('change');
+
+    if (lastInputUpdate < lastGpsUpadate) {
+      console.log(gpsCities, 'gps ciries update');
+      setCurrentSearchCities(gpsCities);
+    } else {
+      setCurrentSearchCities(inputCities);
+    }
+  }, [inputCities, gpsCities]);
+
   return (
     <div className='searchLocationContainer'>
       <label htmlFor='city' className='searchLocationHeader'>
@@ -39,10 +60,14 @@ export const SearchLocation = () => {
           placeholder='type city'
           onChange={(e) => setInputVal(e.currentTarget.value)}
         />
-        {isFetching && <LoadingSpinner />}
+
+        <button className='searchLocationGPSBtn' onClick={gpsStart}>
+          <MdGpsFixed />
+        </button>
+        {(isFetching || gpsCityIsFetching) && <LoadingSpinner />}
       </div>
-      {cities ? (
-        <LocationList cities={cities} />
+      {currentSearchCities ? (
+        <LocationList cities={currentSearchCities} />
       ) : (
         <div className='historySearchContainer'>
           {searchHistory.map((city) => (

@@ -3,7 +3,7 @@ import { AddNewWeatherCard } from './AddNewWeatherCardBtn';
 import { useUserWeatherCardQuery } from '../../utilities/useUserWeatherCard';
 import { DashBoardWeatherCard } from './DahboardWeatherCard';
 import { BsFillGearFill } from 'react-icons/bs';
-import { DashboardChangeCardOrder } from './DashboardChanegeCardOrder';
+import { DashboardChangeCardOrder, MotionChangeCardOrder } from './DashboardChanegeCardOrder';
 import { useRootStore } from '../../store/store';
 
 const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
@@ -19,7 +19,7 @@ const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
   return (
     <div className='weatherCardList'>
       {!changeUserWeatherCardIsOpen && (
-        <DashboardChangeCardOrder cardList={data} />
+        <MotionChangeCardOrder cardList={data} />
       )}
 
       {data.map((weatherCard) => (
@@ -35,9 +35,10 @@ export const Dashboard = () => {
     state.loading,
     state.session,
   ]);
-  const setChangeUserWeatherCardIsOpen = useRootStore(
-    (state) => state.setChangeUserWeatherCardIsOpen
+  const toggleChangeUserWeatherCardIsOpen = useRootStore(
+    (state) => state.toggleChangeUserWeatherCardIsOpen
   );
+
   const user = session?.user;
   if (loading) return <>laoding</>;
   if (!loading && !user) return <Navigate to={'/'} replace />;
@@ -47,7 +48,7 @@ export const Dashboard = () => {
         <h2 className='dashboardTitle'>your weather</h2>
         <button
           className='dashboardModifyBtn'
-          onClick={() => setChangeUserWeatherCardIsOpen(true)}>
+          onClick={toggleChangeUserWeatherCardIsOpen}>
           <BsFillGearFill />
         </button>
       </div>

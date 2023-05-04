@@ -4,7 +4,7 @@ import {
   useDeleteWeatherCardOrder,
   useUpdateWeatherCardOrder,
 } from '../../utilities/useUserWeatherCard';
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, useState, MouseEvent, useEffect } from 'react';
 import { CSS } from '@dnd-kit/utilities';
 import {
   DndContext,
@@ -12,7 +12,6 @@ import {
   DragMoveEvent,
   DragOverlay,
   DragStartEvent,
-  KeyboardSensor,
   PointerSensor,
   TouchSensor,
   UniqueIdentifier,
@@ -21,7 +20,6 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import {
-  sortableKeyboardCoordinates,
   verticalListSortingStrategy,
   SortableContext,
   arrayMove,
@@ -30,6 +28,8 @@ import { User } from '@supabase/supabase-js';
 import { useRootStore } from '../../store/store';
 import { TiWeatherPartlySunny } from 'react-icons/ti';
 import { AiFillSave } from 'react-icons/ai';
+import { LoadingSpinner } from '../LoadingSpinner';
+import { motion } from 'framer-motion';
 type TempOrder = { cityId: number; order: number; cityName: string };
 type ChangeOrderCardProps = {
   data: TempOrder;
@@ -57,6 +57,12 @@ const SortableChangeOrderCard = ({ data, activeId }: ChangeOrderCardProps) => {
     transform: CSS.Transform.toString(transform),
     transition,
   };
+  const deleteCardHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    console.log('aasds');
+    mutate();
+  };
+
   return (
     <div
       ref={setNodeRef}
@@ -64,7 +70,7 @@ const SortableChangeOrderCard = ({ data, activeId }: ChangeOrderCardProps) => {
       {...attributes}
       {...listeners}
       className={`changeOrderCard ${activeId == data.cityId && 'active'}`}>
-      <button className='deleteCardBtn' onClick={() => mutate()}>
+      <button className='deleteCardBtn' onClick={deleteCardHandler}>
         {' '}
         x
       </button>
@@ -88,23 +94,26 @@ export const DashboardChangeCardOrder = ({
 }) => {
   const userId = useRootStore((state) => state.session?.user.id) as string;
   const [tempOrder, setTempOrder] = useState(cardList);
-  const [initialOrder, setInitialOrder] = useState(cardList);
+  const [initialOrder] = useState(cardList);
   const [isChange, setIsChange] = useState(false);
   const { mutate, isSuccess, isLoading, isError } = useUpdateWeatherCardOrder(
     userId,
     tempOrder
   );
+  useEffect(() => {
+    setTempOrder((state) =>
+      state.map((temp, i) => ({ ...temp, order: i + 1 }))
+    );
+  }, cardList);
+
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const handleOrderChange = () => {
     mutate();
   };
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    }),
-    useSensor(TouchSensor)
+    useSensor(PointerSensor, { activationConstraint: { distance: 2 } }),
+    useSensor(TouchSensor, { activationConstraint: { distance: 2 } })
   );
 
   return (
@@ -141,8 +150,8 @@ export const DashboardChangeCardOrder = ({
           <button
             className='changeOrderBtn'
             onClick={handleOrderChange}
-            disabled={!isChange}>
-            <AiFillSave />
+            disabled={!isChange || isLoading}>
+            {isLoading ? <LoadingSpinner /> : <AiFillSave />}
           </button>
         </div>
       </SortableContext>
@@ -184,4 +193,18 @@ export const DashboardChangeCardOrder = ({
       });
     }
   }
+};
+
+export const MotionChangeCardOrder = ({
+  cardList,
+}: {
+  cardList: WeatherCardCity[];
+}) => {
+  return (
+    <motion.div
+      animate={{ height: 'min-content', transition: { duration: 0.5 } }}
+      initial={{ height: '0px', width: '100%', overflow: 'hidden' }}>
+      <DashboardChangeCardOrder cardList={cardList} />
+    </motion.div>
+  );
 };

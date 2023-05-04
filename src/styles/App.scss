@@ -74,22 +74,23 @@ body {
 }
 
 .searchLocationContainer {
-  border: 5px solid var(--secondary-color);
-  border-radius: 20px;
-  margin: 40px auto;
-  width: 95%;
-  max-width: 800px;
-  height: 50%;
-  padding: 1.5em 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column;border: 5px solid var(--secondary-color);
+  width: 95%;
+  height: 50%;
+  padding-bottom: 2em;
+  border-radius: 20px;
+  margin: 40px auto;
+  max-width: 800px;
   gap: 0.5em;
   font-size: 20px;
   background-color: var(--primary-color);
+  overflow: hidden;
   & .inputWrapper {
     display: flex;
+    align-items: center;
     & .searchInput {
       border: none;
       border-bottom: 2px solid black;
@@ -102,9 +103,23 @@ body {
       padding: 0.1em;
       font-size: 1.5em;
     }
+    & .searchLocationGPSBtn{
+      background-color: transparent;
+      font-size: 1.5em;
+      border:none;
+      margin: .3em;
+      
+
+
+    }
   }
   & .searchLocationHeader {
+    width: 100%;
+    background-color: var(--tertiary-color);
+    padding: 1em;
     font-size: 1.8em;
+    text-align: center;
+    font-weight: 600;
   }
   & .locationListContainer {
     display: flex;

@@ -63,6 +63,7 @@ export const FiveDaysWeatherList = ({
     const { rain, snow } = getPrecitipation(weather);
     return rain + snow;
   });
+
   const minTemp = Math.min(...tempList);
   const maxTemp = Math.max(...tempList);
   const precipitationMin = Math.min(...precipitationlist);
@@ -104,6 +105,7 @@ export const FiveDaysWeatherList = ({
                   const dayOfMonthElement = weatherInfo.dt_txt
                     .split(' ')[0]
                     .split('-')[2];
+                    
                   return dayOfMonthElement === dayOfMonth;
                 })
                 .map((weatherInfo) => {

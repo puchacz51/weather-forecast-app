@@ -127,6 +127,9 @@
       font-size: 2em;
       height: 1em;
       color: var(--secondary-color);
+      &.active {
+        display: none;
+      }
     }
   }
 

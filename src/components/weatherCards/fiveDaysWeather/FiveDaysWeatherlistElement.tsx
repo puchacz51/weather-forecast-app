@@ -4,7 +4,6 @@ import { ImBlocked } from 'react-icons/im';
 import {
   getPrecitipation,
   getTimeFromTimezone,
-  getWeatherIconValues,
 } from '../../../utilities/getWeatherIconValues';
 import { useWaetherIconContext } from '../../../utilities/WeatherContext';
 type WeatherLegend = {
