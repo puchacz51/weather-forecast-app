@@ -26,7 +26,6 @@ export const useGpsLocation = () => {
     if (enabled) {
       navigator.geolocation.getCurrentPosition(
         (data) => {
-          console.log(data);
           setGpsIsFetching(false);
           setGpsData(data);
           setGpsError(null);

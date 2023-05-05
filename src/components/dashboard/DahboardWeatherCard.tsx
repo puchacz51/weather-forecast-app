@@ -7,6 +7,8 @@ import {
 import { WeatherCardCity } from '../../utilities/useUserWeatherCard';
 import { useCurrentWeather } from '../../utilities/useWeather';
 import { CurrentWeatherIcon } from '../weatherCards/currentWeather/CurrentWeatherIcon';
+import { useState } from 'react';
+import { DashboardWeatherCardPanel } from './DashboardWeatherCardValues';
 
 export const DashBoardWeatherCard = ({
   cardData,
@@ -15,13 +17,15 @@ export const DashBoardWeatherCard = ({
 }) => {
   const { latitude, longitude, cityName } = cardData;
   const { data, isFetching, isError } = useCurrentWeather(latitude, longitude);
-
+  const [panelIsOpen, setPanelIsOpen] = useState(false);
   if (!data) return <>loading</>;
   const { hours, minutes } = getTimeFromTimezone(data.timezone);
   const iconValues = getWeatherIconValues(data);
+
   return (
-    <Link
-      to={`/weather/${cardData.cityId}/current`}
+    <button
+      // to={`/weather/${cardData.cityId}/current`}
+      onClick={()=>setPanelIsOpen(isOpen=>!isOpen)}
       className={`dashboardWeatherCard  ${cardData.tempCard && 'tempCard'}`}>
       <h3 className='title'>
         {cityName} {hours}:{minutes}
@@ -31,7 +35,8 @@ export const DashBoardWeatherCard = ({
           <CurrentWeatherIcon />
           <p className='temperature'>{iconValues.temp.toFixed(0)}&deg;C</p>
         </div>
+        {panelIsOpen && <DashboardWeatherCardPanel />}
       </WeatherIconContext.Provider>
-    </Link>
+    </button>
   );
 };

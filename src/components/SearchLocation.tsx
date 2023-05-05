@@ -30,16 +30,17 @@ export const SearchLocation = () => {
       refetch();
     }
   };
+  const handleGpsBtn = () => {
+    setInputVal('');
+    gpsStart();
+  };
 
   useEffect(() => {
     const timeout = setTimeout(refetchCities, 500);
     return () => clearTimeout(timeout);
   }, [inputVal]);
   useEffect(() => {
-    console.log('change');
-
     if (lastInputUpdate < lastGpsUpadate) {
-      console.log(gpsCities, 'gps ciries update');
       setCurrentSearchCities(gpsCities);
     } else {
       setCurrentSearchCities(inputCities);
@@ -61,11 +62,11 @@ export const SearchLocation = () => {
           onChange={(e) => setInputVal(e.currentTarget.value)}
         />
 
-        <button className='searchLocationGPSBtn' onClick={gpsStart}>
+        <button className='searchLocationGPSBtn' onClick={handleGpsBtn}>
           <MdGpsFixed />
         </button>
-        {(isFetching || gpsCityIsFetching) && <LoadingSpinner />}
       </div>
+      {(isFetching || gpsCityIsFetching) && <LoadingSpinner />}
       {currentSearchCities ? (
         <LocationList cities={currentSearchCities} />
       ) : (

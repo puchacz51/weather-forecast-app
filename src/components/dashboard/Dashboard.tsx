@@ -3,7 +3,7 @@ import { AddNewWeatherCard } from './AddNewWeatherCardBtn';
 import { useUserWeatherCardQuery } from '../../utilities/useUserWeatherCard';
 import { DashBoardWeatherCard } from './DahboardWeatherCard';
 import { BsFillGearFill } from 'react-icons/bs';
-import { DashboardChangeCardOrder, MotionChangeCardOrder } from './DashboardChanegeCardOrder';
+import { MotionChangeCardOrder } from './DashboardChanegeCardOrder';
 import { useRootStore } from '../../store/store';
 
 const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
@@ -18,9 +18,7 @@ const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
   if (!data) return <div className='dashboard'>loading</div>;
   return (
     <div className='weatherCardList'>
-      {!changeUserWeatherCardIsOpen && (
-        <MotionChangeCardOrder cardList={data} />
-      )}
+      {changeUserWeatherCardIsOpen && <MotionChangeCardOrder cardList={data} />}
 
       {data.map((weatherCard) => (
         <DashBoardWeatherCard cardData={weatherCard} key={weatherCard.cityId} />
