@@ -42,11 +42,11 @@ const DashboardWeatherCardValues = () => {
   );
 };
 
-export const DashboardWeatherCardPanel = () => {
+export const DashboardWeatherCardPanel = ({ cityId }: { cityId: number }) => {
   return (
     <div className='dashboardWeatherCardPanel'>
       <DashboardWeatherCardValues />
-      <Link className='weatherLink' to={'/'}>
+      <Link className='weatherLink' to={`/weather/${cityId}/current`}>
         more{' '}
       </Link>
     </div>

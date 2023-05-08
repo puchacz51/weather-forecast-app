@@ -1,9 +1,8 @@
-import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
+import { SyntheticEvent, useCallback, useEffect, useRef } from 'react';
 import { City } from '../../utilities/type';
 import { useCityQuery } from '../../utilities/useCity';
 import { motion } from 'framer-motion';
 import { TbSearch } from 'react-icons/tb';
-import { CgSpinnerAlt } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
 import { LoadingSpinner } from '../LoadingSpinner';
 import { useRootStore } from '../../store/store';
@@ -23,12 +22,16 @@ export const SearchCity = () => {
     enabled: false,
     keepPreviousData: true,
   });
+
+  const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const inputContainer = useRef<HTMLDivElement>(null);
+
   const refetchCities = useCallback(() => {
     if (headerInputText) {
       refetch({});
     }
   }, [headerInputText, refetch]);
-  const navigate = useNavigate();
   const handleCityChange = (e: SyntheticEvent<HTMLInputElement, Event>) => {
     const inputValue = e.currentTarget.value;
     const eventType = e.type;
@@ -39,7 +42,6 @@ export const SearchCity = () => {
           city.city.toLowerCase().trim() ===
           headerInputText.toLowerCase().trim()
       );
-
       if (cityIndex !== -1 && cityIndex !== undefined && cities) {
         setSelectedCity(cities[cityIndex]);
         setHeaderInputText('');
@@ -47,13 +49,26 @@ export const SearchCity = () => {
       }
     }
   };
+  const handleWindowClick = useCallback((e: MouseEvent) => {
+    if (!inputContainer.current?.contains(e.target as Node)) {
+      setHeaderInputIsOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (headerInputIsOpen) {
+      window.addEventListener('click', handleWindowClick);
+    } else {
+      window.removeEventListener('click', handleWindowClick);
+    }
+  }, [headerInputIsOpen]);
 
   useEffect(() => {
     const timeout = setTimeout(refetchCities, 300);
     return () => clearTimeout(timeout);
   }, [headerInputText, refetchCities]);
   return (
-    <div className='searchCityContainer'>
+    <div className='searchCityContainer' ref={inputContainer}>
       <button
         className='searchIcon'
         onClick={() => setHeaderInputIsOpen(!headerInputIsOpen)}>
@@ -71,6 +86,7 @@ export const SearchCity = () => {
           transition: { duration: 0.5 },
         }}>
         <input
+          ref={inputRef}
           className='searchCityInput'
           value={headerInputText}
           onChange={handleCityChange}

@@ -9,33 +9,44 @@ import { useCurrentWeather } from '../../utilities/useWeather';
 import { CurrentWeatherIcon } from '../weatherCards/currentWeather/CurrentWeatherIcon';
 import { useState } from 'react';
 import { DashboardWeatherCardPanel } from './DashboardWeatherCardValues';
+import { maxNameLength } from '../../utilities/maxNameLength';
+import { LoadingSpinner } from '../LoadingSpinner';
 
 export const DashBoardWeatherCard = ({
   cardData,
+  cityId,
 }: {
   cardData: WeatherCardCity & { tempCard?: boolean };
+  cityId: number;
 }) => {
   const { latitude, longitude, cityName } = cardData;
   const { data, isFetching, isError } = useCurrentWeather(latitude, longitude);
   const [panelIsOpen, setPanelIsOpen] = useState(false);
-  if (!data) return <>loading</>;
+  if (!data)
+    return (
+      <div className={`dashboardWeatherCard `}>
+        <div className='skyIcon'>
+          {' '}
+          <LoadingSpinner />
+        </div>
+      </div>
+    );
   const { hours, minutes } = getTimeFromTimezone(data.timezone);
   const iconValues = getWeatherIconValues(data);
 
   return (
     <button
-      // to={`/weather/${cardData.cityId}/current`}
-      onClick={()=>setPanelIsOpen(isOpen=>!isOpen)}
+      onClick={() => setPanelIsOpen((isOpen) => !isOpen)}
       className={`dashboardWeatherCard  ${cardData.tempCard && 'tempCard'}`}>
       <h3 className='title'>
-        {cityName} {hours}:{minutes}
+        {maxNameLength(cityName, 13)} {hours}:{minutes}
       </h3>
       <WeatherIconContext.Provider value={{ ...iconValues, timezoneOffset: 0 }}>
         <div className='wrapper'>
           <CurrentWeatherIcon />
           <p className='temperature'>{iconValues.temp.toFixed(0)}&deg;C</p>
         </div>
-        {panelIsOpen && <DashboardWeatherCardPanel />}
+        {panelIsOpen && <DashboardWeatherCardPanel cityId={cityId} />}
       </WeatherIconContext.Provider>
     </button>
   );

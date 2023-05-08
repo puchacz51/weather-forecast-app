@@ -30,6 +30,7 @@ import { TiWeatherPartlySunny } from 'react-icons/ti';
 import { AiFillSave } from 'react-icons/ai';
 import { LoadingSpinner } from '../LoadingSpinner';
 import { motion } from 'framer-motion';
+import { maxNameLength } from '../../utilities/maxNameLength';
 type TempOrder = { cityId: number; order: number; cityName: string };
 type ChangeOrderCardProps = {
   data: TempOrder;
@@ -75,12 +76,7 @@ const SortableChangeOrderCard = ({ data, activeId }: ChangeOrderCardProps) => {
         x
       </button>
       <p className='order'>{data.order}</p>
-      <p>
-        {' '}
-        {data.cityName.length > 10
-          ? data.cityName.slice(0, 7) + '...'
-          : data.cityName}
-      </p>
+      <p> {maxNameLength(data.cityName, 8)}</p>
       <div className='iconWrapper'>
         <TiWeatherPartlySunny className='icon' />
       </div>

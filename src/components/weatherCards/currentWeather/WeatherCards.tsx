@@ -8,14 +8,13 @@ export const WeatherCards = () => {
   ]);
   const { cityId = '' } = useParams();
   const navigate = useNavigate();
-
   const {
     data: city,
     error,
     isFetching,
     refetch,
   } = useCityQueryById(cityId, {
-    enabled: false,
+    enabled: !selectedCity || selectedCity.id != Number.parseInt(cityId),
     onSuccess: (data) => {
       setSelectedCity(data);
     },
@@ -27,6 +26,8 @@ export const WeatherCards = () => {
       }, 1000);
     },
   });
+  console.log(city, 34243);
+
   if (!selectedCity) {
     if (!cityId) {
       console.log('nie ma id');

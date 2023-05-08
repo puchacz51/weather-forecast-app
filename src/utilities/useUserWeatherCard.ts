@@ -68,6 +68,8 @@ export const useAddUserWeatherCard = (userId: string) => {
             );
           }
         );
+
+
       },
     }
   );

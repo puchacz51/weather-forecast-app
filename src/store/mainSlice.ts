@@ -1,10 +1,9 @@
-import { StateCreator, create } from 'zustand';
+import { StateCreator } from 'zustand';
 import { City } from '../utilities/type';
 import {
   getSearchHistory,
   setSearchHistory,
 } from '../utilities/getSearchHistory';
-import { Main } from '../WeatherTypes';
 import { RootStore } from './store';
 
 type State = {
@@ -23,11 +22,19 @@ type Actions = {
   setTheme: (theme: 'LIGHT' | 'DARK') => void;
   setSearchHistory: (newSearch: City) => void;
 };
+const getThemeFromLocalStorage = () => {
+  const theme = localStorage.getItem('WeatherAppTheme') as
+    | 'DARK'
+    | 'LIGHT'
+    | null;
+  return theme || 'LIGHT';
+};
+
 export type MainStore = State & Actions;
 export const useMainStore: StateCreator<RootStore, [], [], MainStore> = (
   set
 ) => ({
-  theme: 'LIGHT',
+  theme: getThemeFromLocalStorage(),
   selectedCity: null,
   selectedCardType: 'CURRENT',
   headerInputIsOpen: false,
@@ -55,6 +62,8 @@ export const useMainStore: StateCreator<RootStore, [], [], MainStore> = (
     set((state) => ({ ...state, selectedCardType: type }));
   },
   setTheme(theme) {
+    localStorage.setItem('WeatherAppTheme', theme);
+
     set((state) => ({ ...state, theme: theme }));
   },
   setSearchHistory: (newSearch: City) => {

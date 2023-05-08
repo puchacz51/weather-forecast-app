@@ -3,6 +3,7 @@ import defualtPicture from '../../assets/moon.png';
 import { useState } from 'react';
 import { supabase } from '../../utilities/supabase/supabase';
 import { useRootStore } from '../../store/store';
+import { BiLogIn } from 'react-icons/bi';
 export const ProfileInfo = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useRootStore((state) => state.session) as Session;
@@ -24,7 +25,7 @@ export const ProfileInfo = () => {
         {isOpen && (
           <div className='profileInfoList'>
             <button onClick={handleLogOut} className='logOutBtn'>
-              log out
+              <BiLogIn />
             </button>
           </div>
         )}

@@ -70,19 +70,25 @@ const CitiesList = ({
   );
 };
 
-const AddNewWeatherCardBtn = ({ add }: { add: () => void }) => {
+const AddNewWeatherCardBtn = () => {
+  const { setAddFormIsOpen } = useRootStore();
+
   return (
-    <button className='addNewWeatherCardBtn' type='button' onClick={add}>
+    <button
+      className='addNewWeatherCardBtn'
+      type='button'
+      onClick={() => setAddFormIsOpen(true)}>
       <AiOutlineAppstoreAdd />
     </button>
   );
 };
-const AddNewWeatherCardForm = ({ close }: { close: () => void }) => {
+const AddNewWeatherCardForm = () => {
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
   const [cityInputVal, setCityInputVal] = useState('');
   const [isValid, setIsValid] = useState(false);
-  const userId = useRootStore((state) => state.session?.user?.id);
-  const { mutate, reset, isSuccess } = useAddUserWeatherCard(userId as string);
+  const { session, setAddFormIsOpen } = useRootStore((state) => state);
+  const userId = session?.user.id;
+  const { mutate, isSuccess } = useAddUserWeatherCard(userId as string);
   const {
     data: cities,
     refetch,
@@ -90,9 +96,9 @@ const AddNewWeatherCardForm = ({ close }: { close: () => void }) => {
   } = useCityQuery(cityInputVal, {
     enabled: false,
   });
+
   if (isSuccess) {
-    reset();
-    close();
+    setAddFormIsOpen(false);
   }
   const refetchCities = () => {
     if (cityInputVal) {
@@ -185,14 +191,12 @@ const AddNewWeatherCardForm = ({ close }: { close: () => void }) => {
 };
 
 export const AddNewWeatherCard = () => {
-  const [isAdding, setIsAdding] = useState(true);
+  const [isAdding, setIsAdding] = useState(false);
+  const { setAddFormIsOpen, addFormIsOpen } = useRootStore((state) => state);
+
   return (
     <div className='addNewWeatherCardContainer'>
-      {isAdding ? (
-        <AddNewWeatherCardForm close={() => setIsAdding(false)} />
-      ) : (
-        <AddNewWeatherCardBtn add={() => setIsAdding(true)} />
-      )}
+      {addFormIsOpen ? <AddNewWeatherCardForm /> : <AddNewWeatherCardBtn />}
     </div>
   );
 };

@@ -53,7 +53,11 @@ export const SearchLocation = () => {
         Find City
       </label>
       <div className='inputWrapper'>
-        <TbSearch className='searchIcon' />
+        {isFetching || gpsCityIsFetching ? (
+          <LoadingSpinner />
+        ) : (
+          <TbSearch className='searchIcon' />
+        )}
         <input
           type='text'
           name='city'
@@ -66,7 +70,7 @@ export const SearchLocation = () => {
           <MdGpsFixed />
         </button>
       </div>
-      {(isFetching || gpsCityIsFetching) && <LoadingSpinner />}
+
       {currentSearchCities ? (
         <LocationList cities={currentSearchCities} />
       ) : (

@@ -9,9 +9,8 @@ import { useRootStore } from '../../store/store';
 const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
   const { data, isFetching, isError, isLoading } =
     useUserWeatherCardQuery(userId);
-
-  const changeUserWeatherCardIsOpen = useRootStore(
-    (state) => state.changeUserWeatherCardIsOpen
+  const { changeUserWeatherCardIsOpen, setAddFormIsOpen } = useRootStore(
+    (state) => state
   );
 
   if (isFetching || isLoading) return <div className='dashboard'>loading</div>;
@@ -21,7 +20,11 @@ const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
       {changeUserWeatherCardIsOpen && <MotionChangeCardOrder cardList={data} />}
 
       {data.map((weatherCard) => (
-        <DashBoardWeatherCard cardData={weatherCard} key={weatherCard.cityId} />
+        <DashBoardWeatherCard
+          cardData={weatherCard}
+          cityId={weatherCard.cityId}
+          key={weatherCard.cityId}
+        />
       ))}
       {data.length < 6 && <AddNewWeatherCard />}
     </div>
