@@ -10,10 +10,14 @@ const SingInProviderOptions = () => {
   return (
     <div className='singInOptionsContainer'>
       <button className='singInBtn github' onClick={singInWithGitHub}>
-        <BsGithub />
+        <span className='iconWrapper'>
+          <BsGithub />
+        </span>
       </button>
       <button className='singInBtn google' onClick={singInWithGoogle}>
-        <FcGoogle />
+        <span className='iconWrapper'>
+          <FcGoogle />
+        </span>
       </button>
     </div>
   );
@@ -26,6 +30,7 @@ export const SingInOptions = () => {
       <button
         className={`singInBtn ${isOpen && 'active'}`}
         onClick={() => setIsOpen((isOpen) => !isOpen)}>
+          
         sing in
       </button>
 
