@@ -1,4 +1,4 @@
-@use '_veriables' as *;
+@use './veriables/_sizeVariables' as *;
 
 .dashboard {
   display: flex;
@@ -245,7 +245,6 @@
         display: flex;
         flex-direction: column;
         background-color: var(--tertiary-color);
-        
 
         & .citiesElementBtn {
           width: 100%;

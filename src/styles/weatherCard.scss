@@ -1,4 +1,4 @@
-@use '_veriables' as *;
+@use './veriables/_sizeVariables' as *;
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -473,6 +473,8 @@
     & .CurrentWeatherIconContainer {
       position: absolute;
       top: 3.5rem;
+
+      left: max(0px, min(3%, calc(50% - 400px)));
     }
 
     & .title {
@@ -490,8 +492,6 @@
         display: block;
       }
 
-      & .weatherGroupWrapper {
-      }
       & .weatherValuesGroupContainer {
         flex-direction: column;
         justify-content: space-around;

@@ -1,7 +1,5 @@
-$width-mobile: 415px;
-$width-tablet: 769px;
-
 :root {
+
   // icon variales
   --sky-color: #3b85e7;
   --sun-color: rgb(223, 223, 18);
@@ -37,8 +35,8 @@ $width-tablet: 769px;
 
 .dark {
   --primary-color: rgb(44, 59, 51);
-  --secondary-color: rgba(8, 41, 87, 0.644);
-  --tertiary-color: rgb(12, 51, 35);
+  --secondary-color: rgba(8, 45, 97, 0.644);
+  --tertiary-color: rgb(9, 68, 44);
   --header-gradnient: linear-gradient(
     45deg,
     rgb(43, 46, 44) 10%,
@@ -48,7 +46,6 @@ $width-tablet: 769px;
   );
   --text-color: white;
   --green-color: rgb(1, 97, 28);
-  --background-color: rgb(13, 31, 22);
+  --background-color: rgb(25, 48, 37);
   --red-color: rgb(168, 33, 15);
-
 }

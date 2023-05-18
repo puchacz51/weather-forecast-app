@@ -1,4 +1,4 @@
-@use '_veriables' as *;
+@use './veriables/_sizeVariables' as *;
 
 .fiveDaysWeatherCard {
   position: relative;
@@ -350,15 +350,16 @@
     position: relative;
     & .skyIcon {
       position: absolute;
-      width: 50%;
-      aspect-ratio: 5/3;
-      top: 3.5rem;
+      width: 48%;
+      aspect-ratio: 9/5;
+      top: 4rem;
       left: 0;
       min-width: 400px;
-      border: 1px solid var(--tertiary-color);
+      border: 8px solid var(--tertiary-color);
       border-top: 30px solid var(--tertiary-color);
       border-bottom: 30px solid var(--tertiary-color);
       border-radius: 1rem;
+      left: max(0px, min(3%, calc(50% - 400px)));
     }
 
     & .fiveDaysWeatherListContainer {
@@ -400,7 +401,7 @@
       &::before {
         margin-top: 0.5rem;
         margin-left: 0.5em;
-        aspect-ratio: 5/3;
+        aspect-ratio: 9/5;
       }
     }
     & .title {
