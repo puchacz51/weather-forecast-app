@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { AiOutlineHistory } from 'react-icons/ai';
 import { LoadingSpinner } from './LoadingSpinner';
 import { useRootStore } from '../store/store';
-import { MdGpsFixed } from 'react-icons/md';
+import { MdGpsFixed, MdHouse } from 'react-icons/md';
 import { useGpsLocation } from '../utilities/useGPSLocation';
 
 export const SearchLocation = () => {
@@ -103,7 +103,9 @@ export const LocationListElement = ({
   };
   return (
     <button onClick={handleCitySelect} className='locationListElement'>
-      <span className='index'>{index}.</span>
+      <span className='iconWrapper'>
+        <MdHouse className='icon' />
+      </span>
       <span className='name'>
         {name.length > 15 ? `${name.slice(0, 12)}...` : name}
       </span>
@@ -116,6 +118,8 @@ export const LocationListElement = ({
 };
 
 export const LocationList = ({ cities }: { cities: City[] }) => {
+  // console.log(JSON.stringify(cities), 21312);
+
   return (
     <div className='locationListContainer'>
       {cities.map((city, i) => (
