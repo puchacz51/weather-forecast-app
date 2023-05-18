@@ -1,6 +1,6 @@
-// @import url('./__veriables.scss');
-@use './_veriables' as *;
-@forward './Header.scss';
+@use './veriables/_sizeVariables' as *;
+@import url('./veriables/__veriables.scss');
+@import url('./Header.scss');
 @import url('./weatherCard.scss');
 @import url('./dashboard.scss');
 @import url('./fiveDaysWeatherCard.scss');

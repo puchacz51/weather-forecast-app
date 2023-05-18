@@ -1,3 +1,5 @@
+@use './veriables/_sizeVariables' as *;
+
 .headerWrapper {
   &::before {
     width: 100vw;

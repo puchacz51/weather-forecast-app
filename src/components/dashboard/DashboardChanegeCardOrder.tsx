@@ -12,6 +12,7 @@ import {
   DragMoveEvent,
   DragOverlay,
   DragStartEvent,
+  MouseSensor,
   PointerSensor,
   TouchSensor,
   UniqueIdentifier,
@@ -106,11 +107,13 @@ export const DashboardChangeCardOrder = ({
   const handleOrderChange = () => {
     mutate();
   };
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 2 } }),
-    useSensor(TouchSensor, { activationConstraint: { distance: 2 } })
-  );
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: { distance: 2 },
+  });
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: { distance: 2 },
+  });
+  const sensors = useSensors(mouseSensor, touchSensor);
 
   return (
     <DndContext
