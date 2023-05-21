@@ -107,8 +107,10 @@ body {
   }
   & .searchLocationHeader {
     width: 100%;
+    display: flex;
+    align-items: center;
     background-color: var(--tertiary-color);
-    padding: 1em 1.5em;
+    padding: 0em 0em 0em 0.5em;
     font-size: 1.8em;
     text-align: center;
     font-weight: 800;
@@ -117,6 +119,18 @@ body {
     margin: 0.1em auto;
     border-radius: 2em;
     color: white;
+
+    gap: .3em;
+    & .searchLocationTitle {
+      font-size: 1em;
+    }
+
+    & .searchLocationIcon {
+      font-size: 2.2em;
+      border-radius: 50%;
+      border: 3px solid white;
+      padding: 2px;
+    }
   }
   & .locationListContainer {
     display: flex;

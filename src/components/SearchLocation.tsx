@@ -8,6 +8,7 @@ import { LoadingSpinner } from './LoadingSpinner';
 import { useRootStore } from '../store/store';
 import { MdGpsFixed, MdHouse } from 'react-icons/md';
 import { useGpsLocation } from '../utilities/useGPSLocation';
+import { TiWeatherPartlySunny } from 'react-icons/ti';
 
 export const SearchLocation = () => {
   const searchHistory = useRootStore((state) => state.searchHistory);
@@ -50,7 +51,8 @@ export const SearchLocation = () => {
   return (
     <div className='searchLocationContainer'>
       <label htmlFor='city' className='searchLocationHeader'>
-        Find City
+        <h2 className='searchLocationTitle'>Find City</h2>
+        <TiWeatherPartlySunny className='searchLocationIcon' />
       </label>
       <div className='inputWrapper'>
         {isFetching || gpsCityIsFetching ? (

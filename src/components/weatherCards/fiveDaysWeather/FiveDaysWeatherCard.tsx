@@ -13,7 +13,6 @@ import { useRootStore } from '../../../store/store';
 export const FiveDaysWeatherCard = () => {
   const city = useRootStore((state) => state.selectedCity);
   const { city: name, latitude: lat, longitude: lon } = city as City;
-
   const [selectedWeatherDate, setSelectedWeatherDate] = useState(0);
   const { data, isLoading } = useFiveDaysWeather(lat, lon);
   const { pathname } = useLocation();
