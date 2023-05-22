@@ -5,6 +5,7 @@ import { DashBoardWeatherCard } from './DahboardWeatherCard';
 import { BsFillGearFill } from 'react-icons/bs';
 import { MotionChangeCardOrder } from './DashboardChanegeCardOrder';
 import { useRootStore } from '../../store/store';
+import { AnimatePresence } from 'framer-motion';
 
 const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
   const { data, isFetching, isError, isLoading } =
@@ -16,18 +17,22 @@ const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
   if (isFetching || isLoading) return <div className='dashboard'>loading</div>;
   if (!data) return <div className='dashboard'>loading</div>;
   return (
-    <div className='weatherCardList'>
-      {changeUserWeatherCardIsOpen && <MotionChangeCardOrder cardList={data} />}
+    <AnimatePresence >
+      <div className='weatherCardList'>
+        {changeUserWeatherCardIsOpen && (
+          <MotionChangeCardOrder key='MotionChangeCardOrder777' cardList={data} />
+        )}
 
-      {data.map((weatherCard) => (
-        <DashBoardWeatherCard
-          cardData={weatherCard}
-          cityId={weatherCard.cityId}
-          key={weatherCard.cityId}
-        />
-      ))}
-      {data.length < 6 && <AddNewWeatherCard />}
-    </div>
+        {data.map((weatherCard) => (
+          <DashBoardWeatherCard
+            cardData={weatherCard}
+            cityId={weatherCard.cityId}
+            key={weatherCard.cityId}
+          />
+        ))}
+        {data.length < 6 && <AddNewWeatherCard />}
+      </div>
+    </AnimatePresence>
   );
 };
 

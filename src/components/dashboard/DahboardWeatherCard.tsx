@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { WeatherIconContext } from '../../utilities/WeatherContext';
 import {
   getTimeFromTimezone,
@@ -11,6 +10,7 @@ import { useState } from 'react';
 import { DashboardWeatherCardPanel } from './DashboardWeatherCardValues';
 import { maxNameLength } from '../../utilities/maxNameLength';
 import { LoadingSpinner } from '../LoadingSpinner';
+import { motion } from 'framer-motion';
 
 export const DashBoardWeatherCard = ({
   cardData,
@@ -20,7 +20,7 @@ export const DashBoardWeatherCard = ({
   cityId: number;
 }) => {
   const { latitude, longitude, cityName } = cardData;
-  const { data, isFetching, isError } = useCurrentWeather(latitude, longitude);
+  const { data } = useCurrentWeather(latitude, longitude);
   const [panelIsOpen, setPanelIsOpen] = useState(false);
   if (!data)
     return (
@@ -35,7 +35,7 @@ export const DashBoardWeatherCard = ({
   const iconValues = getWeatherIconValues(data);
 
   return (
-    <button
+    <motion.button
       onClick={() => setPanelIsOpen((isOpen) => !isOpen)}
       className={`dashboardWeatherCard  ${cardData.tempCard && 'tempCard'}`}>
       <h3 className='title'>
@@ -48,6 +48,6 @@ export const DashBoardWeatherCard = ({
         </div>
         {panelIsOpen && <DashboardWeatherCardPanel cityId={cityId} />}
       </WeatherIconContext.Provider>
-    </button>
+    </motion.button>
   );
 };

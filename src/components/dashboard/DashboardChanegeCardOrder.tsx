@@ -13,7 +13,6 @@ import {
   DragOverlay,
   DragStartEvent,
   MouseSensor,
-  PointerSensor,
   TouchSensor,
   UniqueIdentifier,
   closestCenter,
@@ -201,8 +200,10 @@ export const MotionChangeCardOrder = ({
 }) => {
   return (
     <motion.div
-      animate={{ height: 'min-content', transition: { duration: 0.5 } }}
-      initial={{ height: '0px', width: '100%', overflow: 'hidden' }}>
+      transition={{ duration: 0.5 }}
+      animate={{ height: 'min-content' }}
+      initial={{ height: '0px', width: '100%', overflow: 'hidden' }}
+      exit={{ height: '20px', overflow: 'hidden', fontSize: '100px' }}>
       <DashboardChangeCardOrder cardList={cardList} />
     </motion.div>
   );
