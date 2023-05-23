@@ -10,8 +10,7 @@ import { useState } from 'react';
 import { DashboardWeatherCardPanel } from './DashboardWeatherCardValues';
 import { maxNameLength } from '../../utilities/maxNameLength';
 import { LoadingSpinner } from '../LoadingSpinner';
-import { motion } from 'framer-motion';
-
+import { AnimatePresence, motion } from 'framer-motion';
 export const DashBoardWeatherCard = ({
   cardData,
   cityId,
@@ -20,6 +19,7 @@ export const DashBoardWeatherCard = ({
   cityId: number;
 }) => {
   const { latitude, longitude, cityName } = cardData;
+
   const { data } = useCurrentWeather(latitude, longitude);
   const [panelIsOpen, setPanelIsOpen] = useState(false);
   if (!data)
@@ -46,7 +46,10 @@ export const DashBoardWeatherCard = ({
           <CurrentWeatherIcon />
           <p className='temperature'>{iconValues.temp.toFixed(0)}&deg;C</p>
         </div>
-        {panelIsOpen && <DashboardWeatherCardPanel cityId={cityId} />}
+
+        <AnimatePresence>
+          {panelIsOpen && <DashboardWeatherCardPanel cityId={cityId} />}
+        </AnimatePresence>
       </WeatherIconContext.Provider>
     </motion.button>
   );

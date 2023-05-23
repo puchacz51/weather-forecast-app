@@ -128,7 +128,7 @@ export const DashboardChangeCardOrder = ({
           <DragOverlay style={{ width: '30%' }}>
             {activeId ? (
               <ChangeOrderCard
-                style={{ width: '100%', background: 'red' }}
+                style={{ width: '100%', borderColor: 'red' }}
                 data={
                   tempOrder.find(
                     (data) => data.cityId === activeId
@@ -203,7 +203,7 @@ export const MotionChangeCardOrder = ({
       transition={{ duration: 0.5 }}
       animate={{ height: 'min-content' }}
       initial={{ height: '0px', width: '100%', overflow: 'hidden' }}
-      exit={{ height: '20px', overflow: 'hidden', fontSize: '100px' }}>
+      exit={{ height: '0px', overflow: 'hidden' }}>
       <DashboardChangeCardOrder cardList={cardList} />
     </motion.div>
   );

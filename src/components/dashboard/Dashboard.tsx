@@ -17,22 +17,25 @@ const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
   if (isFetching || isLoading) return <div className='dashboard'>loading</div>;
   if (!data) return <div className='dashboard'>loading</div>;
   return (
-    <AnimatePresence >
-      <div className='weatherCardList'>
+    <div className='weatherCardList'>
+      <AnimatePresence>
         {changeUserWeatherCardIsOpen && (
-          <MotionChangeCardOrder key='MotionChangeCardOrder777' cardList={data} />
-        )}
-
-        {data.map((weatherCard) => (
-          <DashBoardWeatherCard
-            cardData={weatherCard}
-            cityId={weatherCard.cityId}
-            key={weatherCard.cityId}
+          <MotionChangeCardOrder
+            key='MotionChangeCardOrder777'
+            cardList={data}
           />
-        ))}
-        {data.length < 6 && <AddNewWeatherCard />}
-      </div>
-    </AnimatePresence>
+        )}
+      </AnimatePresence>
+
+      {data.map((weatherCard) => (
+        <DashBoardWeatherCard
+          cardData={weatherCard}
+          cityId={weatherCard.cityId}
+          key={weatherCard.cityId}
+        />
+      ))}
+      {data.length < 6 && <AddNewWeatherCard />}
+    </div>
   );
 };
 
