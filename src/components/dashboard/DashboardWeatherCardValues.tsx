@@ -4,7 +4,7 @@ import { GiHeavyRain } from 'react-icons/gi';
 import { WiBarometer, WiHumidity } from 'react-icons/wi';
 import { Link } from 'react-router-dom';
 import { useWaetherIconContext } from '../../utilities/WeatherContext';
-
+import { motion } from 'framer-motion';
 const DashboardWeatherCardValues = () => {
   const { cloudity, humidity, pressure, rain, snow, windDeg, windSpeed, temp } =
     useWaetherIconContext();
@@ -44,11 +44,17 @@ const DashboardWeatherCardValues = () => {
 
 export const DashboardWeatherCardPanel = ({ cityId }: { cityId: number }) => {
   return (
-    <div className='dashboardWeatherCardPanel'>
+    <motion.div
+      transition={{ duration: 0.3 }}
+      key={`${cityId}dashboardCard`}
+      className='dashboardWeatherCardPanel'
+      initial={{ height: '0px', overflow: 'hidden', opacity: 0.5 }}
+      exit={{ height: '0px' }}
+      animate={{ height: 'min-content', opacity: 1 }}>
       <DashboardWeatherCardValues />
       <Link className='weatherLink' to={`/weather/${cityId}/current`}>
         more{' '}
       </Link>
-    </div>
+    </motion.div>
   );
 };

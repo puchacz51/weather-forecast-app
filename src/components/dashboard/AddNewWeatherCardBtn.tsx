@@ -191,7 +191,6 @@ const AddNewWeatherCardForm = () => {
 };
 
 export const AddNewWeatherCard = () => {
-  const [isAdding, setIsAdding] = useState(false);
   const { setAddFormIsOpen, addFormIsOpen } = useRootStore((state) => state);
 
   return (

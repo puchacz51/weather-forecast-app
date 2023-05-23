@@ -5,6 +5,7 @@ import { DashBoardWeatherCard } from './DahboardWeatherCard';
 import { BsFillGearFill } from 'react-icons/bs';
 import { MotionChangeCardOrder } from './DashboardChanegeCardOrder';
 import { useRootStore } from '../../store/store';
+import { AnimatePresence } from 'framer-motion';
 
 const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
   const { data, isFetching, isError, isLoading } =
@@ -17,7 +18,14 @@ const DashboardWeatherCardList = ({ userId }: { userId: string }) => {
   if (!data) return <div className='dashboard'>loading</div>;
   return (
     <div className='weatherCardList'>
-      {changeUserWeatherCardIsOpen && <MotionChangeCardOrder cardList={data} />}
+      <AnimatePresence>
+        {changeUserWeatherCardIsOpen && (
+          <MotionChangeCardOrder
+            key='MotionChangeCardOrder777'
+            cardList={data}
+          />
+        )}
+      </AnimatePresence>
 
       {data.map((weatherCard) => (
         <DashBoardWeatherCard

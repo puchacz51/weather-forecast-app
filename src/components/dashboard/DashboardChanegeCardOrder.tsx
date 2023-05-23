@@ -13,7 +13,6 @@ import {
   DragOverlay,
   DragStartEvent,
   MouseSensor,
-  PointerSensor,
   TouchSensor,
   UniqueIdentifier,
   closestCenter,
@@ -129,7 +128,7 @@ export const DashboardChangeCardOrder = ({
           <DragOverlay style={{ width: '30%' }}>
             {activeId ? (
               <ChangeOrderCard
-                style={{ width: '100%', background: 'red' }}
+                style={{ width: '100%', borderColor: 'red' }}
                 data={
                   tempOrder.find(
                     (data) => data.cityId === activeId
@@ -201,8 +200,10 @@ export const MotionChangeCardOrder = ({
 }) => {
   return (
     <motion.div
-      animate={{ height: 'min-content', transition: { duration: 0.5 } }}
-      initial={{ height: '0px', width: '100%', overflow: 'hidden' }}>
+      transition={{ duration: 0.5 }}
+      animate={{ height: 'min-content' }}
+      initial={{ height: '0px', width: '100%', overflow: 'hidden' }}
+      exit={{ height: '0px', overflow: 'hidden' }}>
       <DashboardChangeCardOrder cardList={cardList} />
     </motion.div>
   );

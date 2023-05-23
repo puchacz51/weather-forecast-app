@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { WeatherIconContext } from '../../utilities/WeatherContext';
 import {
   getTimeFromTimezone,
@@ -11,7 +10,7 @@ import { useState } from 'react';
 import { DashboardWeatherCardPanel } from './DashboardWeatherCardValues';
 import { maxNameLength } from '../../utilities/maxNameLength';
 import { LoadingSpinner } from '../LoadingSpinner';
-
+import { AnimatePresence, motion } from 'framer-motion';
 export const DashBoardWeatherCard = ({
   cardData,
   cityId,
@@ -20,7 +19,8 @@ export const DashBoardWeatherCard = ({
   cityId: number;
 }) => {
   const { latitude, longitude, cityName } = cardData;
-  const { data, isFetching, isError } = useCurrentWeather(latitude, longitude);
+
+  const { data } = useCurrentWeather(latitude, longitude);
   const [panelIsOpen, setPanelIsOpen] = useState(false);
   if (!data)
     return (
@@ -35,7 +35,7 @@ export const DashBoardWeatherCard = ({
   const iconValues = getWeatherIconValues(data);
 
   return (
-    <button
+    <motion.button
       onClick={() => setPanelIsOpen((isOpen) => !isOpen)}
       className={`dashboardWeatherCard  ${cardData.tempCard && 'tempCard'}`}>
       <h3 className='title'>
@@ -46,8 +46,11 @@ export const DashBoardWeatherCard = ({
           <CurrentWeatherIcon />
           <p className='temperature'>{iconValues.temp.toFixed(0)}&deg;C</p>
         </div>
-        {panelIsOpen && <DashboardWeatherCardPanel cityId={cityId} />}
+
+        <AnimatePresence>
+          {panelIsOpen && <DashboardWeatherCardPanel cityId={cityId} />}
+        </AnimatePresence>
       </WeatherIconContext.Provider>
-    </button>
+    </motion.button>
   );
 };
