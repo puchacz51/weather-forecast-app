@@ -410,6 +410,7 @@
           min-width: 90px;
           aspect-ratio: 1;
           flex-grow: 0;
+          max-width: 120px;
         }
         & .windSpeedValue {
           min-width: fit-content;
@@ -425,21 +426,27 @@
       & .restContainer {
         flex-direction: column;
         width: 35%;
+        height: 100%;
         & .valueWrapper {
           flex-direction: row;
+          max-width: none;
           width: 90%;
+          min-height: 40%;
           padding: 0;
-          aspect-ratio: 0;
           & .iconWrapper {
-            aspect-ratio: unset;
             border: none;
+            padding: 0;
             border-right: 0.2em solid var(--secondary-color);
             height: 100%;
+            flex-grow: 1;
+            aspect-ratio: 0;
           }
           & .value {
+            width: auto;
+            min-width: min-content;
+            flex-grow: 2;
             min-height: 3ch;
             width: 100%;
-            min-height: max-content;
             text-align: center;
           }
         }
@@ -472,7 +479,7 @@
       position: absolute;
       top: 3.5rem;
 
-      left: max(0px, min(3%, calc(50% - 400px)));
+      left: max(0px, min(2%, calc(50% - 400px)));
     }
 
     & .title {
@@ -536,14 +543,21 @@
         max-height: 160px;
         order: -1;
         width: 48%;
+        min-width: fit-content;
         max-width: none;
         flex-grow: 0;
         & .windDirectionWrapper {
           height: 90%;
           width: auto;
+          max-width: 140px;
         }
 
         & .windSpeedValue {
+          min-width: fit-content;
+          aspect-ratio: 0;
+          & .value {
+            min-width: max-content;
+          }
         }
       }
       & .restContainer {
@@ -554,13 +568,17 @@
 
         & .valueWrapper {
           height: 100%;
+          width: 45%;
+          max-width: 150px;
+          flex-direction: column;
           & .iconWrapper {
-            height: 1.5em;
+            height: auto;
             border: none;
             border-bottom: 0.2em solid var(--secondary-color);
           }
 
           & .value {
+            height: auto;
             min-height: 2em;
           }
         }

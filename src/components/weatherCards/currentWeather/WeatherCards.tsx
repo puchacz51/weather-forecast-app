@@ -26,7 +26,6 @@ export const WeatherCards = () => {
       }, 1000);
     },
   });
-  console.log(city, 34243);
 
   if (!selectedCity) {
     if (!cityId) {

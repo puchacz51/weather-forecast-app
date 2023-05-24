@@ -17,6 +17,7 @@ input {
 button,
 input {
   color: var(--text-color);
+  cursor: pointer;
 }
 body {
   background-color: var(--background-color);
@@ -120,7 +121,7 @@ body {
     border-radius: 2em;
     color: white;
 
-    gap: .3em;
+    gap: 0.3em;
     & .searchLocationTitle {
       font-size: 1em;
     }
