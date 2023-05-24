@@ -342,8 +342,6 @@
   .weatherContainer {
     width: 85%;
     & .CurrentWeatherIconContainer {
-      height: min-content;
-      margin: inherit auto;
     }
     & .title {
       display: flex;
