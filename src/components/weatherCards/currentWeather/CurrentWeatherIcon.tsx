@@ -1,6 +1,6 @@
 // import { Clouds, Moon, Sun, Wind } from './skyIcons';
 import { useWaetherIconContext } from '../../../utilities/WeatherContext';
-import { useRef } from 'react';
+import { memo, useMemo, useRef } from 'react';
 import { GroundIcon } from '../iconComponents/groundIcons';
 import { Wind } from '../iconComponents/SkyIcon';
 import { SkyIcon } from '../iconComponents/SkyIcon';
@@ -27,3 +27,4 @@ export const CurrentWeatherIcon = () => {
     </IconBackGround>
   );
 };
+

@@ -11,8 +11,8 @@
   border-radius: 0 0 1rem 1rem;
   max-width: 1200px;
   & .dashboardHeader {
-    padding: 0.5rem 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -20,6 +20,9 @@
     text-transform: uppercase;
     text-align: center;
     background-color: var(--primary-color);
+    & .dashboardTitle {
+      margin: 0.2em
+    }
     & .dashboardModifyBtn {
       font-size: 1.5em;
       border: none;

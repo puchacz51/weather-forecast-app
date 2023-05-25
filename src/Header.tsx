@@ -1,10 +1,4 @@
-import {
-  Link,
-  NavLink,
-  useNavigate,
-  useHref,
-  useLocation,
-} from 'react-router-dom';
+import { Link, NavLink, useHref, useLocation } from 'react-router-dom';
 import './styles/Header.scss';
 import { ProfileInfo } from './components/headerComponents/ProfileInfo';
 import { SearchCity } from './components/headerComponents/SearchCity';
@@ -14,23 +8,12 @@ import { motion } from 'framer-motion';
 import { MdDashboard, MdHome } from 'react-icons/md';
 import { useRootStore } from './store/store';
 export const Header = () => {
-  const [session, loading] = useRootStore((state) => [
-    state.session,
-    state.loading,
-  ]);
-  const { headerInputIsOpen, setHeaderInputIsOpen } = useRootStore(
-    (state) => state
+  const session = useRootStore((state) => state.session);
+  const headerInputIsOpen = useRootStore((state) => state.headerInputIsOpen);
+  const setHeaderInputIsOpen = useRootStore(
+    (state) => state.setHeaderInputIsOpen
   );
   const { pathname } = useLocation();
-
-  // useEffect(() => {
-  //   if (headerInputIsOpen) {
-  //     addEventListener('click', handleHeaderClick);
-  //   } else {
-  //     removeEventListener('click', handleHeaderClick);
-  //   }
-  // }, []);
-
   return (
     <div className='headerWrapper'>
       <header className={`header `}>

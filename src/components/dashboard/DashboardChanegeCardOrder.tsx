@@ -29,8 +29,9 @@ import { useRootStore } from '../../store/store';
 import { TiWeatherPartlySunny } from 'react-icons/ti';
 import { AiFillSave } from 'react-icons/ai';
 import { LoadingSpinner } from '../LoadingSpinner';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { maxNameLength } from '../../utilities/maxNameLength';
+import { BsFillGearFill } from 'react-icons/bs';
 type TempOrder = { cityId: number; order: number; cityName: string };
 type ChangeOrderCardProps = {
   data: TempOrder;
@@ -60,7 +61,6 @@ const SortableChangeOrderCard = ({ data, activeId }: ChangeOrderCardProps) => {
   };
   const deleteCardHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    console.log('aasds');
     mutate();
   };
 
@@ -198,13 +198,27 @@ export const MotionChangeCardOrder = ({
 }: {
   cardList: WeatherCardCity[];
 }) => {
+  const { toggleChangeUserWeatherCardIsOpen, changeUserWeatherCardIsOpen } =
+    useRootStore((state) => state);
   return (
-    <motion.div
-      transition={{ duration: 0.5 }}
-      animate={{ height: 'min-content' }}
-      initial={{ height: '0px', width: '100%', overflow: 'hidden' }}
-      exit={{ height: '0px', overflow: 'hidden' }}>
-      <DashboardChangeCardOrder cardList={cardList} />
-    </motion.div>
+      <div className='dashboardHeader'>
+        <h2 className='dashboardTitle'>your weather</h2>
+        <button
+          className='dashboardModifyBtn'
+          onClick={toggleChangeUserWeatherCardIsOpen}>
+          <BsFillGearFill />
+        </button>
+        <AnimatePresence>
+          {changeUserWeatherCardIsOpen && (
+            <motion.div
+              transition={{ duration: 0.5 }}
+              animate={{ height: 'min-content' }}
+              initial={{ height: '0px', width: '100%', overflow: 'hidden' }}
+              exit={{ height: '0px', overflow: 'hidden' }}>
+              <DashboardChangeCardOrder cardList={cardList} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
   );
 };

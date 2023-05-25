@@ -12,7 +12,6 @@ import { useRootStore } from './store/store';
 function App() {
   const theme = useRootStore((stete) => stete.theme);
   const setSession = useRootStore((state) => state.setSession);
-
   useEffect(() => {
     supabase.auth.onAuthStateChange((_event, ses) => {
       setSession(ses);
